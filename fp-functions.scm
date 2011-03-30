@@ -32,7 +32,6 @@
 (provide fp-cond)
 (provide fp-insert)
 (provide fp-alpha)
-(provide fp-alpha)
 
 ; id
 (define (fp-id)
