@@ -2,12 +2,13 @@
 ; test
 (define-syntax test
   (syntax-rules ()
-    ((test fun . args) 
-     (begin (display '(fun args))
-            (newline)
-            (cond ((list? 'fun) (apply fun 'args))
-                  (else
-                   (apply (fun) 'args)))))))
+    ((test fun . args)
+     (cond ((list? 'fun) (begin (display '(apply fun 'args))
+                                (newline)
+                                (apply fun 'args)))
+           (else (begin (display '(apply (fun) 'args))
+                        (newline)
+                        (apply (fun) 'args)))))))
 ;(define (read-fp filename)
 ;  (let ((port (open-input-file filename)))
 ;    (read-line port)))
@@ -16,7 +17,7 @@
 ; id
 (define (fp-id)
   (lambda (arg) arg))
-(test fp-id abc)
+(test (fp-id) abc)
 ; selector
 (define (fp-selector n)
   (lambda (arg)
@@ -34,42 +35,42 @@
 ; tl (tail)
 (define (fp-tl)
   (lambda (arg) (cdr arg)))
-(test fp-tl (a b c))
+(test (fp-tl) (a b c))
 ; tlr (tail right)
 (define (fp-tlr)
   (lambda (arg)
     (cond ((<= (length arg) 1) '())
           (else (append (list (car arg)) ((fp-tlr) (cdr arg)))))))
-(test fp-tlr (a b c))
+(test (fp-tlr) (a b c))
 ; atom
 (define (fp-atom)
   (lambda (arg) (not (list? arg))))
-(test fp-atom 0)
-(test fp-atom (1 2 3))
+(test (fp-atom) 0)
+(test (fp-atom) (1 2 3))
 ; eq
 (define (fp-eq)
   (lambda (arg) (equal? (car arg) (cadr arg))))
-(test fp-eq (b a))
-(test fp-eq (a a))
-(test fp-eq (2 1))
-(test fp-eq (1 1))
+(test (fp-eq) (b a))
+(test (fp-eq) (a a))
+(test (fp-eq) (2 1))
+(test (fp-eq) (1 1))
 ; fp-null
 (define (fp-null)
   (lambda (arg) (equal? arg null)))
-(test fp-null ())
-(test fp-null (1 3))
-(test fp-null 1)
+(test (fp-null) ())
+(test (fp-null) (1 3))
+(test (fp-null) 1)
 ; fp-reverse
 (define (fp-reverse)
   (lambda (arg)(reverse arg)))
-(test fp-reverse (a b c))
+(test (fp-reverse) (a b c))
 ; fp-iota
 (define (fp-iota)
   (lambda (n)
     (cond ((< n 2) (list 1))
           (else (append ((fp-iota) (- n 1)) (list n))))))
-(test fp-iota 3)
-(test fp-iota 5)
+(test (fp-iota) 3)
+(test (fp-iota) 5)
 ; fp-distl
 (define (fp-distl)
   (lambda (arg)
@@ -78,8 +79,8 @@
       (cond (((fp-null) l) null)
             (else
              (append (list (list a (car l))) ((fp-distl) (list a (cdr l)))))))))
-(test fp-distl (a (b c d)))
-(test fp-distl (a ()))
+(test (fp-distl) (a (b c d)))
+(test (fp-distl) (a ()))
 ; fp-distr
 (define (fp-distr)
   (lambda (arg)
@@ -88,13 +89,13 @@
       (cond (((fp-null) l) null)
             (else
              (append (list (list (car l) a)) ((fp-distr) (list (cdr l) a))))))))
-(test fp-distr ((b c d) a))
-(test fp-distr (() a ))
+(test (fp-distr) ((b c d) a))
+(test (fp-distr) (() a ))
 ; fp-length
 (define (fp-length)
   (lambda (arg) (length arg)))
-(test fp-length (1 2 3 a b c))
-(test fp-length ())
+(test (fp-length) (1 2 3 a b c))
+(test (fp-length) ())
 ; Binary operators
 ; + - * / < >
 (define (make-fp-operator op)
@@ -102,34 +103,34 @@
 ; -
 (define (fp--)
   (make-fp-operator -))
-(test fp-- (4 2))
+(test (fp--) (4 2))
 ; +
 (define (fp-+)
   (make-fp-operator +))
-(test fp-+ (4 2))
+(test (fp-+) (4 2))
 ; *
 (define (fp-*)
   (make-fp-operator *))
-(test fp-* (4 2))
-; /
-(define (fp-/)
+(test (fp-*) (4 2))
+; % Division
+(define (fp-%)
   (make-fp-operator /))
-(test fp-/ (4 2))
+(test (fp-%) (4 2))
 ; <
 (define (fp-<)
   (make-fp-operator <))
-(test fp-< (4 2))
+(test (fp-<) (4 2))
 ; >
 (define (fp->)
   (make-fp-operator >))
-(test fp-> (4 2))
+(test (fp->) (4 2))
 ; trans
 (define (fp-trans)
   (lambda (arg)
     (cond (((fp-null) (car arg)) null)
           (else
            (append (list (map car arg)) ((fp-trans) (map cdr arg)))))))
-(test fp-trans ((1 2) (3 4) (5 6)))
+(test (fp-trans) ((1 2) (3 4) (5 6)))
 ; and
 (define (fp-and)
   (lambda (arg) (and arg)))
@@ -137,55 +138,56 @@
 ; or
 (define (fp-or)
   (lambda (arg) (or arg)))
-(test fp-or (#t #f))
+(test (fp-or) (#t #f))
 ; not
 (define (fp-not)
   (lambda (arg) (not arg)))
-(test fp-not #t)
-(test fp-not #f)
+(test (fp-not) #t)
+(test (fp-not) #f)
 ; fp-appendl
 (define (fp-appendl)
   (lambda (arg)
     (let ((a (first arg))
           (l (second arg)))
       (cons a l))))    
-(test fp-appendl (a (b c)))
+(test (fp-appendl) (a (b c)))
 ; fp-appendr
 (define (fp-appendr)
   (lambda (arg)
     (let ((l (first arg))
           (a (second arg)))
       (append l (list a)))))
-(test fp-appendr ((b c) (a)))
-(test fp-appendr ((b c) a))
+(test (fp-appendr) ((b c) (a)))
+(test (fp-appendr) ((b c) a))
 ; rot
 (define (fp-rot)
   (lambda (arg)
     ((fp-appendr) (list (cdr arg) (car arg)))))
-(test fp-rot (1 2 3 4))
+(test (fp-rot) (1 2 3 4))
 ; rotr
 (define (fp-rotr)
   (lambda (arg)
     ((fp-appendl) (list ((fp-selector-right 1) arg) ((fp-tlr) arg)))))
-(test fp-rotr (1 2 3 4))
+(test (fp-rotr) (1 2 3 4))
 ; fp-compose
 (define (fp-compose f1 f2)
   (lambda (l)(f1 (f2 l))))
 (test (fp-compose (fp--) (fp-rot)) (2 1))
 ; fp-construct
-(define (fp-construct)
-  (lambda args args))
-(test fp-construct 1 2)
+(define (fp-construct . args)
+  (lambda (arg) (map (lambda (t) (apply t (list arg))) args)))
+(test (fp-construct (fp-selector 3) (fp-selector 2)) (1 2 3))
 ; fp-const
-(define (fp-const)
-  (lambda (arg) arg))
-(test fp-const arg)
-
+(define (fp-const arg) arg)
+(test fp-const a)
 ; fp-cond
-(define (fp-cond)
-  (lambda (c t f) (if c t f)))
-(test fp-cond (= 1 2) 'uno 'no-uno)
-(test fp-cond (= 1 1) 'uno 'no-uno)
+(define (fp-cond c t f)
+  (lambda (arg) (if (c arg) (t arg) (f arg))))
+
+(test (fp-cond (fp-compose (fp-not) (fp-null))
+               (fp-const 1)
+               (fp-id)) (1 2 3 1))
+(test (fp-cond (fp-null) (fp-null) (fp-null)) (1 2))
 ; fp-insert
 (define (fp-insert f)
   (lambda (arg) (cond
@@ -197,7 +199,6 @@
 (test (fp-insert (fp-appendl)) (1 2 3 ()))
 ; fp-alpha
 (define (fp-alpha f)
-  (lambda (l) (map (f) l)))
-(test (fp-alpha fp-null) (() 1 2))
-(test (fp-compose (fp-null) (fp-alpha fp-null)) (() 1 2))
-
+  (lambda (l) (map f l)))
+(test (fp-alpha (fp-null)) (() 1 2))
+(test (fp-compose (fp-null) (fp-alpha (fp-null))) (() 1 2))
