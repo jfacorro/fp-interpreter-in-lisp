@@ -31,10 +31,10 @@
   (cdr l))
 (test (fp-tl '(a b c)))
 ; tlr (tail right)
-(define (tlr l)
+(define (fp-tlr l)
   (cond ((<= (length l) 1) '())
-        (else (append (list (car l)) (tlr (cdr l))))))
-(test (tlr '(a b c)))
+        (else (append (list (car l)) (fp-tlr (cdr l))))))
+(test (fp-tlr '(a b c)))
 ; atom
 (define (fp-atom a)
   (not (list? a)))
@@ -88,3 +88,46 @@
 (test (fp-trans '((1 2) (3 4) (5 6))))
 ; and or not
 ; fp-appendl
+(define (fp-appendl a l) 
+  (cons a l))
+(test (fp-appendl 'a '(b c)))
+; fp-appendr
+(define (fp-appendr l a) 
+  (append l (list a)))
+(test (fp-appendr '(b c) '(a)))
+(test (fp-appendr '(b c) 'a))
+; rot
+(define (fp-rot l)
+  (fp-appendr (cdr l) (car l)))
+(test (fp-rot '(1 2 3 4)))
+; rotr
+(define (fp-rotr l)
+  (fp-appendl  (fp-selector-right 1 l) (fp-tlr l)))
+(test (fp-rotr '(1 2 3 4)))
+; fp-compose
+(define (fp-compose f1 f2)
+  (lambda (l)(apply  f1 (list (apply f2 l)))))
+(test ((fp-compose * -) '(2 1)))
+; fp-construct
+(define (fp-construct . args)
+  args)
+(test (fp-construct 1 2))
+; fp-const
+(define (fp-const arg)
+  arg)
+(test (fp-const 'arg))
+; fp-cond
+(define (fp-cond c t f)
+  (if c t f))
+(test (fp-cond (= 1 2) 'uno 'no-uno))
+(test (fp-cond (= 1 1) 'uno 'no-uno))
+; fp-insert
+(define (fp-insert f)
+  (lambda (arg) (cond 
+                  ((fp-null arg) null)
+                  ((= (length arg) 1) (car arg))
+                  ((= (length arg) 2) (f (car arg) (cadr arg)))
+                  (else
+                   (f (car arg) ((fp-insert f) (cdr arg)))))))
+(test ((fp-insert fp-appendl) '(1 2 3 ())))
+; 
