@@ -1,7 +1,7 @@
 #lang scheme
 
 (require "test-framework.scm")
-(require "fp.scm")
+(require "fp-functions.scm")
 
 (test (fp-id) abc)
 
