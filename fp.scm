@@ -3,12 +3,9 @@
 (define-syntax test
   (syntax-rules ()
     ((test fun . args)
-     (cond ((list? 'fun) (begin (display '(apply fun 'args))
+     (begin (display '(apply fun 'args))
                                 (newline)
-                                (apply fun 'args)))
-           (else (begin (display '(apply (fun) 'args))
-                        (newline)
-                        (apply (fun) 'args)))))))
+                                (apply fun 'args)))))
 ;(define (read-fp filename)
 ;  (let ((port (open-input-file filename)))
 ;    (read-line port)))
@@ -62,7 +59,7 @@
 (test (fp-null) 1)
 ; fp-reverse
 (define (fp-reverse)
-  (lambda (arg)(reverse arg)))
+  (lambda (arg) (reverse arg)))
 (test (fp-reverse) (a b c))
 ; fp-iota
 (define (fp-iota)
@@ -134,7 +131,7 @@
 ; and
 (define (fp-and)
   (lambda (arg) (and arg)))
-(test fp-and (#t #f))
+(test (fp-and) (#t #f))
 ; or
 (define (fp-or)
   (lambda (arg) (or arg)))
@@ -178,15 +175,16 @@
   (lambda (arg) (map (lambda (t) (apply t (list arg))) args)))
 (test (fp-construct (fp-selector 3) (fp-selector 2)) (1 2 3))
 ; fp-const
-(define (fp-const arg) arg)
-(test fp-const a)
+(define (fp-const const)
+  (lambda (arg) const))
+(test (fp-const 'a) ())
 ; fp-cond
 (define (fp-cond c t f)
   (lambda (arg) (if (c arg) (t arg) (f arg))))
 
 (test (fp-cond (fp-compose (fp-not) (fp-null))
                (fp-const 1)
-               (fp-id)) (1 2 3 1))
+               (fp-const null)) ())
 (test (fp-cond (fp-null) (fp-null) (fp-null)) (1 2))
 ; fp-insert
 (define (fp-insert f)
@@ -202,3 +200,4 @@
   (lambda (l) (map f l)))
 (test (fp-alpha (fp-null)) (() 1 2))
 (test (fp-compose (fp-null) (fp-alpha (fp-null))) (() 1 2))
+(test (fp-compose (fp-insert (fp-+)) (fp-iota)) 3)
