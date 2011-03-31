@@ -25,7 +25,7 @@
         ((equal? symbol 'not) 'fp-not)
         ((equal? symbol 'appendl) 'fp-appendl)
         ((equal? symbol 'rot) 'fp-rot)
-        ((equal? symbol 'rotr) 'fp-rotr)        
+        ((equal? symbol 'rotr) 'fp-rotr)
         ((equal? symbol 'o) 'fp-compose)
         ((equal? symbol '[]) 'fp-construct)
         ((equal? symbol '~) 'fp-const)
