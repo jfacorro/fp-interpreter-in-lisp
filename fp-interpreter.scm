@@ -1,9 +1,6 @@
 #lang scheme
 (require "fp-functions.scm")
 
-(define (fp-interpret code) 
-   code)
-
 (define (map-symbol-to-function symbol)
   (cond ((equal? symbol 'id) 'fp-id)
         ((equal? symbol 'tl) 'fp-tl)
@@ -37,5 +34,35 @@
         ((equal? symbol 'alpha) 'fp-alpha)
         (else null)))
 
+(define (fp-interpret code)
+   code)
+
+(define (tokenize str)
+  (string-split str " "))
+;----------------------------------------------
+; string-split
+;----------------------------------------------
+(define (string-split str delim)
+  (let ((index (string-first-index str delim)))
+    (cond ((>= index 0) (append (list (substring str 0 index)) (string-split (substring str (+ index 1)) delim)))
+          (else 
+           (if (string=? "" str) null (list str))))))
+;----------------------------------------------
+; string-first-index
+;----------------------------------------------
+(define (string-first-index str char)
+  (string-first-index-helper str char 0))
+
+(define (string-first-index-helper str char index)
+  (cond ((string=? str "") -1)
+        (else
+         (if (equal? char (string-ref str 0))
+             index 
+             (string-first-index-helper (substring str 1) char (+ 1 index))))))
+;----------------------------------------------
+
+(tokenize "Juan Martin")
+(string-split "id o 1" #\ )
 (map-symbol-to-function '/)
 (fp-interpret '(id o 1))
+
