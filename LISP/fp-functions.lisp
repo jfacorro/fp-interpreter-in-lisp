@@ -132,7 +132,7 @@
 ; fp-insert
 (defun fp-insert (f)
   (lambda (arg) (cond
-                  ((funcall (fp-null) arg) null)
+                  ((funcall (fp-null) arg) '())
                   ((= (length arg) 1) (car arg))
                   ((= (length arg) 2) (funcall f (list (car arg) (cadr arg))))
                   (t
