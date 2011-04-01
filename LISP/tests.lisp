@@ -1,7 +1,6 @@
-#lang scheme
-
-(require "test-framework.scm")
-(require "fp-functions.scm")
+(defvar *filepath* "C:\\Juan\\02.Personal\\fp-interpreter-in-lisp\\LISP\\" )
+(load (string-append *filepath* "fp-functions.lisp"))
+(load (string-append *filepath* "test-framework.lisp"))
 
 (test (fp-id) abc)
 
@@ -48,12 +47,12 @@
 
 (test (fp-trans) ((1 2) (3 4) (5 6)))
 
-(test (fp-and) (#t #f))
+(test (fp-and) (t nil))
 
-(test (fp-or) (#t #f))
+(test (fp-or) (t nil))
 
-(test (fp-not) #t)
-(test (fp-not) #f)
+(test (fp-not) t)
+(test (fp-not) nil)
 
 (test (fp-appendl) (a (b c)))
 
@@ -72,7 +71,7 @@
 
 (test (fp-cond (fp-compose (fp-not) (fp-null))
                (fp-const 1)
-               (fp-const null)) ())
+               (fp-const '())) ())
 (test (fp-cond (fp-null) (fp-null) (fp-null)) (1 2))
 
 (test (fp-insert (fp-appendl)) (1 2 3 ()))
