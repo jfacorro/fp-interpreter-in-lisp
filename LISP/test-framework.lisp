@@ -8,7 +8,7 @@
        (display-result result))))
 
 (defun display-expr (expr args)
-  (format t "Expression: (~a ~a)~%" expr args))
+  (format t "Expression: (~a ~a)~%" expr (car args)))
 
 (defun display-result (result)
   (format t "Result: ~a~%" result))

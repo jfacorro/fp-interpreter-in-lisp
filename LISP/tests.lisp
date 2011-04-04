@@ -1,6 +1,6 @@
-(defvar *filepath* "C:\\Juan\\02.Personal\\fp-interpreter-in-lisp\\LISP\\" )
-(load (string-append *filepath* "fp-functions.lisp"))
-(load (string-append *filepath* "test-framework.lisp"))
+;(defvar *filepath* "C:\\Juan\\02.Personal\\fp-interpreter-in-lisp\\LISP\\" )
+;(load (string-append *filepath* "fp-functions.lisp"))
+;(load (string-append *filepath* "test-framework.lisp"))
 
 (test (fp-id) abc)
 
