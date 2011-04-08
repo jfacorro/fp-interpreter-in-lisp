@@ -2,19 +2,19 @@
 ;;------------------------------
 ;; id
 ;;------------------------------
-(defun fp-id ()
+(defun id ()
   (lambda (arg) arg))
 ;;------------------------------
 ;; selector
 ;;------------------------------
-(defun fp-selector (n)
+(defun selector (n)
   (lambda (arg)
     (cond ((> n 1) (funcall (fp-selector (- n 1)) (cdr arg)))
           (t (car arg)))))
 ;;------------------------------
 ; selector-right
 ;;------------------------------
-(defun fp-selector-right (n)
+(defun selector-right (n)
   (lambda (arg)
     (cond ((> (length arg) 0)
            (cond ((= n (length arg)) (car arg))
@@ -23,12 +23,12 @@
 ;;------------------------------
 ; tl (tail)
 ;;------------------------------
-(defun fp-tl ()
+(defun tl ()
   (lambda (arg) (cdr arg)))
 ;;------------------------------
 ; tlr (tail right)
 ;;------------------------------
-(defun fp-tlr ()
+(defun tlr ()
   (lambda (arg)
     (cond ((<= (length arg) 1) '())
           (t (append (list (car arg)) (funcall (fp-tlr) (cdr arg)))))))
@@ -55,14 +55,14 @@
 ;;------------------------------
 ; fp-iota
 ;;------------------------------
-(defun fp-iota ()
+(defun iota ()
   (lambda (n)
     (cond ((< n 2) (list 1))
           (t (append (funcall (fp-iota) (- n 1)) (list n))))))
 ;;------------------------------
 ; fp-distl
 ;;------------------------------
-(defun fp-distl ()
+(defun distl ()
   (lambda (arg)
     (let ((l (cadr arg))
           (a (car arg)))
@@ -72,7 +72,7 @@
 ;;------------------------------
 ; fp-distr
 ;;------------------------------
-(defun fp-distr ()
+(defun distr ()
   (lambda (arg)
     (let ((l (car arg))
           (a (cadr arg)))
@@ -123,7 +123,7 @@
 ;;------------------------------
 ; trans
 ;;------------------------------
-(defun fp-trans ()
+(defun trans ()
   (lambda (arg)
     (cond ((funcall (fp-null) (car arg)) '())
           (t
@@ -146,7 +146,7 @@
 ;;------------------------------
 ; fp-appendl
 ;;------------------------------
-(defun fp-appendl ()
+(defun appendl ()
   (lambda (arg)
     (let ((a (car arg))
           (l (cadr arg)))
@@ -154,7 +154,7 @@
 ;;------------------------------
 ; fp-appendr
 ;;------------------------------
-(defun fp-appendr ()
+(defun appendr ()
   (lambda (arg)
     (let ((l (first arg))
           (a (second arg)))
@@ -162,14 +162,14 @@
 ;;------------------------------
 ; rot
 ;;------------------------------
-(defun fp-rot ()
+(defun rot ()
   (lambda (arg)
     (funcall (fp-appendr) 
              (list (cdr arg) (car arg)))))
 ;;------------------------------
 ; rotr
 ;;------------------------------
-(defun fp-rotr ()
+(defun rotr ()
   (lambda (arg)
     (funcall (fp-appendl) 
              (list (funcall (fp-selector-right 1) arg) 
@@ -177,17 +177,17 @@
 ;;------------------------------
 ; fp-compose
 ;;------------------------------
-(defun fp-compose (f1 f2)
+(defun compose (f1 f2)
   (lambda (l) (funcall f1 (funcall f2 l))))
 ;;------------------------------
 ; fp-construct
 ;;------------------------------
-(defun fp-construct (&rest args)
+(defun construct (&rest args)
   (lambda (arg) (mapcar (lambda (f) (funcall f arg)) args)))
 ;;------------------------------
 ; fp-const
 ;;------------------------------
-(defun fp-const (const)
+(defun const (const)
   (lambda (arg) const))
 ;;------------------------------
 ; fp-cond
@@ -197,7 +197,7 @@
 ;;------------------------------
 ; fp-insert
 ;;------------------------------
-(defun fp-insert (f)
+(defun insert (f)
   (lambda (arg) (cond
                   ((funcall (fp-null) arg) '())
                   ((= (length arg) 1) (car arg))
@@ -207,5 +207,5 @@
 ;;------------------------------
 ; fp-alpha
 ;;------------------------------
-(defun fp-alpha (f)
+(defun alpha (f)
   (lambda (l) (mapcar f l)))

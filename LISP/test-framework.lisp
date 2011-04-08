@@ -5,7 +5,7 @@
 (defmacro test (fun &rest args)
   `(progn 
      (display-expr ',fun ',args)
-     (let ((result (apply ,fun ',args)))
+     (let ((result (apply (function ,fun) ',args)))
        (display-result result))))
 ;;------------------------------
 ;; display-expr
