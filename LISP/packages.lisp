@@ -1,6 +1,26 @@
-(defpackage :com.facorro.lisp.fp
+(defpackage :com.facorro.string
+	(:use 
+		:common-lisp)
+	(:export 
+		:string-split
+		:string-explode))
+(defpackage :com.facorro.parser
+	(:use 
+		:common-lisp)
+	(:export 
+		:*rules*
+		:add-rule
+		:apply-all-rules
+		:apply-rule
+		:defrule))
+(defpackage :com.facorro.fp.parser
+	(:use 
+		:common-lisp
+		:com.facorro.parser
+		:com.facorro.string))
+(defpackage :com.facorro.fp
 	(:use :common-lisp))
-(defpackage :com.facorro.lisp.fp.functions
+(defpackage :com.facorro.fp.functions
 	(:use :common-lisp)
 	(:export 
 		:get-function
@@ -9,8 +29,8 @@
 (defpackage :com.facorro.test
 	(:use :common-lisp)
 	(:export :test))
-(defpackage :com.facorro.lisp.fp.interpreter
+(defpackage :com.facorro.fp.interpreter
 	(:use 
 		:common-lisp 
-		:com.facorro.lisp.fp.functions
+		:com.facorro.fp.functions
 		:com.facorro.test))

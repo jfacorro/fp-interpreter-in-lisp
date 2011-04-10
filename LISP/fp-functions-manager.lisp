@@ -1,4 +1,4 @@
-(in-package :com.facorro.lisp.fp.functions)
+(in-package :com.facorro.fp.functions)
 ;;----------------------------------------------
 ;; General hash table function
 ;;----------------------------------------------

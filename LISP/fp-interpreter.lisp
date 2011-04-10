@@ -1,4 +1,4 @@
-(in-package :com.facorro.lisp.fp.interpreter)
+(in-package :com.facorro.fp.interpreter)
 ;;----------------------------------------------
 ;; fp-interpret
 ;;----------------------------------------------
@@ -19,7 +19,9 @@
           (t 
            (if (string= "" str) '() (list (string-upcase str)))))))
 ;;----------------------------------------------
+#|
 (test tokenize "Juan Martin")
 (string-split "id o 1" #\ )
 (get-function '/)
 (test interpret "id o 1")
+|#
