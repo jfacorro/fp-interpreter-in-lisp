@@ -14,15 +14,12 @@
 ;;--------------------------------------
 (defun apply-all-rules (raw-code)
 	"Applies rules in the order they were added and returns the last result"
-	(let ((result raw-code))
-		(progn 
-			(dolist (rule *rules*) (setf result (apply-rule rule raw-code)))
-			result)))
+	(if (null *rules*) raw-code (apply-rules raw-code *rules*)))
 
 (defun apply-rules (code rules)
 	(let ((rule (car rules))
 		(remain (rest rules))
-		(changed-code (apply-rule rule code)))
+		(changed-code (apply-rule (car rules) code)))
 		
 		(if (null remain) changed-code (apply-rules changed-code remain))))
 ;;--------------------------------------

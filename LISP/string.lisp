@@ -13,8 +13,9 @@
 ;;----------------------------------------------
 (defun string-explode (str delim)
   (let ((index (position delim str)))
-    (cond (index (append (list 	(string-upcase (subseq str 0 index))) 
+    (cond ((null index) (if (string= "" str) '() (list (string-upcase str))))
+		  ((> index 0) (append (list 	(string-upcase (subseq str 0 index))) 
 								(list (string delim))
                                 (string-explode (subseq str (+ index 1)) delim)))
-          (t 
-           (if (string= "" str) '() (list (string-upcase str)))))))
+		  ((= index 0) (append (list (string delim))
+                               (string-explode (subseq str (+ index 1)) delim))))))
