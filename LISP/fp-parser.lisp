@@ -63,4 +63,4 @@
 		(t (append 	(flatten (car l))
 					(flatten (cdr l))))))
 ;;----------------------------------------------
-(apply-all-rules "/ appendlr <> o (alpha (atom -> id; ~<>))")
+(apply-all-rules "/ appendr o (alpha (atom -> id; ~<>))")
