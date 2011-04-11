@@ -3,8 +3,7 @@
 		:common-lisp)
 	(:export 
 		:string-split
-		:string-explode
-		:flatten))
+		:string-explode))
 (defpackage :com.facorro.parser
 	(:use 
 		:common-lisp)

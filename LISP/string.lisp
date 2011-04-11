@@ -12,6 +12,7 @@
 ;; string-explode
 ;;----------------------------------------------
 (defun string-explode (str &rest delims)
+	"Explodes a given string using the specified delimiters"
 	(let (
 			(exploded-str 
 				(flatten 
@@ -29,12 +30,14 @@
 (defun string-explode-helper (str delim)
   (let ((index (search delim str))
 		(delim-length (length delim)))
-    (cond ((null index) (if (string= "" str) '() (list (string-upcase str))))
-		  ((> index 0) (append (list 	(string-upcase (subseq str 0 index))) 
-								(list (string delim))
-                                (string-explode (subseq str (+ index delim-length)) delim)))
-		  ((= index 0) (append (list (string delim))
-                               (string-explode (subseq str (+ index delim-length)) delim))))))
+    (cond ((null index) (if (string= "" str) nil (list (string-upcase str))))
+		  ((> index 0) (append 
+							(list (string-upcase (subseq str 0 index))) 
+							(list delim)
+                            (string-explode-helper (subseq str (+ index delim-length)) delim)))
+		  ((= index 0) (append 
+							(list delim)
+                            (string-explode-helper (subseq str (+ index delim-length)) delim))))))
 ;;----------------------------------------------
 ;; Flatten
 ;;----------------------------------------------

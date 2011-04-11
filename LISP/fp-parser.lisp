@@ -10,7 +10,7 @@
 ;; Explode by special characters
 ;;--------------------------------------
 (add-rule (defrule 
-			"Explode by ("
+			"Explode by ( ) ; / -> [ ] ~"
 			(lambda (lst) 
 				(string-explode lst "(" ")" ";" "/" "->" "[" "]" "~"))))
 ;;----------------------------------------------
