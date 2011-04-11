@@ -7,70 +7,11 @@
 			(lambda (str) (string-split str " "))))
 
 ;:--------------------------------------
-;; Explode by (
+;; Explode by special characters
 ;;--------------------------------------
 (add-rule (defrule 
 			"Explode by ("
 			(lambda (lst) 
-				(flatten 
-					(mapcar (lambda (el) (string-explode el "(" ")" ";" "/" "->" "[" "]" "~")) lst)))))
-#|
-;:--------------------------------------
-;; Explode by )
-;;--------------------------------------
-(add-rule (defrule 
-			"Explode by )"
-			(lambda (lst) 
-				(flatten 
-					(mapcar (lambda (el) (string-explode el ")")) lst)))))
-;:--------------------------------------
-;; Explode by ;
-;;--------------------------------------
-(add-rule (defrule 
-			"Explode by ;"
-			(lambda (lst) 
-				(flatten 
-					(mapcar (lambda (el) (string-explode el ";")) lst)))))
-;:--------------------------------------
-;; Explode by ~
-;;--------------------------------------
-(add-rule (defrule 
-			"Explode by ~"
-			(lambda (lst) 
-				(flatten 
-					(mapcar (lambda (el) (string-explode el "~")) lst)))))
-;:--------------------------------------
-;; Explode by [
-;;--------------------------------------
-(add-rule (defrule 
-			"Explode by ["
-			(lambda (lst) 
-				(flatten 
-					(mapcar (lambda (el) (string-explode el "[" )) lst)))))
-;:--------------------------------------
-;; Explode by ]
-;;--------------------------------------
-(add-rule (defrule 
-			"Explode by ]"
-			(lambda (lst) 
-				(flatten 
-					(mapcar (lambda (el) (string-explode el "]")) lst)))))
-;:--------------------------------------
-;; Explode by ->
-;;--------------------------------------
-(add-rule (defrule 
-			"Explode by ->"
-			(lambda (lst) 
-				(flatten 
-					(mapcar (lambda (el) (string-explode el "->")) lst)))))
-;:--------------------------------------
-;; Explode by /
-;;--------------------------------------
-(add-rule (defrule 
-			"Explode by /"
-			(lambda (lst) 
-				(flatten 
-					(mapcar (lambda (el) (string-explode el "/")) lst)))))
-|#
+				(string-explode lst "(" ")" ";" "/" "->" "[" "]" "~"))))
 ;;----------------------------------------------
 (parse "/appendr o(alpha(atom->id;~<>))")
