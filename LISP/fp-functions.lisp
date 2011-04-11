@@ -11,16 +11,22 @@
 ;;----------------------------------------------
 ;; Add functions to hash-tables
 ;;----------------------------------------------
-(defun add-function (key value)
-	(add-hash-item *functions* key value))
+(defun add-function (fp-function)
+	(add-hash-item *functions* (getf fp-function :name) fp-function))
 ;;----------------------------------------------
 ;; Get function
 ;;----------------------------------------------
-(defun get-function (function-symbol)
-	(gethash function-symbol *functions*))
+(defun get-function (name)
+	(gethash name *functions*))
+;; ----------------------------------------
+;; def-fp-function
+;; ----------------------------------------
+(defun def-fp-function (name numparam functype)
+	(list :name name :nparam numparam :type functype))
 ;;----------------------------------------------
 ;; FP functions hash
 ;;----------------------------------------------
+#|
 (add-function 'id 		#'id)
 (add-function 'n 		#'selector)
 (add-function 'nr 		#'selector-right)
@@ -54,3 +60,4 @@
 (add-function 'cond		#'fp-cond)
 (add-function '/		#'insert)
 (add-function 'alpha	#'alpha)
+|#
