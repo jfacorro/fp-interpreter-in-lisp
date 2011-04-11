@@ -9,12 +9,9 @@
 	(load-code "string.lisp")
 	(load-code "parser.lisp")
 	(load-code "fp-parser.lisp" nil t)
-	#|
-	(load-code "fp-function-adt.lisp")
 	(load-code "fp-functions-definition.lisp")
-	(load-code "fp-functions.lisp")
+	(load-code "fp-functions.lisp" nil t)
 	(load-code "test-framework.lisp")
 	;; (load-code "tests.lisp")
-	(load-code "fp-interpreter.lisp")|#
+	(load-code "fp-interpreter.lisp" nil t)
 )
-	

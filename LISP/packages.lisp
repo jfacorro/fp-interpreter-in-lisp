@@ -10,7 +10,7 @@
 	(:export 
 		:*rules*
 		:add-rule
-		:apply-all-rules
+		:parse
 		:apply-rule
 		:defrule))
 (defpackage :com.facorro.fp.parser
@@ -24,8 +24,7 @@
 	(:use :common-lisp)
 	(:export 
 		:get-function
-		:*functions*
-		:id))
+		:*functions*))
 (defpackage :com.facorro.test
 	(:use :common-lisp)
 	(:export :test))
@@ -33,4 +32,5 @@
 	(:use 
 		:common-lisp 
 		:com.facorro.fp.functions
+		:com.facorro.parser
 		:com.facorro.test))

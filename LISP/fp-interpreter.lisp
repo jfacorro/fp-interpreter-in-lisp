@@ -3,12 +3,7 @@
 ;; fp-interpret
 ;;----------------------------------------------
 (defun interpret (code)
-   (mapcar #'get-function (tokenize code)))
-;;----------------------------------------------
-;; tokenize
-;;----------------------------------------------
-(defun tokenize (str)
-        (mapcar #'intern (string-split str #\ )))
+   (mapcar #'get-function (parse code)))
 ;;----------------------------------------------
 ;; string-split
 ;;----------------------------------------------
@@ -23,5 +18,6 @@
 (test tokenize "Juan Martin")
 (string-split "id o 1" #\ )
 (get-function '/)
-(test interpret "id o 1")
 |#
+(parse "id o 1")
+(interpret "id o 1")

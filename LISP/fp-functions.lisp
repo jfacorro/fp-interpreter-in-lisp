@@ -7,7 +7,7 @@
 ;;----------------------------------------------
 ;; Define functions hash
 ;;----------------------------------------------
-(defparameter *functions* (make-hash-table))
+(defparameter *functions* (make-hash-table :test #'equal))
 ;;----------------------------------------------
 ;; Add functions to hash-tables
 ;;----------------------------------------------
@@ -21,13 +21,14 @@
 ;; ----------------------------------------
 ;; def-fp-function
 ;; ----------------------------------------
-(defun def-fp-function (name numparam functype)
-	(list :name name :nparam numparam :type functype))
+(defun def-fp-function (name numparam func)
+	(list :name (string-upcase name) :nparam numparam :function func))
 ;;----------------------------------------------
 ;; FP functions hash
 ;;----------------------------------------------
+(add-function (def-fp-function "id" 0 #'id))
+(add-function (def-fp-function "o" 2 #'compose))
 #|
-(add-function 'id 		#'id)
 (add-function 'n 		#'selector)
 (add-function 'nr 		#'selector-right)
 (add-function 'tl 		#'tl)

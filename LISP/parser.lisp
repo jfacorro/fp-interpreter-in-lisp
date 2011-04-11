@@ -12,7 +12,7 @@
 ;;--------------------------------------
 ;; apply-all-rules
 ;;--------------------------------------
-(defun apply-all-rules (raw-code)
+(defun parse (raw-code)
 	"Applies rules in the order they were added and returns the last result"
 	(if (null *rules*) raw-code (apply-rules raw-code *rules*)))
 
