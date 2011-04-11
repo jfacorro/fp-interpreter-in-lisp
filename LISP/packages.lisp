@@ -1,3 +1,11 @@
+(defpackage :com.facorro.tree
+	(:use 
+		:common-lisp)
+	(:export
+		:make-tree-node
+		:get-children
+		:get-datum
+		:add-child))
 (defpackage :com.facorro.string
 	(:use 
 		:common-lisp)
@@ -13,18 +21,21 @@
 		:parse
 		:apply-rule
 		:defrule))
-(defpackage :com.facorro.fp.parser
-	(:use 
-		:common-lisp
-		:com.facorro.parser
-		:com.facorro.string))
-(defpackage :com.facorro.fp
-	(:use :common-lisp))
 (defpackage :com.facorro.fp.functions
 	(:use :common-lisp)
 	(:export 
 		:get-function
+		:noparams-p
 		:*functions*))
+(defpackage :com.facorro.fp.parser
+	(:use 
+		:common-lisp
+		:com.facorro.parser
+		:com.facorro.string
+		:com.facorro.fp.functions
+		:com.facorro.tree))
+(defpackage :com.facorro.fp
+	(:use :common-lisp))
 (defpackage :com.facorro.test
 	(:use :common-lisp)
 	(:export :test))

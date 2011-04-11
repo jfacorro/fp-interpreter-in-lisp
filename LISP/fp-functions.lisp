@@ -24,6 +24,11 @@
 ;; ----------------------------------------
 (defun def-fp-function (name numparam func)
 	(list :name (string-upcase name) :nparam numparam :function func))
+;;------------------------------------
+;; noparams-p
+;;------------------------------------
+(defun noparams-p (fp-fun)
+	(= (getf fp-fun :nparam) 0))
 ;;----------------------------------------------
 ;; FP functions hash
 ;;----------------------------------------------

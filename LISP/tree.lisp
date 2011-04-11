@@ -1,9 +1,9 @@
-;(in-package :com.facorro.tree)
+(in-package :com.facorro.tree)
 ;------------------------------------
 (defun make-tree-node (element &rest children)
 	"Returns a tree node with the specified chidlren nodes"
 	(cond (
-			(atom children) (list element))
+			(null children) (list element))
 			(t
 				(cons element (list children)))))
 ;------------------------------------
@@ -20,6 +20,7 @@
 		  (t 
 			(setf (rest node) (append (list child) (rest node))))))
 ;------------------------------------
+#|
 (defparameter *tree* nil)
 (setf *tree* (make-tree-node 'root))
 (atom (rest *tree*))
@@ -32,3 +33,4 @@
 *tree*
 (add-child (first (get-children *tree*)) (make-tree-node 'child2-child1))
 *tree*
+|#

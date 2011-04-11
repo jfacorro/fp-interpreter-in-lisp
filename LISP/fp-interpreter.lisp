@@ -3,7 +3,7 @@
 ;; fp-interpret
 ;;----------------------------------------------
 (defun interpret (code)
-   (mapcar #'get-function (parse code)))
+   (parse code))
 ;;----------------------------------------------
 ;; string-split
 ;;----------------------------------------------
@@ -19,5 +19,5 @@
 (string-split "id o 1" #\ )
 (get-function '/)
 |#
-(parse "/appendr o(alpha(atom->id;~<>))")
+;(parse "/appendr o(alpha(atom->id;~<>))")
 (interpret "/appendr o(alpha(atom->id;~<>))")
