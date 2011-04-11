@@ -14,4 +14,3 @@
 			(lambda (lst) 
 				(string-explode lst "(" ")" ";" "/" "->" "[" "]" "~"))))
 ;;----------------------------------------------
-(parse "/appendr o(alpha(atom->id;~<>))")

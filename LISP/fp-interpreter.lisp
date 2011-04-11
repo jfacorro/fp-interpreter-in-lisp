@@ -19,5 +19,5 @@
 (string-split "id o 1" #\ )
 (get-function '/)
 |#
-(parse "id o 1")
-(interpret "id o 1")
+(parse "/appendr o(alpha(atom->id;~<>))")
+(interpret "/appendr o(alpha(atom->id;~<>))")
