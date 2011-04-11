@@ -4,7 +4,8 @@
 ;;--------------------------------------
 (add-rule (defrule 
 			"Split by space"
-			(lambda (str) (string-split str #\ ))))
+			(lambda (str) (string-split str " "))))
+
 ;:--------------------------------------
 ;; Explode by (
 ;;--------------------------------------
@@ -12,7 +13,8 @@
 			"Explode by ("
 			(lambda (lst) 
 				(flatten 
-					(mapcar (lambda (el) (string-explode el #\( )) lst)))))
+					(mapcar (lambda (el) (string-explode el "(" ")" ";" "/" "->" "[" "]" "~")) lst)))))
+#|
 ;:--------------------------------------
 ;; Explode by )
 ;;--------------------------------------
@@ -20,7 +22,7 @@
 			"Explode by )"
 			(lambda (lst) 
 				(flatten 
-					(mapcar (lambda (el) (string-explode el #\) )) lst)))))
+					(mapcar (lambda (el) (string-explode el ")")) lst)))))
 ;:--------------------------------------
 ;; Explode by ;
 ;;--------------------------------------
@@ -28,7 +30,7 @@
 			"Explode by ;"
 			(lambda (lst) 
 				(flatten 
-					(mapcar (lambda (el) (string-explode el #\; )) lst)))))
+					(mapcar (lambda (el) (string-explode el ";")) lst)))))
 ;:--------------------------------------
 ;; Explode by ~
 ;;--------------------------------------
@@ -36,7 +38,7 @@
 			"Explode by ~"
 			(lambda (lst) 
 				(flatten 
-					(mapcar (lambda (el) (string-explode el #\~ )) lst)))))
+					(mapcar (lambda (el) (string-explode el "~")) lst)))))
 ;:--------------------------------------
 ;; Explode by [
 ;;--------------------------------------
@@ -44,7 +46,7 @@
 			"Explode by ["
 			(lambda (lst) 
 				(flatten 
-					(mapcar (lambda (el) (string-explode el #\[ )) lst)))))
+					(mapcar (lambda (el) (string-explode el "[" )) lst)))))
 ;:--------------------------------------
 ;; Explode by ]
 ;;--------------------------------------
@@ -52,15 +54,23 @@
 			"Explode by ]"
 			(lambda (lst) 
 				(flatten 
-					(mapcar (lambda (el) (string-explode el #\] )) lst)))))
+					(mapcar (lambda (el) (string-explode el "]")) lst)))))
+;:--------------------------------------
+;; Explode by ->
+;;--------------------------------------
+(add-rule (defrule 
+			"Explode by ->"
+			(lambda (lst) 
+				(flatten 
+					(mapcar (lambda (el) (string-explode el "->")) lst)))))
+;:--------------------------------------
+;; Explode by /
+;;--------------------------------------
+(add-rule (defrule 
+			"Explode by /"
+			(lambda (lst) 
+				(flatten 
+					(mapcar (lambda (el) (string-explode el "/")) lst)))))
+|#
 ;;----------------------------------------------
-;; Flatten
-;;----------------------------------------------
-(defun flatten (l)
-	(cond
-		((null l) nil)
-		((atom l) (list l))
-		(t (append 	(flatten (car l))
-					(flatten (cdr l))))))
-;;----------------------------------------------
-(parse "/ appendr o (alpha (atom -> id; ~<>))")
+(parse "/appendr o(alpha(atom->id;~<>))")
