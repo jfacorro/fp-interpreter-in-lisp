@@ -31,13 +31,12 @@
 ;;--------------------------------------
 (defun listify (expr)
 	(if (atom expr)	expr
-		(let ((e (first expr)))
+		(let ((head (first expr))
+			  (tail (rest expr)))
 			(cond
-				((string= e "(")
-					(list (listify (rest expr))))
-				((string= e ")") nil)
-				(t
-					(cons e (listify (rest expr))))))))
+				((string= head "(") (list (listify tail)))
+				((string= head ")") nil)
+				(t (cons head (listify tail)))))))
 ;(listify '("1" "+" "2" "(" "1" "/" "(" "4" "+" "8" ")" ")"))
 ;;----------------------------------------------
 ;; build-tree
@@ -56,7 +55,7 @@
 
 	(let* ((token (first code))		   
 		   (fn (get-function token)))
-		(format t "  token: \"~a\"~%" token)
+		;(format t "  token: \"~a\"~%" token)
 		(cond 
 			((null code)
 				(if (null operators)

@@ -18,8 +18,6 @@
 ;;----------------------------------------------
 (defun get-function (name)
 	(gethash name *functions*))
-	#|(let ((fn (gethash name *functions*)))
-		(if (null fn) name fn)))|#
 ;;----------------------------------------------
 ;; precedence
 ;;----------------------------------------------

@@ -18,6 +18,6 @@
 (test tokenize "Juan Martin")
 (string-split "id o 1" #\ )
 (get-function '/)
-|#
-;(parse "/appendr o(alpha(atom->id;~<>))")
+(parse "/appendr o(alpha(atom->id;~<>))")
 (interpret "/appendr o(alpha(atom->id;~<>))")
+|#

@@ -17,9 +17,9 @@
 	(if (null *rules*) raw-code (apply-rules raw-code *rules*)))
 
 (defun apply-rules (code rules)
-	(let ((rule (car rules))
+	(let* ((rule (car rules))
 		(remain (rest rules))
-		(changed-code (apply-rule (car rules) code)))
+		(changed-code (apply-rule rule code)))
 		
 		(if (null remain) changed-code (apply-rules changed-code remain))))
 ;;--------------------------------------
