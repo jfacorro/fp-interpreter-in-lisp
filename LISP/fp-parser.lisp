@@ -13,12 +13,32 @@
 			(lambda (lst) 
 				(string-explode lst "(" ")" ";" "/" "->" "[" "]" "~"))))
 ;:--------------------------------------
+;; Convert parenthesis in sublists
+;;--------------------------------------
+(add-rule (defrule 
+			"Convert parenthesis in sublists"
+			(lambda (lst) 
+				(listify lst))))
+;:--------------------------------------
 ;; Explode by special characters
 ;;--------------------------------------
 (add-rule (defrule 
 			"Build tree"
 			;(lambda (lst) lst)))			
 			(lambda (lst) (build-tree lst))))
+;:--------------------------------------
+;; listify
+;;--------------------------------------
+(defun listify (expr)
+	(if (atom expr)	expr
+		(let ((e (first expr)))
+			(cond
+				((string= e "(")
+					(list (listify (rest expr))))
+				((string= e ")") nil)
+				(t
+					(cons e (listify (rest expr))))))))
+;(listify '("1" "+" "2" "(" "1" "/" "(" "4" "+" "8" ")" ")"))
 ;;----------------------------------------------
 ;; build-tree
 ;;----------------------------------------------
@@ -28,41 +48,49 @@
 ;;----------------------------------------------
 ;; build-tree-helper
 ;;----------------------------------------------
-(defun build-tree-helper (lst tokens root)
-	(format t "build-tree-helper code: ~a~% tokens: ~a~% root: ~a~%" lst tokens root)
-	(let* ((token (first lst))
-		   (fun (get-function token))
-		   (lst-tail (rest lst)))
-		(format t "token: \"~a\"~%" token)
-		(if (null lst)
-			root
-			(cond 
-				; No fp-function => it's a special symbol
-				((stringp fun)
-					(cond 
-						((string= fun "(") (build-tree-helper lst-tail nil root))
-						((string= fun ")") root)
-						((string= fun ";") (build-tree-helper lst-tail nil root))
-						((string= fun "<>") (add-child root (make-node token)))))
-				; No paramaters => add to tokens list
-				((noparams-p fun)
-					(if (not (null root))
-						(add-child root (make-node token))
-						(setf tokens (cons token tokens)))
-					(build-tree-helper lst-tail tokens root))
-				(t 
-					(let ((newroot (make-node token)) 
-						  (rootname (datum root)))
-						(if (not (null root))
-							(if (most-precedence token rootname)
-								(add-child newroot root)
-								(add-child root newroot)))
-						(if (not (null tokens))
-							(dolist (item tokens) (add-child newroot (make-node item))))
-						(build-tree-helper lst-tail nil newroot)))
-			))))
+(defun build-tree-helper (code operators operands)
+	(format t "build-tree-helper~%")
+	(format t "  code: ~a~%" code)
+	(format t "  operators: ~a~%" operators)
+	(format t "  operands: ~a~%" operands)
+
+	(let* ((token (first code))		   
+		   (fn (get-function token)))
+		(format t "  token: \"~a\"~%" token)
+		(cond 
+			((null code)
+				(if (null operators)
+					(car operands)
+					(handle-operator nil operators operands)))
+			((listp token) 
+					(let ((subexpr (build-tree-helper token nil nil)))
+						(setf operands (cons subexpr operands))
+						(build-tree-helper (rest code) operators operands)))
+			((operand? fn)
+				(if (not (string= token ";")) (setf operands (cons (make-node token) operands)))
+				(build-tree-helper (rest code) operators operands))
+			(t
+				(let* ((last-op (first operators))
+					   (last-fn (get-function last-op)))
+					(if (or (null operators)
+							(> (precedence fn) (precedence last-fn)))
+						(build-tree-helper (rest code) (cons token operators) operands)
+						(handle-operator code operators operands)))))))
 ;;----------------------------------------------
-;; process-special-symbol
+;; handle-operator
 ;;----------------------------------------------
-(defun process-special-symbol (lst token)
-	nil)
+(defun handle-operator (code operators operands)
+	(format t "handle-operator~%")
+	(format t "  code: ~a~%" code)
+	(format t "  operators: ~a~%" operators)
+	(format t "  operands: ~a~%" operands)
+	
+	(let* ((operator (first operators))
+		   (fn (get-function operator))
+		   (nparams (num-params fn)))		
+		(build-tree-helper
+			code
+			(rest operators)
+			(cons 
+				(apply #'make-node (append (list operator) (reverse (subseq operands 0 nparams))))
+				(subseq operands nparams)))))

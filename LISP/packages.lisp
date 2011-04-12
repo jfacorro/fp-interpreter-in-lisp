@@ -25,8 +25,9 @@
 	(:use :common-lisp)
 	(:export 
 		:get-function
-		:noparams-p
-		:most-precedence
+		:operand?
+		:precedence
+		:num-params
 		:*functions*))
 (defpackage :com.facorro.fp.parser
 	(:use 

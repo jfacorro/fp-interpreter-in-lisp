@@ -5,7 +5,7 @@
 (defun string-split (str delim)
   (let ((index (search delim str)))
     (cond (index (append (list 	(string-upcase (subseq str 0 index)))
-                                (string-split (subseq str (+ index 1)) delim)))
+                                (string-split (subseq str (1+ index)) delim)))
           (t 
            (if (string= "" str) '() (list (string-upcase str)))))))
 ;;----------------------------------------------

@@ -2,10 +2,8 @@
 ;------------------------------------
 (defun make-node (element &rest children)
 	"Returns a tree node with the specified chidlren nodes"
-	(cond (
-			(null children) (list element))
-			(t
-				(cons element (list children)))))
+	(format t "make-node - [~a] - [~a]~%" element children)
+	(cons element children))
 ;------------------------------------
 (defun children (node) 
 	"Gets the children from a tree node"

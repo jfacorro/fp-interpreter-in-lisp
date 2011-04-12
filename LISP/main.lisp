@@ -14,5 +14,4 @@
 	(load-code "fp-functions.lisp")
 	(load-code "test-framework.lisp")
 	;; (load-code "tests.lisp")
-	(load-code "fp-interpreter.lisp" nil t)
-)
+	(load-code "fp-interpreter.lisp" nil t))

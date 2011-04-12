@@ -7,35 +7,39 @@
 ;;----------------------------------------------
 ;; Define functions hash
 ;;----------------------------------------------
-(defparameter *functions* (make-hash-table :test #'equal))
+(defparameter *functions* (make-hash-table :test 'equal))
 ;;----------------------------------------------
 ;; Add functions to hash-tables
 ;;----------------------------------------------
-(defun add-function (fp-function)
-	(add-hash-item *functions* (getf fp-function :name) fp-function))
+(defun add-function (fun)
+	(add-hash-item *functions* (getf fun :name) fun))
 ;;----------------------------------------------
 ;; Get function
 ;;----------------------------------------------
 (defun get-function (name)
-	(let ((fn (gethash name *functions*)))
-		(if (null fn) name fn)))
+	(gethash name *functions*))
+	#|(let ((fn (gethash name *functions*)))
+		(if (null fn) name fn)))|#
 ;;----------------------------------------------
-;; most-precedence
+;; precedence
 ;;----------------------------------------------
-(defun most-precedence (n1 n2)
-	(let ((p1 (getf (get-function n1) :nparams))
-		  (p2 (getf (get-function n2) :nparams)))
-		(> n1 n2)))
+(defun precedence (fn)
+	(getf fn :precedence))
+;;----------------------------------------------
+;; num-params
+;;----------------------------------------------
+(defun num-params (fn)
+	(getf fn :nparam))
 ;; ----------------------------------------
 ;; def-fp-function
 ;; ----------------------------------------
-(defun def-fp-function (name numparam func)
-	(list :name (string-upcase name) :nparam numparam :function func))
+(defun def-fp-function (name precedence fn &optional (nparam 0))
+	(list :name (string-upcase name) :precedence precedence :function fn :nparam nparam))
 ;;------------------------------------
 ;; noparams-p
 ;;------------------------------------
-(defun noparams-p (fp-fun)
-	(= (getf fp-fun :nparam) 0))
+(defun operand? (fn)
+	(or (null fn) (= (getf fn :nparam) 0)))
 ;;----------------------------------------------
 ;; FP functions hash
 ;;----------------------------------------------
@@ -69,9 +73,9 @@
 ;;------------------------------------
 ;; Functional forms
 ;;------------------------------------
-(add-function (def-fp-function "o" 2 #'compose))
-(add-function (def-fp-function "[" -1 #'construct))
-(add-function (def-fp-function "~" 1 #'const))
-(add-function (def-fp-function "->" 3 #'fp-cond))
-(add-function (def-fp-function "/" 1 #'insert))
-(add-function (def-fp-function "alpha" 1 #'alpha))
+(add-function (def-fp-function "o" 1 #'compose 2))
+(add-function (def-fp-function "[" 1 #'construct -1))
+(add-function (def-fp-function "~" 2 #'const 1))
+(add-function (def-fp-function "->" 0 #'fp-cond 3))
+(add-function (def-fp-function "/" 2 #'insert 1))
+(add-function (def-fp-function "alpha" 2 #'alpha 1))
