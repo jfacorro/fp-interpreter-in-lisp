@@ -2,9 +2,9 @@
 	(:use 
 		:common-lisp)
 	(:export
-		:make-tree-node
-		:get-children
-		:get-datum
+		:make-node
+		:children
+		:datum
 		:add-child))
 (defpackage :com.facorro.string
 	(:use 
