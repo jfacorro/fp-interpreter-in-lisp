@@ -18,7 +18,7 @@
 (defun add-child (node child)
 	(cond ((atom (rest node)) (setf (rest node) (list child)))
 		  (t 
-			(setf (rest node) (append (list child) (rest node))))))
+			(setf (rest node) (append (rest node) (list child))))))
 ;------------------------------------
 #|
 (defparameter *tree* nil)

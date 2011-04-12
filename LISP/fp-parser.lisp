@@ -28,21 +28,39 @@
 ;;----------------------------------------------
 ;; build-tree-helper
 ;;----------------------------------------------
-(defun build-tree-helper (lst tokens tree)
-	(format t "build-tree-helper \"~a\"~% ~a~%" lst tokens)
+(defun build-tree-helper (lst tokens root)
+	(format t "build-tree-helper code: ~a~% tokens: ~a~% root: ~a~%" lst tokens root)
 	(let* ((token (first lst))
-		   (fp-fun (get-function token))
+		   (fun (get-function token))
 		   (lst-tail (rest lst)))
-		(if (null lst) 
-			tree
+		(format t "token: \"~a\"~%" token)
+		(if (null lst)
+			root
 			(cond 
 				; No fp-function => it's a special symbol
-				((null fp-fun) (process-special-symbol lst-tail token))
+				((stringp fun)
+					(cond 
+						((string= fun "(")
+							(let ((subtree (build-tree-helper lst-tail nil nil)))
+								(if (null root) subtree (add-child root subtree))))
+						((string= fun ")") root)
+						((string= fun ";") 
+							(let ((subtree (build-tree-helper lst-tail nil nil)))
+								(if (null root) subtree (add-child root subtree))))
+						((string= fun "<>") (add-child root (make-tree-node token)))))
 				; No paramaters => add to tokens list
-				((noparams-p fp-fun) (build-tree-helper lst-tail (cons token tokens) tree))
+				((noparams-p fun)
+					(if (not (null root))
+						(add-child root (make-tree-node token))
+						(setf tokens (cons token tokens)))
+					(build-tree-helper lst-tail tokens root))
 				(t 
-					(let ((node (make-tree-node token)))
-						(build-tree-helper lst-tail tokens node)))
+					(let ((newroot (make-tree-node token)))
+						(if (not (null root)) 
+							(add-child newroot root))
+						(if (not (null tokens))
+							(dolist (item tokens) (add-child newroot (make-tree-node item))))
+						(build-tree-helper lst-tail nil newroot)))
 			))))
 ;;----------------------------------------------
 ;; process-special-symbol
