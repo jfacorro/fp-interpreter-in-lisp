@@ -15,6 +15,7 @@
 	(compile-load "test-framework.lisp")
 	;; (load-code "tests.lisp")
 	(compile-load "fp-interpreter.lisp" nil t)
+	(compile-load "fp-evaluator.lisp")
 	(compile-load "fp-repl.lisp" nil t))
 
 (com.facorro.fp.repl:fp-repl)

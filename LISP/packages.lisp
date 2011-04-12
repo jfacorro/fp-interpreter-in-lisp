@@ -51,8 +51,12 @@
 		:com.facorro.tree
 		:com.facorro.debug))
 ;----------------------------------------------------
-(defpackage :com.facorro.fp
-	(:use :common-lisp))
+(defpackage :com.facorro.fp.evaluator
+	(:use 
+		:common-lisp
+		:com.facorro.fp.functions)
+	(:export
+		:evaluate))
 ;----------------------------------------------------
 (defpackage :com.facorro.test
 	(:use :common-lisp)
@@ -63,7 +67,8 @@
 		:common-lisp 
 		:com.facorro.fp.functions
 		:com.facorro.parser
-		:com.facorro.test)
+		:com.facorro.test
+		:com.facorro.fp.evaluator)
 	(:export
 		:interpret))
 ;----------------------------------------------------
