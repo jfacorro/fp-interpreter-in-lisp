@@ -26,6 +26,7 @@
 	(:export 
 		:get-function
 		:noparams-p
+		:most-precedence
 		:*functions*))
 (defpackage :com.facorro.fp.parser
 	(:use 

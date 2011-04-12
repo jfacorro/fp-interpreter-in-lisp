@@ -19,6 +19,13 @@
 (defun get-function (name)
 	(let ((fn (gethash name *functions*)))
 		(if (null fn) name fn)))
+;;----------------------------------------------
+;; most-precedence
+;;----------------------------------------------
+(defun most-precedence (n1 n2)
+	(let ((p1 (getf (get-function n1) :nparams))
+		  (p2 (getf (get-function n2) :nparams)))
+		(> n1 n2)))
 ;; ----------------------------------------
 ;; def-fp-function
 ;; ----------------------------------------

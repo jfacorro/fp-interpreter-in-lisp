@@ -40,13 +40,9 @@
 				; No fp-function => it's a special symbol
 				((stringp fun)
 					(cond 
-						((string= fun "(")
-							(let ((subtree (build-tree-helper lst-tail nil nil)))
-								(if (null root) subtree (add-child root subtree))))
+						((string= fun "(") (build-tree-helper lst-tail nil root))
 						((string= fun ")") root)
-						((string= fun ";") 
-							(let ((subtree (build-tree-helper lst-tail nil nil)))
-								(if (null root) subtree (add-child root subtree))))
+						((string= fun ";") (build-tree-helper lst-tail nil root))
 						((string= fun "<>") (add-child root (make-tree-node token)))))
 				; No paramaters => add to tokens list
 				((noparams-p fun)
@@ -55,9 +51,12 @@
 						(setf tokens (cons token tokens)))
 					(build-tree-helper lst-tail tokens root))
 				(t 
-					(let ((newroot (make-tree-node token)))
-						(if (not (null root)) 
-							(add-child newroot root))
+					(let ((newroot (make-tree-node token)) 
+						  (rootname (get-datum root)))
+						(if (not (null root))
+							(if (most-precedence token rootname)
+								(add-child newroot root)
+								(add-child root newroot)))
 						(if (not (null tokens))
 							(dolist (item tokens) (add-child newroot (make-tree-node item))))
 						(build-tree-helper lst-tail nil newroot)))
