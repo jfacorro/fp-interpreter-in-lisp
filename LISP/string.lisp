@@ -66,9 +66,20 @@
 ;;----------------------------------------------
 ;; string-replace
 ;;----------------------------------------------
-(defun string-replace (str substr1 substr2)
-	(let ((expl-str (string-explode str substr1))
-		  (result-str nil))
+(defun string-replace (str &rest substrs)
+	(debug-msg "string-replace~%")
+	(debug-msg "  str: ~a~%" str)
+	(debug-msg "  substrs: ~a~%" substrs)
+	(let* ((substr1 (first substrs))
+		   (substr2 (second substrs))
+		   (expl-str (string-explode str substr1))
+		   (result-str nil))
+		; Iterate through the exploded list and replace substr1 for substr2
 		(dolist (item expl-str)
 			(setf result-str (append result-str (if (string= item substr1) `(,substr2) `(,item)))))
-		(apply #'concatenate (append '(string) result-str))))
+		; Concatenate all loose string in the list
+		(setf result-str (apply #'concatenate (append '(string) result-str)))
+		; If there are still replacements, keep going
+		(if (not (null (cddr substrs)))
+			(apply #'string-replace (append (list result-str) (cddr substrs)))
+			result-str)))
