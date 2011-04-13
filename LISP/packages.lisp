@@ -25,7 +25,8 @@
 		:com.facorro.debug)
 	(:export 
 		:string-split
-		:string-explode))
+		:string-explode
+		:string-replace))
 ;----------------------------------------------------
 (defpackage :com.facorro.parser
 	(:use 

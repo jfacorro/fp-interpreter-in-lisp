@@ -61,6 +61,14 @@
 ;;----------------------------------------------
 ;; empty-string
 ;;----------------------------------------------
-(defun empty-string? (str)
-	(debug-msg "empty-string?: ~a~%" str)
+(defun empty-string? (str)	
 	(string= "" str))
+;;----------------------------------------------
+;; string-replace
+;;----------------------------------------------
+(defun string-replace (str substr1 substr2)
+	(let ((expl-str (string-explode str substr1))
+		  (result-str nil))
+		(dolist (item expl-str)
+			(setf result-str (append result-str (if (string= item substr1) `(,substr2) `(,item)))))
+		(apply #'concatenate (append '(string) result-str))))

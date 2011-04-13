@@ -23,6 +23,8 @@
 (debug-on)
 (in-package :com.facorro.parser)
 (parse "/appendr o(alpha(atom->id;~<>))")
+(in-package :com.facorro.string)
+(string-replace "aaaabbbbcccc" "aaaa" "123456")
 #|
 (in-package :com.facorro.string)
 (string-explode "11.11.11.1.1111,111" "." ",")

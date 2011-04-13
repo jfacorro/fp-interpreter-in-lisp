@@ -184,8 +184,9 @@
 ;;------------------------------
 ; fp-construct
 ;;------------------------------
-(defun construct (&rest args)
-  (lambda (arg) (mapcar (lambda (f) (funcall f arg)) args)))
+(defun construct (args)
+	(when (not (listp args)) (error "(construct) argument should be a list"))
+	(lambda (arg) (mapcar (lambda (f) (funcall f arg)) args)))
 ;;------------------------------
 ; fp-const
 ;;------------------------------
