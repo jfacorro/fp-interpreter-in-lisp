@@ -190,7 +190,9 @@
 ; fp-const
 ;;------------------------------
 (defun const (const)
-  (lambda (arg) const))
+  (lambda (arg) 
+	arg ; To avoid compiler warning and mantain homogeinity
+	const))
 ;;------------------------------
 ; fp-cond
 ;;------------------------------

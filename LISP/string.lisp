@@ -40,7 +40,7 @@
 			((> index 0)
 				(append
 					(list (string-upcase (subseq str 0 index)))
-					(list delim)
+					(if explode (list delim) nil)
                     (string-explode-helper (subseq str (+ index delim-length)) delim)))
 			((= index 0)
 				(cons

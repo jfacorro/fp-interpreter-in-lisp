@@ -11,7 +11,7 @@
 				  (fn (get-function data)))
 				(debug-msg "(evaluate)~%")
 				(debug-msg "  data: ~a~%" data)
-				(debug-msg "  children: ~a~%" cilds)
+				(debug-msg "  children: ~a~%" childs)
 				(debug-msg "  fn: ~a~%~%" fn)
 				(if (null fn)
 					(map-to-value data)

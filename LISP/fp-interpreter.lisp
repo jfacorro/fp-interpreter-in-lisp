@@ -3,9 +3,9 @@
 ;; fp-interpret
 ;;----------------------------------------------
 (defun interpret (code)
-	(setq fn (evaluate (parse code)))
-	(debug-msg "~a~%" fn)
-	fn)
+	(let ((fn (evaluate (parse code))))
+		(debug-msg "~a~%" fn)
+		fn))
 ;;----------------------------------------------
 ;; string-split
 ;;----------------------------------------------
