@@ -56,7 +56,7 @@
 	(if (atom expr)	(first lists)
 		(let* ((head (first expr))
 			   (tail (rest expr))
-			   ;(lists (if (null lists) (list nil) lists))
+			   (lists (if (null lists) (list nil) lists))
 			   (current (first lists))
 			   (next (second lists))
 			   (else (cddr lists)))
@@ -68,9 +68,9 @@
 				((string= head "(") 
 					(listify tail (cons nil lists)))
 				((string= head ")")
-					(listify tail (append (list (append (list current) next)) else)))
+					(listify tail (append (list (append next (list current))) else)))
 				(t
-					(listify tail (append (list (cons head current)) (list next) else)))))))
+					(listify tail (append (list (append current `(,head))) (list next) else)))))))
 			
 ;(listify '("1" "+" "2" "(" "1" "/" "(" "4" "+" "8" ")" ")"))
 ;0 ( 1 ( 2 ) 3 ) 4
