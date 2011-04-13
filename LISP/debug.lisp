@@ -5,8 +5,12 @@
 (defun debugging? ()
 	(null *debugging*))
 
-(defun start-debug ()
+(defun debug-on ()
 	(setf *debugging* t))
 
-(defun stop-debug ()
+(defun debug-off ()
 	(setf *debugging* nil))	
+
+(defun debug-msg (&rest args)
+	(if *debugging*
+		(apply #'format (cons t args))))

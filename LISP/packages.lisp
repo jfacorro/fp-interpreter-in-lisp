@@ -3,13 +3,16 @@
 	(:use 
 		:common-lisp)
 	(:export
+		:*debugging*
 		:debugging?
-		:start-debug
-		:stop-debug))
+		:debug-on
+		:debug-off
+		:debug-msg))
 ;----------------------------------------------------
 (defpackage :com.facorro.tree
 	(:use 
-		:common-lisp)
+		:common-lisp
+		:com.facorro.debug)
 	(:export
 		:make-node
 		:children
@@ -34,7 +37,9 @@
 		:defrule))
 ;----------------------------------------------------
 (defpackage :com.facorro.fp.functions
-	(:use :common-lisp)
+	(:use 
+		:common-lisp
+		:com.facorro.debug)
 	(:export 
 		:get-function
 		:operand?
@@ -54,7 +59,9 @@
 (defpackage :com.facorro.fp.evaluator
 	(:use 
 		:common-lisp
-		:com.facorro.fp.functions)
+		:com.facorro.debug
+		:com.facorro.fp.functions
+		:com.facorro.tree)
 	(:export
 		:evaluate))
 ;----------------------------------------------------
@@ -64,7 +71,8 @@
 ;----------------------------------------------------
 (defpackage :com.facorro.fp.interpreter
 	(:use 
-		:common-lisp 
+		:common-lisp
+		:com.facorro.debug
 		:com.facorro.fp.functions
 		:com.facorro.parser
 		:com.facorro.test

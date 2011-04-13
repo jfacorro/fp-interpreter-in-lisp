@@ -2,7 +2,7 @@
 ;------------------------------------
 (defun make-node (element &rest children)
 	"Returns a tree node with the specified chidlren nodes"
-	(format t "make-node - [~a] - [~a]~%" element children)
+	(debug-msg "(make-node) [~a] - [~a]~%" element children)
 	(cons element children))
 ;------------------------------------
 (defun children (node) 

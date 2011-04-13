@@ -42,16 +42,16 @@
 ;; build-tree
 ;;----------------------------------------------
 (defun build-tree (lst)
-	(format t "build-tree \"~a\"~%" lst)
+	(debug-msg "build-tree \"~a\"~%" lst)
 	(build-tree-helper lst nil nil))
 ;;----------------------------------------------
 ;; build-tree-helper
 ;;----------------------------------------------
 (defun build-tree-helper (code operators operands)
-	(format t "build-tree-helper~%")
-	(format t "  code: ~a~%" code)
-	(format t "  operators: ~a~%" operators)
-	(format t "  operands: ~a~%" operands)
+	(debug-msg "build-tree-helper~%")
+	(debug-msg "  code: ~a~%" code)
+	(debug-msg "  operators: ~a~%" operators)
+	(debug-msg "  operands: ~a~%" operands)
 
 	(let* ((token (first code))		   
 		   (fn (get-function token)))
@@ -79,10 +79,10 @@
 ;; handle-operator
 ;;----------------------------------------------
 (defun handle-operator (code operators operands)
-	(format t "handle-operator~%")
-	(format t "  code: ~a~%" code)
-	(format t "  operators: ~a~%" operators)
-	(format t "  operands: ~a~%" operands)
+	(debug-msg "handle-operator~%")
+	(debug-msg "  code: ~a~%" code)
+	(debug-msg "  operators: ~a~%" operators)
+	(debug-msg "  operands: ~a~%" operands)
 	
 	(let* ((operator (first operators))
 		   (fn (get-function operator))
