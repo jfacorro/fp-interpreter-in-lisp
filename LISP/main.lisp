@@ -25,9 +25,9 @@
 ;(parse "/appendr o(alpha(atom=>id;~<>))")
 ;(parse "((/appendr) o (alpha(atom=>id;~<>)))")
 (in-package :com.facorro.fp.parser)
-(listify '("(" "/" "appendr" ")" "o" "(" "alpha" "(" "atom" "=>" "id" "~" "<>" ")" ")"))
-;(listify '("(" "1" "(" "2" ")" "3" ")"))
-;(parse "[1º, 2º]")
+;(listify '("(" "/" "appendr" ")" "o" "(" "alpha" "(" "atom" "=>" "id" "~" "<>" ")" ")"))
+;(listify '("(" "1" "(" "2" "(" "4" ")" ")" "(" "5" ")" "3" ")"))
+(parse "[1º, 2º]")
 ;(in-package :com.facorro.fp.interpreter)
 ;(funcall (interpret "/ appendl") '(-1 1 1 1 (3 2)))
 #|

@@ -1,0 +1,10 @@
+TODO:
+-----
+	- Adapt parser so that it parses:
+			- constructor
+			- selector
+			- selector right
+
+DONE:
+-----
+	- Remove ; as a special case in parser

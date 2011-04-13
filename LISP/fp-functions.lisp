@@ -42,8 +42,8 @@
 ;; FP functions hash
 ;;----------------------------------------------
 (add-function (def-fp-function "id" 0 #'id))
-(add-function (def-fp-function "n" 1 #'selector))
-(add-function (def-fp-function "nr" 1 #'selector-right))
+(add-function (def-fp-function "º" 2 #'selector 1))
+(add-function (def-fp-function "ºr" 2 #'selector-right 1))
 (add-function (def-fp-function "tl" 0 #'tl))
 (add-function (def-fp-function "tlr" 0 #'tlr))
 (add-function (def-fp-function "atom" 0 #'fp-atom))
@@ -72,8 +72,8 @@
 ;; Functional forms
 ;;------------------------------------
 (add-function (def-fp-function "o" 1 #'compose 2))
-(add-function (def-fp-function "construct" 2 #'construct -1))
+(add-function (def-fp-function "construct" 0 #'construct 2))
 (add-function (def-fp-function "~" 2 #'const 1))
-(add-function (def-fp-function "->" 0 #'fp-cond 3))
+(add-function (def-fp-function "=>" 0 #'fp-cond 3))
 (add-function (def-fp-function "/" 2 #'insert 1))
 (add-function (def-fp-function "alpha" 2 #'alpha 1))

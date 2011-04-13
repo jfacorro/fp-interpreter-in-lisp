@@ -1,11 +1,5 @@
 (in-package :com.facorro.fp.parser)
 ;:--------------------------------------
-;; Convert to uppercase
-;;--------------------------------------
-(add-rule (defrule
-			"Convert to uppercase"
-			(lambda (str) (string-upcase str))))
-;:--------------------------------------
 ;; Replace some expression for parser-friendly
 ;; new expressions
 ;;--------------------------------------
@@ -13,22 +7,29 @@
 			"Replace for parser-friendly expressions"
 			(lambda (str) 
 				(string-replace str 
-					"[" "(construct(("
+					"[" "( construct ("
 					"]" "))"
 					"," ")("))))
+;:--------------------------------------
+;; Convert to uppercase
+;;--------------------------------------
+(add-rule (defrule
+			"Convert to uppercase"
+			(lambda (str) (string-upcase str))))
+
 ;:--------------------------------------
 ;; Split by " " ;
 ;;--------------------------------------
 (add-rule (defrule
-			"Split by space"
+			"Split by space ;"
 			(lambda (str) (string-split str " " ";"))))
 ;:--------------------------------------
 ;; Explode by special characters
 ;;--------------------------------------
 (add-rule (defrule 
-			"Explode by ( ) ; / -> [ ] ~ + - % * º ºr"
+			"Explode by ( ) / -> [ ] ~ + - % * º ºr"
 			(lambda (lst) 
-				(string-explode lst "(" ")" ";" "/" "=>" "[" "]" "~" "+" "-" "%" "*" "º" "ºr"))))
+				(string-explode lst "(" ")" "/" "=>" "[" "]" "~" "+" "-" "%" "*" "º" "ºr"))))
 ;:--------------------------------------
 ;; Convert parenthesis in sublists
 ;;--------------------------------------
@@ -39,19 +40,18 @@
 ;:--------------------------------------
 ;; Explode by special characters
 ;;--------------------------------------
-#|
+
 (add-rule (defrule 
 			"Build tree"
 			;(lambda (lst) lst)))			
 			(lambda (lst) (build-tree lst))))
-|#
 ;:--------------------------------------
 ;; listify
 ;;--------------------------------------
 (defun listify (expr &optional (lists nil))
-	(format t "(listify)~%")
-	(format t "  expr: ~a~%" expr)
-	(format t "  lists: ~a~%" lists)
+	(debug-msg "(listify)~%")
+	(debug-msg "  expr: ~a~%" expr)
+	(debug-msg "  lists: ~a~%" lists)
 
 	(if (atom expr)	(first lists)
 		(let* ((head (first expr))
@@ -60,10 +60,10 @@
 			   (current (first lists))
 			   (next (second lists))
 			   (else (cddr lists)))
-			(format t "  head: ~a~%" head)
-			(format t "  current: ~a~%" current)
-			(format t "  next: ~a~%" next)
-			(format t "  else: ~a~%" else)
+			(debug-msg "  head: ~a~%" head)
+			(debug-msg "  current: ~a~%" current)
+			(debug-msg "  next: ~a~%" next)
+			(debug-msg "  else: ~a~%" else)
 			(cond
 				((string= head "(") 
 					(listify tail (cons nil lists)))
