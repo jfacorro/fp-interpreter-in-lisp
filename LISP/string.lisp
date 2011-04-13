@@ -2,13 +2,16 @@
 ;;----------------------------------------------
 ;; string-split
 ;;----------------------------------------------
-(defun string-split (str delim)
+(defun string-split (str &rest delims)
   "Splits a given string using the specified delimiters"
-  (let ((index (search delim str)))
-    (cond (index (append (list 	(string-upcase (subseq str 0 index)))
-                                (string-split (subseq str (1+ index)) delim)))
-          (t 
-           (if (string= "" str) '() (list (string-upcase str)))))))
+	(let ((splitted-str (list str)))
+		; If there are delimiters then explode
+		(if (not (null delims))
+			; For each delimiter explode the string 
+			; and each instance afterwards
+			(dolist (delim delims)
+				(setf splitted-str (flatten (mapcar (explode-lambda delim nil) splitted-str)))))
+		splitted-str))
 ;;----------------------------------------------
 ;; string-explode
 ;;----------------------------------------------
@@ -25,20 +28,21 @@
 ;;----------------------------------------------
 ;; explode-lambda
 ;;----------------------------------------------
-(defun explode-lambda (delim)
+(defun explode-lambda (delim &optional (explode t))
 	"Generates a function with the delimiter"
-	(lambda (str) (string-explode-helper str delim)))
+	(lambda (str) (string-explode-helper str delim explode)))
 ;;----------------------------------------------
 ;; string-explode-helper
 ;;----------------------------------------------
 (defun string-explode-helper (str delim &optional (explode t))
+	"Explodes or splits (based on 'explode' param value) a string using the delimiters specified"
 	(let ((index (search delim str))
 		  (delim-length (length delim)))
 		(if (null index)
 			(if (empty-string? str) nil (list (string-upcase str)))
 			(let ((begin-str (string-upcase (subseq str 0 index)))
 				  (delim (if explode (list delim) nil))
-				  (end-str (string-explode-helper (subseq str (+ index delim-length)) delim)))
+				  (end-str (string-explode-helper (subseq str (+ index delim-length)) delim explode)))
 
 				(append
 					; if delimiter is in the first position don't add empty string

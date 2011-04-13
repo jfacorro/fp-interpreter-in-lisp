@@ -21,6 +21,7 @@
 
 (in-package :com.facorro.string)
 (string-explode "11.11.11.1.1111,111" "." ",")
+(string-split "11.11.11.1.1111,111" "." ",")
 #|
 (in-package :com.facorro.debug)
 (debug-on)
