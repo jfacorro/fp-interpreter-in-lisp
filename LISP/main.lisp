@@ -19,7 +19,9 @@
 	(compile-load "fp-evaluator.lisp")
 	(compile-load "fp-repl.lisp" nil t))
 
-;(com.facorro.fp.repl:fp-repl)
+(in-package :com.facorro.debug)
+(debug-on)
 (in-package :com.facorro.fp.interpreter)
-(interpret "id")
 (funcall (interpret "id") '1)
+(in-package :com.facorro.fp.repl)
+(fp-repl)

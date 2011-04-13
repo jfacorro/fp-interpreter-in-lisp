@@ -9,7 +9,10 @@
 			(let* ((data (datum node))
 				  (childs (children node))
 				  (fn (get-function data)))
-				(debug-msg "(evaluate) data: ~a - children: ~a - fn: ~a~%" data childs fn)
+				(debug-msg "(evaluate)~%")
+				(debug-msg "  data: ~a~%" data)
+				(debug-msg "  children: ~a~%" cilds)
+				(debug-msg "  fn: ~a~%~%" fn)
 				(if (null fn)
 					(map-to-value data)
 					(if (listp childs)
@@ -23,4 +26,3 @@
 		((string= data "<>") nil)
 		((numberp (intern data)) (number (intern data)))
 		(t (intern data))))
-					

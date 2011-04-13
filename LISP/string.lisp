@@ -3,6 +3,7 @@
 ;; string-split
 ;;----------------------------------------------
 (defun string-split (str delim)
+  "Splits a given string using the specified delimiters"
   (let ((index (search delim str)))
     (cond (index (append (list 	(string-upcase (subseq str 0 index)))
                                 (string-split (subseq str (1+ index)) delim)))
