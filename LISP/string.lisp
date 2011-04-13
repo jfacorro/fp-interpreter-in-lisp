@@ -34,18 +34,17 @@
 (defun string-explode-helper (str delim &optional (explode t))
 	(let ((index (search delim str))
 		  (delim-length (length delim)))
-		(cond 
-			((null index) 
-				(if (empty-string? str) nil (list (string-upcase str))))
-			((> index 0)
+		(if (null index)
+			(if (empty-string? str) nil (list (string-upcase str)))
+			(let ((begin-str (string-upcase (subseq str 0 index)))
+				  (delim (if explode (list delim) nil))
+				  (end-str (string-explode-helper (subseq str (+ index delim-length)) delim)))
+
 				(append
-					(list (string-upcase (subseq str 0 index)))
-					(if explode (list delim) nil)
-                    (string-explode-helper (subseq str (+ index delim-length)) delim)))
-			((= index 0)
-				(cons
+					; if delimiter is in the first position don't add empty string
+					(if (zerop index) nil (list begin-str))
 					delim
-					(string-explode-helper (subseq str (+ index delim-length)) delim))))))
+					end-str)))))
 ;;----------------------------------------------
 ;; Flatten
 ;;----------------------------------------------
