@@ -21,14 +21,16 @@
 ;----------------------------------------------------
 (defpackage :com.facorro.string
 	(:use 
-		:common-lisp)
+		:common-lisp
+		:com.facorro.debug)
 	(:export 
 		:string-split
 		:string-explode))
 ;----------------------------------------------------
 (defpackage :com.facorro.parser
 	(:use 
-		:common-lisp)
+		:common-lisp
+		:com.facorro.debug)
 	(:export 
 		:*rules*
 		:add-rule

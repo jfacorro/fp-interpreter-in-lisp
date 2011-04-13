@@ -12,15 +12,18 @@
 ;;--------------------------------------
 ;; apply-all-rules
 ;;--------------------------------------
-(defun parse (raw-code)
+(defun parse (expr)
 	"Applies rules in the order they were added and returns the last result"
-	(if (null *rules*) raw-code (apply-rules raw-code *rules*)))
 
-(defun apply-rules (code rules)
+	(when (not (stringp expr)) 
+		(error "PARSE: expr should be a string"))
+	(if (null *rules*) expr (apply-rules expr *rules*)))
+
+(defun apply-rules (expr rules)
+	(debug-msg "Applying rule: ~a~%" (getf (first rules) :name))
 	(let* ((rule (car rules))
-		(remain (rest rules))
-		(changed-code (apply-rule rule code)))
-		
+		   (remain (rest rules))
+		   (changed-code (apply-rule rule expr)))		
 		(if (null remain) changed-code (apply-rules changed-code remain))))
 ;;--------------------------------------
 ;; apply-rule

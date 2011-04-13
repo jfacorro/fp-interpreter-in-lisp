@@ -19,10 +19,14 @@
 	(compile-load "fp-evaluator.lisp")
 	(compile-load "fp-repl.lisp" nil nil))
 
+(in-package :com.facorro.debug)
+(debug-on)
+(in-package :com.facorro.parser)
+(parse "/appendr o(alpha(atom->id;~<>))")
+#|
 (in-package :com.facorro.string)
 (string-explode "11.11.11.1.1111,111" "." ",")
 (string-split "11.11.11.1.1111,111" "." ",")
-#|
 (in-package :com.facorro.debug)
 (debug-on)
 (in-package :com.facorro.fp.interpreter)

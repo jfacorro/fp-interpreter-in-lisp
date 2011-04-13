@@ -3,7 +3,7 @@
 ;; string-split
 ;;----------------------------------------------
 (defun string-split (str &rest delims)
-  "Splits a given string using the specified delimiters"
+	"Splits a given string using the specified delimiters"
 	(let ((splitted-str (list str)))
 		; If there are delimiters then explode
 		(if (not (null delims))
@@ -17,7 +17,7 @@
 ;;----------------------------------------------
 (defun string-explode (str &rest delims)
 	"Explodes a given string using the specified delimiters"
-	(let ((exploded-str (list str)))
+	(let ((exploded-str (if (listp str) str (list str))))
 		; If there are delimiters then explode
 		(if (not (null delims))
 			; For each delimiter explode the string 
@@ -62,4 +62,5 @@
 ;; empty-string
 ;;----------------------------------------------
 (defun empty-string? (str)
+	(debug-msg "empty-string?: ~a~%" str)
 	(string= "" str))

@@ -4,7 +4,7 @@
 ;;--------------------------------------
 (add-rule (defrule
 			"Split by space"
-			(lambda (str) (string-split str " "))))
+			(lambda (str) (string-split str " " ";"))))
 ;:--------------------------------------
 ;; Explode by special characters
 ;;--------------------------------------
@@ -66,7 +66,7 @@
 						(setf operands (cons subexpr operands))
 						(build-tree-helper (rest code) operators operands)))
 			((operand? fn)
-				(if (not (string= token ";")) (setf operands (cons (make-node token) operands)))
+				(setf operands (cons (make-node token) operands))
 				(build-tree-helper (rest code) operators operands))
 			(t
 				(let* ((last-op (first operators))
