@@ -208,7 +208,7 @@
                   ((= (length arg) 1) (car arg))
                   ((= (length arg) 2) (funcall f (list (car arg) (cadr arg))))
                   (t
-                   (funcall f (list (car arg) (funcall (fp-insert f) (cdr arg))))))))
+                   (funcall f (list (car arg) (funcall (insert f) (cdr arg))))))))
 ;;------------------------------
 ; fp-alpha
 ;;------------------------------

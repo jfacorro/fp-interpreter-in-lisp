@@ -1,6 +1,6 @@
 (in-package :com.facorro.fp.parser)
 ;:--------------------------------------
-;; Split by " "
+;; Split by " " ;
 ;;--------------------------------------
 (add-rule (defrule
 			"Split by space"
@@ -9,9 +9,9 @@
 ;; Explode by special characters
 ;;--------------------------------------
 (add-rule (defrule 
-			"Explode by ( ) ; / -> [ ] ~"
+			"Explode by ( ) ; / -> [ ] ~ + - % *"
 			(lambda (lst) 
-				(string-explode lst "(" ")" ";" "/" "->" "[" "]" "~"))))
+				(string-explode lst "(" ")" ";" "/" "->" "[" "]" "~" "+" "-" "%" "*"))))
 ;:--------------------------------------
 ;; Convert parenthesis in sublists
 ;;--------------------------------------
