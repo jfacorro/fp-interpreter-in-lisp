@@ -11,7 +11,7 @@
 ;;------------------------------
 (defun selector (n)
   (lambda (arg)
-    (cond ((> n 1) (funcall (fp-selector (- n 1)) (cdr arg)))
+    (cond ((> n 1) (funcall (selector (- n 1)) (cdr arg)))
           (t (car arg)))))
 ;;------------------------------
 ; selector-right
@@ -20,7 +20,7 @@
   (lambda (arg)
     (cond ((> (length arg) 0)
            (cond ((= n (length arg)) (car arg))
-                 (t (funcall (fp-selector-right n) (cdr arg)))))
+                 (t (funcall (selector-right n) (cdr arg)))))
           (t '()))))
 ;;------------------------------
 ; tl (tail)
@@ -184,8 +184,7 @@
 ;;------------------------------
 ; fp-construct
 ;;------------------------------
-(defun construct (args)
-	(when (not (listp args)) (error "(construct) argument should be a list"))
+(defun construct (&rest args)
 	(lambda (arg) (mapcar (lambda (f) (funcall f arg)) args)))
 ;;------------------------------
 ; fp-const

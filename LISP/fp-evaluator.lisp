@@ -24,5 +24,8 @@
 (defun map-to-value (data)
 	(cond 
 		((string= data "<>") nil)
-		((numberp (intern data)) (number (intern data)))
+		((numericp data) (parse-integer data :junk-allowed t))
 		(t (intern data))))
+
+(defun numericp (str)
+	(not (null (parse-integer str :junk-allowed t))))
