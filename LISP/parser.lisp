@@ -23,7 +23,8 @@
 	(debug-msg "Applying rule: ~a~%" (getf (first rules) :name))
 	(let* ((rule (car rules))
 		   (remain (rest rules))
-		   (changed-code (apply-rule rule expr)))		
+		   (changed-code (apply-rule rule expr)))
+		(debug-msg "Result rule: ~a~%" changed-code)
 		(if (null remain) changed-code (apply-rules changed-code remain))))
 ;;--------------------------------------
 ;; apply-rule

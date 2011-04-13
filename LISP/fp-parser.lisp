@@ -1,5 +1,22 @@
 (in-package :com.facorro.fp.parser)
 ;:--------------------------------------
+;; Convert to uppercase
+;;--------------------------------------
+(add-rule (defrule
+			"Convert to uppercase"
+			(lambda (str) (string-upcase str))))
+;:--------------------------------------
+;; Replace some expression for parser-friendly
+;; new expressions
+;;--------------------------------------
+(add-rule (defrule
+			"Replace for parser-friendly expressions"
+			(lambda (str) 
+				(string-replace str 
+					"[" "(construct(("
+					"]" "))"
+					"," ")("))))
+;:--------------------------------------
 ;; Split by " " ;
 ;;--------------------------------------
 (add-rule (defrule
@@ -9,9 +26,9 @@
 ;; Explode by special characters
 ;;--------------------------------------
 (add-rule (defrule 
-			"Explode by ( ) ; / -> [ ] ~ + - % *"
+			"Explode by ( ) ; / -> [ ] ~ + - % * º ºr"
 			(lambda (lst) 
-				(string-explode lst "(" ")" ";" "/" "->" "[" "]" "~" "+" "-" "%" "*"))))
+				(string-explode lst "(" ")" ";" "/" "=>" "[" "]" "~" "+" "-" "%" "*" "º" "ºr"))))
 ;:--------------------------------------
 ;; Convert parenthesis in sublists
 ;;--------------------------------------
@@ -22,22 +39,35 @@
 ;:--------------------------------------
 ;; Explode by special characters
 ;;--------------------------------------
+#|
 (add-rule (defrule 
 			"Build tree"
 			;(lambda (lst) lst)))			
 			(lambda (lst) (build-tree lst))))
+|#
 ;:--------------------------------------
 ;; listify
 ;;--------------------------------------
-(defun listify (expr)
+(defun listify (expr &optional (parent nil) (child nil))
+	(debug-msg "(listify)~%")
+	(debug-msg "  expr: ~a~%" expr)
+	(debug-msg "  parent: ~a~%" parent)
+	(debug-msg "  child: ~a~%" child)
+
 	(if (atom expr)	expr
 		(let ((head (first expr))
 			  (tail (rest expr)))
 			(cond
-				((string= head "(") (list (listify tail)))
-				((string= head ")") nil)
-				(t (cons head (listify tail)))))))
+				((string= head "(") (append parent child (list (listify tail))))
+				((string= head ")") 
+					(append parent 
+						(if (null child) nil (list child))
+						(if (null tail) nil (listify tail))))
+				(t 
+					(listify tail parent (append child (list head))))))))
+			
 ;(listify '("1" "+" "2" "(" "1" "/" "(" "4" "+" "8" ")" ")"))
+;0 ( 1 ( 2 ) 3 ) 4
 ;;----------------------------------------------
 ;; build-tree
 ;;----------------------------------------------

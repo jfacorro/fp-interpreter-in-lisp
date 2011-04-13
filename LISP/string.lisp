@@ -39,8 +39,8 @@
 	(let ((index (search delim str))
 		  (delim-length (length delim)))
 		(if (null index)
-			(if (empty-string? str) nil (list (string-upcase str)))
-			(let ((begin-str (string-upcase (subseq str 0 index)))
+			(if (empty-string? str) nil (list str))
+			(let ((begin-str (subseq str 0 index))
 				  (delim (if explode (list delim) nil))
 				  (end-str (string-explode-helper (subseq str (+ index delim-length)) delim explode)))
 
