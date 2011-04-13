@@ -48,23 +48,29 @@
 ;:--------------------------------------
 ;; listify
 ;;--------------------------------------
-(defun listify (expr &optional (parent nil) (child nil))
-	(debug-msg "(listify)~%")
-	(debug-msg "  expr: ~a~%" expr)
-	(debug-msg "  parent: ~a~%" parent)
-	(debug-msg "  child: ~a~%" child)
+(defun listify (expr &optional (lists nil))
+	(format t "(listify)~%")
+	(format t "  expr: ~a~%" expr)
+	(format t "  lists: ~a~%" lists)
 
-	(if (atom expr)	expr
-		(let ((head (first expr))
-			  (tail (rest expr)))
+	(if (atom expr)	(first lists)
+		(let* ((head (first expr))
+			   (tail (rest expr))
+			   ;(lists (if (null lists) (list nil) lists))
+			   (current (first lists))
+			   (next (second lists))
+			   (else (cddr lists)))
+			(format t "  head: ~a~%" head)
+			(format t "  current: ~a~%" current)
+			(format t "  next: ~a~%" next)
+			(format t "  else: ~a~%" else)
 			(cond
-				((string= head "(") (append parent child (list (listify tail))))
-				((string= head ")") 
-					(append parent 
-						(if (null child) nil (list child))
-						(if (null tail) nil (listify tail))))
-				(t 
-					(listify tail parent (append child (list head))))))))
+				((string= head "(") 
+					(listify tail (cons nil lists)))
+				((string= head ")")
+					(listify tail (append (list (append (list current) next)) else)))
+				(t
+					(listify tail (append (list (cons head current)) (list next) else)))))))
 			
 ;(listify '("1" "+" "2" "(" "1" "/" "(" "4" "+" "8" ")" ")"))
 ;0 ( 1 ( 2 ) 3 ) 4
