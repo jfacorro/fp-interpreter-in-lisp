@@ -7,7 +7,7 @@
 	(let ((expr "")
 		  (quit-expr "quit"))
 		(loop (if (string= expr quit-expr) (return "Bye"))
-			(format t "FP-LISP> ")
+			(format t "FP> ")
 			(setf expr (read-line))
 			(format t "Input: ~a~%" expr)
 			(if (not (string= expr quit-expr))
