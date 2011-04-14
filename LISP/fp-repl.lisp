@@ -10,5 +10,6 @@
 			(format t "FP-LISP> ")
 			(setf expr (read-line))
 			(format t "Input: ~a~%" expr)
-			(if (not (string= expr quit-expr)) (interpret expr)))))
+			(if (not (string= expr quit-expr))
+				(format t "Result: ~a~%" (interpret expr))))))
 ;----------------------------------------------------
