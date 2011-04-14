@@ -43,17 +43,6 @@
 ;(listify '("(" "/" "appendr" ")" "o" "(" "alpha" "(" "atom" "=>" "id" "~" "<>" ")" ")"))
 ;(listify '("(" "1" "(" "2" "(" "4" ")" ")" "(" "5" ")" "3" ")"))
 ;-----------------------------------------
-(in-package :com.facorro.fp.interpreter)
-;-----------------------------------------
-;(funcall (interpret "/ appendl") '(-1 1 1 1 (3 2)))
-;(funcall (interpret "[2°, 1°, id]") '(1 2))
-;(funcall (interpret "~fdgh") '((1 2) (3 4) (5 6)))
-;(funcall (interpret "((eq o [1°, 2°]) => ~1 ; ~2)") '(1 1))
-;(funcall (interpret "eq => ~T ; ~<>") '(1 2))
-;(funcall (interpret "2° o 2°") '(1 (2 3)))
-;(interpret "2° o 2° : <1, <2, 3>, 4>")
-;(interpret "2°: <1 <2 3> 4>")
-;-----------------------------------------
 (in-package :com.facorro.string)
 ;-----------------------------------------
 ;(string-explode "11.11.11.1.1111,111" "." ",")
@@ -67,4 +56,21 @@
 ;-----------------------------------------
 (in-package :com.facorro.fp.repl)
 ;-----------------------------------------
-(fp-repl)
+;(fp-repl)
+;-----------------------------------------
+(in-package :com.facorro.fp.interpreter)
+;-----------------------------------------
+;(funcall (interpret "/ appendl") '(-1 1 1 1 (3 2)))
+;(funcall (interpret "[2°, 1°, id]") '(1 2))
+;(funcall (interpret "~fdgh") '((1 2) (3 4) (5 6)))
+;(funcall (interpret "((eq o [1°, 2°]) => ~1 ; ~2)") '(1 1))
+;(funcall (interpret "eq => ~T ; ~<>") '(1 2))
+;(funcall (interpret "2° o 2°") '(1 (2 3)))
+;(interpret "2° o 2° : <1, <2, 3>, 4>")
+;(interpret "2°: <1 <2 3> 4>")
+(get-function "ID")
+(interpret "id : <1 2 3>")
+(interpret "def new : id")
+(interpret "(new) : <1 2 3>")
+
+;-----------------------------------------

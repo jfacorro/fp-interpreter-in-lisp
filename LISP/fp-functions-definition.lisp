@@ -218,4 +218,5 @@
 ;;------------------------------
 (defun def (name fn)
 	"Creates a user defined function"
-	nil);(lambda (l) (mapcar f l)))
+	(lambda () 
+		(add-function (def-fp-function name fn))))

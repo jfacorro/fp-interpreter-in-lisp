@@ -39,7 +39,7 @@
 (defun operand? (fn)
 	(or (null fn) (= (getf fn :nparam) 0)))
 ;;----------------------------------------------
-;; FP functions hash
+;; FP functions
 ;;----------------------------------------------
 (add-function (def-fp-function "id" #'id))
 (add-function (def-fp-function "°" #'selector :precedence 3 :nparam 1))
@@ -68,12 +68,16 @@
 (add-function (def-fp-function "appendr" #'appendr))
 (add-function (def-fp-function "rot" #'rot))
 (add-function (def-fp-function "rotr" #'rotr))
-;;------------------------------------
+;;----------------------------------------------
 ;; Functional forms
-;;------------------------------------
+;;----------------------------------------------
 (add-function (def-fp-function "o" #'compose :precedence 1 :nparam 2))
 (add-function (def-fp-function "construct" #'construct :precedence 0 :nparam -1))
 (add-function (def-fp-function "~" #'const :precedence 2 :nparam 1))
 (add-function (def-fp-function "=>" #'fp-cond :precedence 0 :nparam 3))
 (add-function (def-fp-function "/" #'insert :precedence 2 :nparam 1))
 (add-function (def-fp-function "alpha" #'alpha :precedence 2 :nparam 1))
+;;----------------------------------------------
+;; def function, used to add user defined
+;;----------------------------------------------
+(add-function (def-fp-function "def" #'def :precedence 0 :nparam 2))
