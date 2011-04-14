@@ -19,13 +19,37 @@
 						(apply (getf fn :function) (mapcar #'evaluate childs))
 						(getf fn :function)))))))
 ;;----------------------------------------
+;; Evaluates the FP env
+;;---------------------------------------
+(defun evaluate-env (env)
+	(symbolize env))
+;;----------------------------------------
 ;; Evaluates the FP tree
 ;;----------------------------------------
 (defun map-to-value (data)
+	"Maps a string to a value"
 	(cond 
 		((string= data "<>") nil)
 		((numericp data) (parse-integer data :junk-allowed t))
-		(t (intern data))))
-
+		(t (intern (string-upcase data)))))
+;;----------------------------------------------
+;; numericp
+;;----------------------------------------------
 (defun numericp (str)
+	"Returns true if the string is a integer"
 	(not (null (parse-integer str :junk-allowed t))))
+;;----------------------------------------------
+;; Symbolize
+;;----------------------------------------------
+(defun symbolize (data)
+	"Converts all string elements in symbols or numbers"
+	(cond ((null data) data)
+		((atom data) (map-to-value data))
+		(t
+			(mapcar #'symbolize data))))
+
+
+
+
+
+

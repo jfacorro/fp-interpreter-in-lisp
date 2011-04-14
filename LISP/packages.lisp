@@ -66,7 +66,8 @@
 		:com.facorro.fp.functions
 		:com.facorro.tree)
 	(:export
-		:evaluate))
+		:evaluate
+		:evaluate-env))
 ;----------------------------------------------------
 (defpackage :com.facorro.test
 	(:use :common-lisp)

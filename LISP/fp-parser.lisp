@@ -4,69 +4,85 @@
 ;; which means it is either a user function
 ;; definition or a function call
 ;;--------------------------------------
-#|
 (add-rule 
 	(defrule "Validate expression"
-		)
-|#
+		(cond 
+			((null (search ":" arg))
+				(error "The expression must be a function definition or a function evaluation, therefore it must include a ':'." ))
+			(t (generate-fn-env arg)))))
 ;:--------------------------------------
 ;; Replace some expression for parser-friendly
 ;; new expressions
 ;;--------------------------------------
 (add-rule 
 	(defrule "Replace strings for parser-friendly expressions"
-		(string-replace arg
-			; For 
-			"[" "( construct ("
-			"]" "))"
-			"," ")(")))
+		(let ((fn (getf arg :fn))
+			  (env (getf arg :env)))
+			
+			(list :fn (string-replace fn "[" "( construct ("
+										"]" "))"
+										"," ")(")
+			:env (string-replace env "<" "("
+										">" ")")))))
 ;:--------------------------------------
 ;; Convert to uppercase
 ;;--------------------------------------
 (add-rule 
-	(defrule "Convert to uppercase" (string-upcase arg)))
+	(defrule "Convert to uppercase" 
+		(let ((fn (getf arg :fn))
+			  (env (getf arg :env)))
+
+			(list :fn (string-upcase fn) :env (string-upcase env)))))
 ;:--------------------------------------
 ;; Split by " " ;
 ;;--------------------------------------
 (add-rule 
-	(defrule "Split by ' ' and ';'"
-		(string-split arg " " ";")))
+	(defrule "Split by ' ' and ';'" 
+		(let ((fn (getf arg :fn))
+			  (env (getf arg :env)))
+
+			(list :fn (string-split fn ":" " " ";") :env (string-split env "," " ") ))))
 ;:--------------------------------------
 ;; Explode by special characters
 ;;--------------------------------------
 (add-rule 
 	(defrule "Explode by special characters"
-		(string-explode arg "(" ")" "/" "=>" "[" "]" "~" "+" "-" "%" "*" "°" "°r")))
+		(let ((fn (getf arg :fn))
+			  (env (getf arg :env)))
+
+			(list :fn (string-explode fn "(" ")" "/" "=>" "[" "]" "~" "+" "-" "%" "*" "°" "°r")
+			  :env (string-explode env "(" ")")))))
 ;:--------------------------------------
 ;; Convert parenthesis in sublists
 ;;--------------------------------------
 (add-rule 
-	(defrule "Convert parenthesis in sublists" (listify arg)))
+	(defrule "Convert parenthesis in sublists" 
+		(let ((fn (getf arg :fn))
+			  (env (getf arg :env)))
+
+			(list :fn (listify fn) :env (listify env)))))
 ;:--------------------------------------
 ;; Explode by special characters
 ;;--------------------------------------
 
 (add-rule 
-	(defrule "Build tree" (build-tree arg)))
+	(defrule "Build tree" 
+		(let ((fn (getf arg :fn))
+			  (env (getf arg :env)))
+
+		(list :fn (build-tree fn) :env env))))
 ;:--------------------------------------
 ;; listify
 ;;--------------------------------------
 (defun listify (expr &optional (lists nil))
-	(debug-msg "(listify)~%")
-	(debug-msg "  expr: ~a~%" expr)
-	(debug-msg "  lists: ~a~%" lists)
-
+	(debug-msg "(listify)~%") (debug-msg "  expr: ~a~%" expr) (debug-msg "  lists: ~a~%" lists)
 	(if (atom expr)	(first lists)
 		(let* ((head (first expr))
 			   (tail (rest expr))
-			   (lists (if (null lists) (list nil) lists))
 			   (current (first lists))
 			   (next (second lists))
 			   (else (cddr lists)))
-			(debug-msg "  head: ~a~%" head)
-			(debug-msg "  current: ~a~%" current)
-			(debug-msg "  next: ~a~%" next)
-			(debug-msg "  else: ~a~%" else)
+			(debug-msg "  head: ~a~%" head) (debug-msg "  current: ~a~%" current) (debug-msg "  next: ~a~%" next) (debug-msg "  else: ~a~%" else)
 			(cond
 				((string= head "(") 
 					(listify tail (cons nil lists)))
@@ -132,4 +148,17 @@
 			(cons 
 				(apply #'make-node (cons operator (reverse (subseq operands 0 nparams))))
 				(subseq operands nparams)))))
-		
+;;----------------------------------------------
+;; generate-fn-env
+;;----------------------------------------------
+(defun generate-fn-env (arg)
+	"Generates an alist with :fn and :env"
+	(let* ((arg (string-trim " " arg))
+		  (index-def (search "def " arg))
+		  (parts (string-split arg ":"))
+		  (fn (first parts))
+		  (env (second parts)))
+		; If it's a function definition don't assign any env
+		(if (and (not (null index-def)) (zerop index-def))
+			(list :fn arg :env nil)
+			(list :fn fn :env env))))
