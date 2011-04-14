@@ -71,9 +71,6 @@
 					(listify tail (append (list (append next (list current))) else)))
 				(t
 					(listify tail (append (list (append current `(,head))) (list next) else)))))))
-			
-;(listify '("1" "+" "2" "(" "1" "/" "(" "4" "+" "8" ")" ")"))
-;0 ( 1 ( 2 ) 3 ) 4
 ;;----------------------------------------------
 ;; build-tree
 ;;----------------------------------------------
@@ -122,10 +119,14 @@
 	
 	(let* ((operator (first operators))
 		   (fn (get-function operator))
-		   (nparams (num-params fn)))		
+		   (nparams (num-params fn)))
+		; If the number of parameters specified for the function
+		; is a negative number then take all available operands
+		(if (< nparams 0) (setf nparams (length operands)))
 		(build-tree-helper
 			code
 			(rest operators)
 			(cons 
-				(apply #'make-node (append (list operator) (reverse (subseq operands 0 nparams))))
+				(apply #'make-node (cons operator (reverse (subseq operands 0 nparams))))
 				(subseq operands nparams)))))
+		

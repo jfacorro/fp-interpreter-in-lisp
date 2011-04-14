@@ -72,7 +72,7 @@
 ;; Functional forms
 ;;------------------------------------
 (add-function (def-fp-function "o" 1 #'compose 2))
-(add-function (def-fp-function "construct" 0 #'construct 2))
+(add-function (def-fp-function "construct" 0 #'construct -1))
 (add-function (def-fp-function "~" 2 #'const 1))
 (add-function (def-fp-function "=>" 0 #'fp-cond 3))
 (add-function (def-fp-function "/" 2 #'insert 1))

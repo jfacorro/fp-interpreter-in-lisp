@@ -35,7 +35,7 @@
 (in-package :com.facorro.fp.interpreter)
 ;(funcall (interpret "/ appendl") '(-1 1 1 1 (3 2)))
 ;(funcall (interpret "/ appendl") '(-1 1 1 1 (3 2)))
-(funcall (interpret "[2º, 1º]") '(1 2))
+(funcall (interpret "[2º, 1º, id]") '(1 2))
 #|
 (in-package :com.facorro.string)
 (string-explode "11.11.11.1.1111,111" "." ",")
