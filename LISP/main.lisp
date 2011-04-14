@@ -38,6 +38,7 @@
 (funcall (interpret "[2°, 1°, id]") '(1 2))
 (funcall (interpret "~fdgh") '((1 2) (3 4) (5 6)))
 (funcall (interpret "((eq o [1°, 2°]) => ~1 ; ~2)") '(1 1))
+(funcall (interpret "(eq => ~1 ; ~2)") '(1 1))
 #|
 (in-package :com.facorro.string)
 (string-explode "11.11.11.1.1111,111" "." ",")
