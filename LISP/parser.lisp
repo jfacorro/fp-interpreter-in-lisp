@@ -34,6 +34,16 @@
 ;;--------------------------------------
 ;; defrule
 ;;--------------------------------------
-(defun defrule (name func)
-	(list :name name :function func))
+(defmacro defrule (name body)
+	(let* ((arg (gensym))
+		   (body (substitute-recursive arg (intern "ARG") body)))
+		`(list :name ,name :function (lambda (,arg) ,body))))
 ;;--------------------------------------
+;; substitute-recursive
+;;--------------------------------------
+(defun substitute-recursive (s1 s2 lst)
+	(cond 
+		((listp lst)
+			(setf lst (substitute s1 s2 lst))
+			(mapcar (lambda (it) (substitute-recursive s1 s2 it)) lst))
+		(t lst)))

@@ -1,50 +1,53 @@
 (in-package :com.facorro.fp.parser)
 ;:--------------------------------------
+;; Checks that the expression contains a :
+;; which means it is either a user function
+;; definition or a function call
+;;--------------------------------------
+#|
+(add-rule 
+	(defrule "Validate expression"
+		)
+|#
+;:--------------------------------------
 ;; Replace some expression for parser-friendly
 ;; new expressions
 ;;--------------------------------------
-(add-rule (defrule
-			"Replace for parser-friendly expressions"
-			(lambda (str) 
-				(string-replace str 
-					"[" "( construct ("
-					"]" "))"
-					"," ")("))))
+(add-rule 
+	(defrule "Replace strings for parser-friendly expressions"
+		(string-replace arg
+			; For 
+			"[" "( construct ("
+			"]" "))"
+			"," ")(")))
 ;:--------------------------------------
 ;; Convert to uppercase
 ;;--------------------------------------
-(add-rule (defrule
-			"Convert to uppercase"
-			(lambda (str) (string-upcase str))))
-
+(add-rule 
+	(defrule "Convert to uppercase" (string-upcase arg)))
 ;:--------------------------------------
 ;; Split by " " ;
 ;;--------------------------------------
-(add-rule (defrule
-			"Split by space ;"
-			(lambda (str) (string-split str " " ";"))))
+(add-rule 
+	(defrule "Split by ' ' and ';'"
+		(string-split arg " " ";")))
 ;:--------------------------------------
 ;; Explode by special characters
 ;;--------------------------------------
-(add-rule (defrule 
-			"Explode by ( ) / -> [ ] ~ + - % * ° °r"
-			(lambda (lst) 
-				(string-explode lst "(" ")" "/" "=>" "[" "]" "~" "+" "-" "%" "*" "°" "°r"))))
+(add-rule 
+	(defrule "Explode by special characters"
+		(string-explode arg "(" ")" "/" "=>" "[" "]" "~" "+" "-" "%" "*" "°" "°r")))
 ;:--------------------------------------
 ;; Convert parenthesis in sublists
 ;;--------------------------------------
-(add-rule (defrule 
-			"Convert parenthesis in sublists"
-			(lambda (lst) 
-				(listify lst))))
+(add-rule 
+	(defrule "Convert parenthesis in sublists" (listify arg)))
 ;:--------------------------------------
 ;; Explode by special characters
 ;;--------------------------------------
 
-(add-rule (defrule 
-			"Build tree"
-			;(lambda (lst) lst)))			
-			(lambda (lst) (build-tree lst))))
+(add-rule 
+	(defrule "Build tree" (build-tree arg)))
 ;:--------------------------------------
 ;; listify
 ;;--------------------------------------

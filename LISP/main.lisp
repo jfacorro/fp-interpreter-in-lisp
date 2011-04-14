@@ -21,9 +21,21 @@
 
 ;-----------------------------------------
 ;(in-package :com.facorro.debug)
+;-----------------------------------------
 ;(debug-on)
 ;-----------------------------------------
-;(in-package :com.facorro.parser)
+;(in-package :com.facorro.fp.parser)
+;-----------------------------------------
+#|
+(defparameter rule (defrule "Replace strings for parser-friendly expressions"
+		(string-replace arg
+			; For 
+			"[" "( construct ("
+			"]" "))"
+			"," ")(")))
+(getf rule :function)
+(funcall (getf rule :function) "[")
+|#
 ;(parse "/appendr o(alpha(atom=>id;~<>))")
 ;(parse "((/appendr) o (alpha(atom=>id;~<>)))")
 ;-----------------------------------------
@@ -33,12 +45,12 @@
 ;(parse "[1º, 2º]")
 ;-----------------------------------------
 (in-package :com.facorro.fp.interpreter)
-;(funcall (interpret "/ appendl") '(-1 1 1 1 (3 2)))
-;(funcall (interpret "/ appendl") '(-1 1 1 1 (3 2)))
+(funcall (interpret "/ appendl") '(-1 1 1 1 (3 2)))
 (funcall (interpret "[2°, 1°, id]") '(1 2))
 (funcall (interpret "~fdgh") '((1 2) (3 4) (5 6)))
 (funcall (interpret "((eq o [1°, 2°]) => ~1 ; ~2)") '(1 1))
-(funcall (interpret "(eq => ~1 ; ~2)") '(1 1))
+(funcall (interpret "eq => ~T ; ~<>") '(1 2))
+(funcall (interpret "2° o 2°") '(1 (2 3)))
 #|
 (in-package :com.facorro.string)
 (string-explode "11.11.11.1.1111,111" "." ",")

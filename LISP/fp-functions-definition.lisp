@@ -209,7 +209,13 @@
                   (t
                    (funcall f (list (car arg) (funcall (insert f) (cdr arg))))))))
 ;;------------------------------
-; fp-alpha
+; alpha
 ;;------------------------------
 (defun alpha (f)
   (lambda (l) (mapcar f l)))
+;;------------------------------
+; def
+;;------------------------------
+(defun def (name fn)
+	"Creates a user defined function"
+	nil);(lambda (l) (mapcar f l)))

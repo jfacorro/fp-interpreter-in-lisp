@@ -71,7 +71,7 @@
 ;;------------------------------------
 ;; Functional forms
 ;;------------------------------------
-(add-function (def-fp-function "o" #'compose :precedence 0 :nparam 2))
+(add-function (def-fp-function "o" #'compose :precedence 1 :nparam 2))
 (add-function (def-fp-function "construct" #'construct :precedence 0 :nparam -1))
 (add-function (def-fp-function "~" #'const :precedence 2 :nparam 1))
 (add-function (def-fp-function "=>" #'fp-cond :precedence 0 :nparam 3))
