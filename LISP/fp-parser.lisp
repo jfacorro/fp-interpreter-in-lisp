@@ -27,9 +27,9 @@
 ;; Explode by special characters
 ;;--------------------------------------
 (add-rule (defrule 
-			"Explode by ( ) / -> [ ] ~ + - % * º ºr"
+			"Explode by ( ) / -> [ ] ~ + - % * ° °r"
 			(lambda (lst) 
-				(string-explode lst "(" ")" "/" "=>" "[" "]" "~" "+" "-" "%" "*" "º" "ºr"))))
+				(string-explode lst "(" ")" "/" "=>" "[" "]" "~" "+" "-" "%" "*" "°" "°r"))))
 ;:--------------------------------------
 ;; Convert parenthesis in sublists
 ;;--------------------------------------

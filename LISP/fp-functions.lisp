@@ -42,8 +42,8 @@
 ;; FP functions hash
 ;;----------------------------------------------
 (add-function (def-fp-function "id" 0 #'id))
-(add-function (def-fp-function "º" 2 #'selector 1))
-(add-function (def-fp-function "ºr" 2 #'selector-right 1))
+(add-function (def-fp-function "°" 3 #'selector 1))
+(add-function (def-fp-function "°r" 3 #'selector-right 1))
 (add-function (def-fp-function "tl" 0 #'tl))
 (add-function (def-fp-function "tlr" 0 #'tlr))
 (add-function (def-fp-function "atom" 0 #'fp-atom))
