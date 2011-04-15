@@ -33,7 +33,7 @@
 (defun tlr ()
   (lambda (arg)
     (cond ((<= (length arg) 1) '())
-          (t (append (list (car arg)) (funcall (fp-tlr) (cdr arg)))))))
+          (t (append (list (car arg)) (funcall (tlr) (cdr arg)))))))
 ;;------------------------------
 ; atom
 ;;------------------------------
@@ -60,7 +60,7 @@
 (defun iota ()
   (lambda (n)
     (cond ((< n 2) (list 1))
-          (t (append (funcall (fp-iota) (- n 1)) (list n))))))
+          (t (append (funcall (iota) (- n 1)) (list n))))))
 ;;------------------------------
 ; fp-distl
 ;;------------------------------
@@ -70,7 +70,7 @@
           (a (car arg)))
       (cond ((funcall (fp-null) l) '())
             (t
-             (append (list (list a (car l))) (funcall (fp-distl) (list a (cdr l)))))))))
+             (append (list (list a (car l))) (funcall (distl) (list a (cdr l)))))))))
 ;;------------------------------
 ; fp-distr
 ;;------------------------------
@@ -80,7 +80,7 @@
           (a (cadr arg)))
       (cond ((funcall (fp-null) l) '())
             (t
-             (append (list (list (car l) a)) (funcall (fp-distr) (list (cdr l) a))))))))
+             (append (list (list (car l) a)) (funcall (distr) (list (cdr l) a))))))))
 ;;------------------------------
 ; fp-length
 ;;------------------------------
@@ -129,7 +129,7 @@
   (lambda (arg)
     (cond ((funcall (fp-null) (car arg)) '())
           (t
-           (append (list (mapcar #'car arg)) (funcall (fp-trans) (mapcar #'cdr arg)))))))
+           (append (list (mapcar #'car arg)) (funcall (trans) (mapcar #'cdr arg)))))))
 ;;------------------------------
 ; and
 ;;------------------------------
@@ -166,16 +166,16 @@
 ;;------------------------------
 (defun rot ()
   (lambda (arg)
-    (funcall (fp-appendr) 
+    (funcall (appendr) 
              (list (cdr arg) (car arg)))))
 ;;------------------------------
 ; rotr
 ;;------------------------------
 (defun rotr ()
   (lambda (arg)
-    (funcall (fp-appendl) 
-             (list (funcall (fp-selector-right 1) arg) 
-                   (funcall (fp-tlr) arg)))))
+    (funcall (appendl) 
+             (list (funcall (selector-right 1) arg) 
+                   (funcall (tlr) arg)))))
 ;;------------------------------
 ; fp-compose
 ;;------------------------------
