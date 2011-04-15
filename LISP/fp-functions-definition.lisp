@@ -218,5 +218,5 @@
 ;;------------------------------
 (defun def (name fn)
 	"Creates a user defined function"
-	(lambda () 
-		(add-function (def-fp-function name fn))))
+	(lambda ()
+		(add-function (def-fp-function name (lambda () fn)))))

@@ -1,5 +1,5 @@
-(defparameter *filepath* "C:\\Juan\\02.Personal\\Dropbox\\Facultad\\2011.1er.75.14.Lenguajes.Formales\\fp-interpreter-in-lisp\\LISP\\")
-;(defparameter *filepath* "C:\\JF\\My DropBox\\Facultad\\2011.1er.75.14.Lenguajes.Formales\\fp-interpreter-in-lisp\\LISP\\")
+;(defparameter *filepath* "C:\\Juan\\02.Personal\\Dropbox\\Facultad\\2011.1er.75.14.Lenguajes.Formales\\fp-interpreter-in-lisp\\LISP\\")
+(defparameter *filepath* "C:\\JF\\My DropBox\\Facultad\\2011.1er.75.14.Lenguajes.Formales\\fp-interpreter-in-lisp\\LISP\\")
 ;----------------------------------------------------
 (defun compile-load (file-name &optional (v nil) (p nil))
 		(load (compile-file (concatenate 'string *filepath* file-name) :verbose v :print p) :verbose v :print p))
@@ -70,7 +70,7 @@
 ;(interpret "2°: <1 <2 3> 4>")
 (get-function "ID")
 (interpret "id : <1 2 3>")
-(interpret "def new : id")
-(interpret "(new) : <1 2 3>")
+(interpret "def new : eq o [1°, 2°]")
+(interpret "(new) : <1 1>")
 
 ;-----------------------------------------
