@@ -22,7 +22,7 @@
 ;-----------------------------------------
 (in-package :com.facorro.debug)
 ;-----------------------------------------
-(debug-on :com.facorro.parser)
+;(debug-on :com.facorro.parser)
 ;-----------------------------------------
 (in-package :com.facorro.fp.parser)
 ;-----------------------------------------
@@ -66,8 +66,9 @@
 ;(interpret "2°: <1 <2 3> 4>")
 ;(get-function "ID")
 (interpret "id : <1, 2, 3>")
-(interpret "id o 1° : <1, 2, 3>")
-(interpret "1°r : <1 2 3>")
+(interpret "1° : <1, 2, 3>")
+(interpret "1°r : <1, 2, 3>")
+(interpret "eq o [1°r, 1°] : <1 2 1>")
 ;(interpret "def new : eq o [1°, 2°]")
 ;(interpret "(new) : <1 1>")
 ;-----------------------------------------
