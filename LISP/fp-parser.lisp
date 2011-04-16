@@ -50,7 +50,7 @@
 		(let ((fn (getf arg :fn))
 			  (env (getf arg :env)))
 
-			(list :fn (string-explode fn "(" ")" "/" "=>" "[" "]" "~" "+" "-" "%" "*" "°" "°r")
+			(list :fn (string-explode-sequentially fn "(" ")" "/" "=>" ">" "<" "[" "]" "~" "+" "-" "%" "*" "°R" "°")
 			  :env (string-explode env "(" ")")))))
 ;:--------------------------------------
 ;; Convert parenthesis in sublists

@@ -91,4 +91,41 @@
 ;; string-explode-sequentially
 ;;----------------------------------------------
 (defun string-explode-sequentially (str &rest delims)
-	nil)
+	"Explodes a string (or a list of strings) 
+	searching sequentially for the first matching 
+	delimiter"
+	(cond
+		((listp str)
+			(debug-msg :com.facorro.string "It's a list!~%")
+			(flatten 
+				(mapcar 
+					(lambda (item) 
+						(apply #'string-explode-sequentially (append `(,item) delims))) str)))			
+		((stringp str)
+			(debug-msg :com.facorro.string "It's a string!~%")
+			(setf result nil)
+			(setf len (length str))
+			(setf pos 0)
+			(loop (if (>= pos len) (return))
+				(debug-msg :com.facorro.string "Looping from pos = ~a and len = ~a!~%" pos len)
+				(setf exploded nil)
+				; Run through every delimiter sequentially
+				(dolist (delim delims)
+					(setf len-delim (length delim))
+					(setf index (search delim str))
+					(debug-msg :com.facorro.string "Index = ~a!~%" index)
+					; If the delimiter begins in the current position
+					; then explode and terminate the dolist
+					(cond
+						((and (not (null index)) (= pos index))
+							(setf start (if (zerop index) nil (list (subseq str 0 pos))))
+							(setf result (append result start `(,delim)))
+							(setf str (subseq str (+ pos len-delim)))
+							(setf pos 0)
+							(setf len (length str))
+							(setf exploded t))))
+				(if (not exploded) (setf pos (1+ pos))))
+				(append result (if (empty-string? str) nil `(,str))))
+		(t 
+			(debug-msg :com.facorro.string "It's none of the above!~%")
+			str)))
