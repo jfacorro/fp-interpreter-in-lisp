@@ -17,17 +17,3 @@
 		  (t 
 			(setf (rest node) (append (rest node) (list child))))))
 ;------------------------------------
-#|
-(defparameter *tree* nil)
-(setf *tree* (make-node 'root))
-(atom (rest *tree*))
-(add-child *tree* (make-node 'child1))
-*tree*
-(add-child *tree* (make-node 'child2))
-*tree*
-;(make-node 'element (make-node 'bla) (make-node 'bla))
-(children *tree* )
-*tree*
-(add-child (first (children *tree*)) (make-node 'child2-child1))
-*tree*
-|#

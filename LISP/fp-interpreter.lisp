@@ -11,7 +11,7 @@
 		; Evaluate env
 		(setf env (evaluate-env env))
 
-		(debug-msg "fn: ~a~%" fn)
-		(debug-msg "env: ~a~%" env)
+		(debug-msg :com.facorro.fp.interpreter "fn: ~a~%" fn)
+		(debug-msg :com.facorro.fp.interpreter "env: ~a~%" env)
 
 		(apply fn env)))

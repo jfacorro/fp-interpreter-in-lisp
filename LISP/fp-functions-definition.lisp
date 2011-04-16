@@ -4,7 +4,7 @@
 ;;------------------------------
 (defun id ()	
 	(lambda (arg) 
-		(debug-msg "(id) arg: ~a~%" arg)
+		(debug-msg :com.facorro.fp.functions "(id) arg: ~a~%" arg)
 		arg))
 ;;------------------------------
 ;; selector

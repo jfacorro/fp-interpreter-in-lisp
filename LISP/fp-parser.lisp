@@ -74,14 +74,19 @@
 ;; listify
 ;;--------------------------------------
 (defun listify (expr &optional (lists nil))
-	(debug-msg "(listify)~%") (debug-msg "  expr: ~a~%" expr) (debug-msg "  lists: ~a~%" lists)
+	(debug-msg :com.facorro.fp.parser "(listify)~%")
+	(debug-msg :com.facorro.fp.parser "  expr: ~a~%" expr)
+	(debug-msg :com.facorro.fp.parser "  lists: ~a~%" lists)
 	(if (atom expr)	(first lists)
 		(let* ((head (first expr))
 			   (tail (rest expr))
 			   (current (first lists))
 			   (next (second lists))
 			   (else (cddr lists)))
-			(debug-msg "  head: ~a~%" head) (debug-msg "  current: ~a~%" current) (debug-msg "  next: ~a~%" next) (debug-msg "  else: ~a~%" else)
+			(debug-msg :com.facorro.fp.parser "  head: ~a~%" head)
+			(debug-msg :com.facorro.fp.parser "  current: ~a~%" current)
+			(debug-msg :com.facorro.fp.parser "  next: ~a~%" next)
+			(debug-msg :com.facorro.fp.parser "  else: ~a~%" else)
 			(cond
 				((string= head "(") 
 					(listify tail (cons nil lists)))
@@ -93,17 +98,16 @@
 ;; build-tree
 ;;----------------------------------------------
 (defun build-tree (lst)
-	(debug-msg "build-tree \"~a\"~%" lst)
+	(debug-msg :com.facorro.fp.parser "build-tree \"~a\"~%" lst)
 	(build-tree-helper lst nil nil))
 ;;----------------------------------------------
 ;; build-tree-helper
 ;;----------------------------------------------
 (defun build-tree-helper (code operators operands)
-	(debug-msg "build-tree-helper~%")
-	(debug-msg "  code: ~a~%" code)
-	(debug-msg "  operators: ~a~%" operators)
-	(debug-msg "  operands: ~a~%" operands)
-
+	(debug-msg :com.facorro.fp.parser "build-tree-helper~%")
+	(debug-msg :com.facorro.fp.parser "  code: ~a~%" code)
+	(debug-msg :com.facorro.fp.parser "  operators: ~a~%" operators)
+	(debug-msg :com.facorro.fp.parser "  operands: ~a~%" operands)
 	(let* ((token (first code))		   
 		   (fn (get-function token)))
 		;(format t "  token: \"~a\"~%" token)
@@ -130,11 +134,10 @@
 ;; handle-operator
 ;;----------------------------------------------
 (defun handle-operator (code operators operands)
-	(debug-msg "handle-operator~%")
-	(debug-msg "  code: ~a~%" code)
-	(debug-msg "  operators: ~a~%" operators)
-	(debug-msg "  operands: ~a~%" operands)
-	
+	(debug-msg :com.facorro.fp.parser "handle-operator~%")
+	(debug-msg :com.facorro.fp.parser "  code: ~a~%" code)
+	(debug-msg :com.facorro.fp.parser "  operators: ~a~%" operators)
+	(debug-msg :com.facorro.fp.parser "  operands: ~a~%" operands)
 	(let* ((operator (first operators))
 		   (fn (get-function operator))
 		   (nparams (num-params fn)))
