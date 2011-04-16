@@ -3,7 +3,7 @@
 	(:use 
 		:common-lisp)
 	(:export
-		:*debugging*
+		:*debugging-package?*
 		:debugging?
 		:debug-on
 		:debug-off
@@ -37,7 +37,7 @@
 		:add-rule
 		:parse
 		:apply-rule
-		:defrule))
+		:make-rule))
 ;----------------------------------------------------
 (defpackage :com.facorro.fp.functions
 	(:use 

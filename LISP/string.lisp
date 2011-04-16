@@ -61,15 +61,18 @@
 ;;----------------------------------------------
 ;; empty-string
 ;;----------------------------------------------
-(defun empty-string? (str)	
+(defun empty-string? (str)
 	(string= "" str))
 ;;----------------------------------------------
 ;; string-replace
 ;;----------------------------------------------
 (defun string-replace (str &rest substrs)
-	(debug-msg "string-replace~%")
-	(debug-msg "  str: ~a~%" str)
-	(debug-msg "  substrs: ~a~%" substrs)
+	"Replace a series of substrings for others by 
+	exploding the whole string with the first one, 
+	replacing and then concatenating"
+	(debug-msg :com.facorro.string "string-replace~%")
+	(debug-msg :com.facorro.string "  str: ~a~%" str)
+	(debug-msg :com.facorro.string "  substrs: ~a~%" substrs)
 	(let* ((substr1 (first substrs))
 		   (substr2 (second substrs))
 		   (expl-str (string-explode str substr1))
@@ -80,6 +83,12 @@
 		; Concatenate all loose string in the list
 		(setf result-str (apply #'concatenate (append '(string) result-str)))
 		; If there are still replacements, keep going
-		(if (not (null (cddr substrs)))
-			(apply #'string-replace (append (list result-str) (cddr substrs)))
+		(setf substrs (cddr substrs))
+		(if (not (null substrs))
+			(apply #'string-replace (append (list result-str) substrs))
 			result-str)))
+;;----------------------------------------------
+;; string-explode-sequentially
+;;----------------------------------------------
+(defun string-explode-sequentially (str &rest delims)
+	nil)

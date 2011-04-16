@@ -1,5 +1,5 @@
-(defparameter *filepath* "C:\\Juan\\02.Personal\\Dropbox\\Facultad\\2011.1er.75.14.Lenguajes.Formales\\fp-interpreter-in-lisp\\LISP\\")
-;(defparameter *filepath* "C:\\JF\\My DropBox\\Facultad\\2011.1er.75.14.Lenguajes.Formales\\fp-interpreter-in-lisp\\LISP\\")
+;(defparameter *filepath* "C:\\Juan\\02.Personal\\Dropbox\\Facultad\\2011.1er.75.14.Lenguajes.Formales\\fp-interpreter-in-lisp\\LISP\\")
+(defparameter *filepath* "C:\\JF\\My DropBox\\Facultad\\2011.1er.75.14.Lenguajes.Formales\\fp-interpreter-in-lisp\\LISP\\")
 ;----------------------------------------------------
 (defun compile-load (file-name &optional (v nil) (p nil))
 		(load (compile-file (concatenate 'string *filepath* file-name) :verbose v :print p) :verbose v :print p))
@@ -22,7 +22,7 @@
 ;-----------------------------------------
 (in-package :com.facorro.debug)
 ;-----------------------------------------
-;(debug-on)
+(debug-on :com.facorro.parser)
 ;-----------------------------------------
 (in-package :com.facorro.fp.parser)
 ;-----------------------------------------
@@ -65,10 +65,11 @@
 ;(interpret "2° o 2° : <1, <2, 3>, 4>")
 ;(interpret "2°: <1 <2 3> 4>")
 ;(get-function "ID")
-;(interpret "id : <1 2 3>")
+(interpret "id : <1 2 3>")
 ;(interpret "def new : eq o [1°, 2°]")
 ;(interpret "(new) : <1 1>")
 ;-----------------------------------------
 (in-package :com.facorro.fp.repl)
+
 ;-----------------------------------------
 ;(fp-repl)

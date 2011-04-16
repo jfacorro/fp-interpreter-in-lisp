@@ -5,7 +5,7 @@
 ;; definition or a function call
 ;;--------------------------------------
 (add-rule 
-	(defrule "Validate expression"
+	(make-rule "Validate expression"
 		(cond 
 			((null (search ":" arg))
 				(error "The expression must be a function definition or a function evaluation, therefore it must include a ':'." ))
@@ -15,7 +15,7 @@
 ;; new expressions
 ;;--------------------------------------
 (add-rule 
-	(defrule "Replace strings for parser-friendly expressions"
+	(make-rule "Replace strings for parser-friendly expressions"
 		(let ((fn (getf arg :fn))
 			  (env (getf arg :env)))
 			
@@ -28,7 +28,7 @@
 ;; Convert to uppercase
 ;;--------------------------------------
 (add-rule 
-	(defrule "Convert to uppercase" 
+	(make-rule "Convert to uppercase" 
 		(let ((fn (getf arg :fn))
 			  (env (getf arg :env)))
 
@@ -37,7 +37,7 @@
 ;; Split by " " ;
 ;;--------------------------------------
 (add-rule 
-	(defrule "Split by ' ' and ';'" 
+	(make-rule "Split by ' ' and ';'" 
 		(let ((fn (getf arg :fn))
 			  (env (getf arg :env)))
 
@@ -46,7 +46,7 @@
 ;; Explode by special characters
 ;;--------------------------------------
 (add-rule 
-	(defrule "Explode by special characters"
+	(make-rule "Explode by special characters"
 		(let ((fn (getf arg :fn))
 			  (env (getf arg :env)))
 
@@ -56,7 +56,7 @@
 ;; Convert parenthesis in sublists
 ;;--------------------------------------
 (add-rule 
-	(defrule "Convert parenthesis in sublists" 
+	(make-rule "Convert parenthesis in sublists" 
 		(let ((fn (getf arg :fn))
 			  (env (getf arg :env)))
 
@@ -64,9 +64,8 @@
 ;:--------------------------------------
 ;; Explode by special characters
 ;;--------------------------------------
-
 (add-rule 
-	(defrule "Build tree" 
+	(make-rule "Build tree" 
 		(let ((fn (getf arg :fn))
 			  (env (getf arg :env)))
 

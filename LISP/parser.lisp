@@ -20,11 +20,11 @@
 	(if (null *rules*) expr (apply-rules expr *rules*)))
 
 (defun apply-rules (expr rules)
-	(debug-msg "Applying rule: ~a~%" (getf (first rules) :name))
+	(debug-msg :com.facorro.parser "Applying rule: ~a~%" (getf (first rules) :name))
 	(let* ((rule (car rules))
 		   (remain (rest rules))
 		   (changed-code (apply-rule rule expr)))
-		(debug-msg "Result rule: ~a~%" changed-code)
+		(debug-msg :com.facorro.parser "Result rule: ~a~%" changed-code)
 		(if (null remain) changed-code (apply-rules changed-code remain))))
 ;;--------------------------------------
 ;; apply-rule
@@ -34,7 +34,8 @@
 ;;--------------------------------------
 ;; defrule
 ;;--------------------------------------
-(defmacro defrule (name body)
+(defmacro make-rule (name body)
+	"Creates a parsing rule"
 	(let* ((arg (gensym))
 		   (body (substitute-recursive arg (intern "ARG") body)))
 		`(list :name ,name :function (lambda (,arg) ,body))))
@@ -42,6 +43,7 @@
 ;; substitute-recursive
 ;;--------------------------------------
 (defun substitute-recursive (s1 s2 lst)
+	"Substitutes a symbol s2 for s1 in the list and its sublists recursively"
 	(cond 
 		((listp lst)
 			(setf lst (substitute s1 s2 lst))
