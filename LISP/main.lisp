@@ -18,4 +18,17 @@
 	(compile-load "fp-evaluator.lisp")
 	(compile-load "fp-repl.lisp" nil nil))
 
-(com.facorro.fp.repl:fp-repl)
+;--------------------------------------
+; Main
+;--------------------------------------
+(defun main ()
+	(com.facorro.fp.repl:fp-repl)
+	(EXT:EXIT))
+;--------------------------------------
+; Generate execeutable
+;--------------------------------------
+(EXT:SAVEINITMEM "executable.exe"
+                 :QUIET t
+                 :INIT-FUNCTION 'main
+                 :EXECUTABLE t
+                 :NORC t)
