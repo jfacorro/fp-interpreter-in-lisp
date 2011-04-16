@@ -131,3 +131,17 @@
 		(t 
 			(debug-msg :com.facorro.string "It's none of the above!~%")
 			str)))
+;;----------------------------------------------
+;; string-insert-alt
+;;----------------------------------------------
+(defun insert-between (str delim)
+	"Insert an element in bewteen a lists elements"
+	(cond
+		((null str) nil)
+		((null (rest str)) (list (first str)))
+		(t
+			(append `(,(first str)) `(,delim) (insert-between (rest str) delim)))))
+
+
+
+

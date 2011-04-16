@@ -27,7 +27,9 @@
 		:string-split
 		:string-explode
 		:string-explode-sequentially
-		:string-replace))
+		:string-replace
+		:flatten
+		:insert-between))
 ;----------------------------------------------------
 (defpackage :com.facorro.parser
 	(:use 
@@ -49,6 +51,9 @@
 		:operand?
 		:precedence
 		:num-params
+		:*false-value*
+		:*true-value*
+		:*empty-list-value*
 		:*functions*))
 ;----------------------------------------------------
 (defpackage :com.facorro.fp.parser
@@ -65,10 +70,12 @@
 		:common-lisp
 		:com.facorro.debug
 		:com.facorro.fp.functions
-		:com.facorro.tree)
+		:com.facorro.tree
+		:com.facorro.string)
 	(:export
 		:evaluate
-		:evaluate-env))
+		:evaluate-env
+		:desymbolize))
 ;----------------------------------------------------
 (defpackage :com.facorro.test
 	(:use :common-lisp)

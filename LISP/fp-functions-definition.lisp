@@ -1,54 +1,64 @@
 (in-package :com.facorro.fp.functions)
 ;;------------------------------
+;; Constante FP values
+;;------------------------------
+(defconstant *false-value* "F")
+(defconstant *true-value* "T")
+(defconstant *empty-list-value* "<>")
+;;------------------------------
 ;; id
 ;;------------------------------
 (defun id ()	
-	(lambda (arg) 
+	(lambda (arg)
 		(debug-msg :com.facorro.fp.functions "(id) arg: ~a~%" arg)
 		arg))
 ;;------------------------------
 ;; selector
 ;;------------------------------
 (defun selector (n)
-  (lambda (arg)
-    (cond ((> n 1) (funcall (selector (- n 1)) (cdr arg)))
-          (t (car arg)))))
+	(lambda (arg)
+		(cond 
+			((> n 1) (funcall (selector (- n 1)) (cdr arg)))
+			(t (car arg)))))
 ;;------------------------------
 ; selector-right
 ;;------------------------------
 (defun selector-right (n)
   (lambda (arg)
-    (cond ((> (length arg) 0)
-           (cond ((= n (length arg)) (car arg))
-                 (t (funcall (selector-right n) (cdr arg)))))
-          (t '()))))
+    (cond 
+		((> (length arg) 0)
+           (cond 
+				((= n (length arg)) (car arg))
+				(t (funcall (selector-right n) (cdr arg)))))
+		(t nil))))
 ;;------------------------------
 ; tl (tail)
 ;;------------------------------
 (defun tl ()
-  (lambda (arg) (cdr arg)))
+	(lambda (arg) (cdr arg)))
 ;;------------------------------
 ; tlr (tail right)
 ;;------------------------------
 (defun tlr ()
-  (lambda (arg)
-    (cond ((<= (length arg) 1) '())
-          (t (append (list (car arg)) (funcall (tlr) (cdr arg)))))))
+	(lambda (arg)
+		(cond 
+			((<= (length arg) 1) nil)
+			(t (append (list (car arg)) (funcall (tlr) (cdr arg)))))))
 ;;------------------------------
 ; atom
 ;;------------------------------
 (defun fp-atom ()
-  (lambda (arg) (atom arg)))
+	(lambda (arg) (get-truth-value (atom arg))))
 ;;------------------------------
 ; eq
 ;;------------------------------
 (defun fp-eq ()
-  (lambda (arg) (eql (car arg) (cadr arg))))
+	(lambda (arg) (get-truth-value (equal (car arg) (cadr arg)))))
 ;;------------------------------
 ; fp-null
 ;;------------------------------
 (defun fp-null ()
-  (lambda (arg) (eql arg '())))
+	(lambda (arg) (get-truth-value (null arg))))
 ;;------------------------------
 ; fp-reverse
 ;;------------------------------
@@ -65,12 +75,13 @@
 ; fp-distl
 ;;------------------------------
 (defun distl ()
-  (lambda (arg)
-    (let ((l (cadr arg))
-          (a (car arg)))
-      (cond ((funcall (fp-null) l) '())
-            (t
-             (append (list (list a (car l))) (funcall (distl) (list a (cdr l)))))))))
+	(lambda (arg)
+		(let ((l (cadr arg))
+             (a (car arg)))
+			(cond 
+				((funcall (fp-null) l) nil)
+				(t
+					(append (list (list a (car l))) (funcall (distl) (list a (cdr l)))))))))
 ;;------------------------------
 ; fp-distr
 ;;------------------------------
@@ -78,7 +89,7 @@
   (lambda (arg)
     (let ((l (car arg))
           (a (cadr arg)))
-      (cond ((funcall (fp-null) l) '())
+      (cond ((funcall (fp-null) l) nil)
             (t
              (append (list (list (car l) a)) (funcall (distr) (list (cdr l) a))))))))
 ;;------------------------------
@@ -116,35 +127,50 @@
 ; <
 ;;------------------------------
 (defun fp-< ()
-  (make-fp-operator #'<))
+	(lambda (arg)
+		(get-truth-value (< (first arg) (second arg)))))
+	;(make-fp-operator #'<))
 ;;------------------------------
 ; >
 ;;------------------------------
 (defun fp-> ()
-  (make-fp-operator #'>))
+	(lambda (arg)
+		(get-truth-value (> (first arg) (second arg)))))
 ;;------------------------------
 ; trans
 ;;------------------------------
 (defun trans ()
   (lambda (arg)
-    (cond ((funcall (fp-null) (car arg)) '())
+    (cond ((funcall (fp-null) (car arg)) nil)
           (t
            (append (list (mapcar #'car arg)) (funcall (trans) (mapcar #'cdr arg)))))))
 ;;------------------------------
 ; and
 ;;------------------------------
 (defun fp-and ()
-  (lambda (arg) (eval (append (list 'and) arg))))
+	(lambda (arg)
+		(get-truth-value (eval (append '(and) (map-truth-values arg))))))
 ;;------------------------------
-; or
+;; or
 ;;------------------------------
 (defun fp-or ()
-  (lambda (arg) (eval (append (list 'or) arg))))
+	(lambda (arg)
+		(get-truth-value (eval (append '(or) (map-truth-values arg))))))
 ;;------------------------------
-; not
+;; map-truth-values
+;;------------------------------
+(defun map-truth-values (arg)
+	(mapcar (lambda (val) (equal val *true-value*)) arg))
+;;------------------------------
+;; get-truth-value
+;;------------------------------
+(defun get-truth-value (data)
+	(if data *true-value* *false-value*))
+;;------------------------------
+;; not
 ;;------------------------------
 (defun fp-not ()
-  (lambda (arg) (not arg)))
+	(lambda (arg) (if (not arg) *true-value* *false-value*)))
 ;;------------------------------
 ; fp-appendl
 ;;------------------------------
@@ -203,7 +229,7 @@
 ;;------------------------------
 (defun insert (f)
   (lambda (arg) (cond
-                  ((funcall (fp-null) arg) '())
+                  ((funcall (fp-null) arg) nil)
                   ((= (length arg) 1) (car arg))
                   ((= (length arg) 2) (funcall f (list (car arg) (cadr arg))))
                   (t
@@ -219,4 +245,5 @@
 (defun def (name fn)
 	"Creates a user defined function"
 	(lambda ()
-		(add-function (def-fp-function name (lambda () fn)))))
+		(add-function (def-fp-function name (lambda () fn)))
+		(concatenate 'string "FUNCTION " name " DEFINED")))

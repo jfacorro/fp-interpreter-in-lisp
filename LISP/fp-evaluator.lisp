@@ -24,14 +24,27 @@
 (defun evaluate-env (env)
 	(symbolize env))
 ;;----------------------------------------
-;; Evaluates the FP tree
+;; Maps an FP string to a value
 ;;----------------------------------------
 (defun map-to-value (data)
 	"Maps a string to a value"
 	(cond 
 		((string= data "<>") nil)
 		((numericp data) (parse-integer data :junk-allowed t))
-		(t (intern (string-upcase data)))))
+		(t 
+			(cond 
+				((equal *true-value* data) *true-value*)
+				((equal *false-value* data) *false-value*)
+				((equal *empty-list-value* data) *empty-list-value*)
+				(t data)))))					
+;;----------------------------------------
+;; Evaluates the FP tree
+;;----------------------------------------
+(defun map-to-fp-value (data)
+	(cond 
+		((null data) *empty-list-value*)
+		((numberp data) (write-to-string data))
+		(t (string data))))
 ;;----------------------------------------------
 ;; numericp
 ;;----------------------------------------------
@@ -43,13 +56,21 @@
 ;;----------------------------------------------
 (defun symbolize (data)
 	"Converts all string elements in symbols or numbers"
-	(cond ((null data) data)
+	(cond 
+		((null data) data)
 		((atom data) (map-to-value data))
-		(t
-			(mapcar #'symbolize data))))
-
-
-
-
-
-
+		(t (mapcar #'symbolize data))))
+;;----------------------------------------------
+;; desymbolize
+;;----------------------------------------------
+(defun desymbolize (data)
+	(cond 
+		((null data) (map-to-fp-value data))
+		((atom data) (map-to-fp-value data))
+		(t 
+			(let ((result nil))
+				(setf result (mapcar #'desymbolize data))
+				(setf result (insert-between result ", "))
+				(setf result (append '("<") result '(">")))
+				(setf result (flatten result))
+				(setf result (apply #'concatenate (append '(string) result)))))))
