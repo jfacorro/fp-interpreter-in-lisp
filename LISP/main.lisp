@@ -66,9 +66,9 @@
 ;(interpret "2°: <1 <2 3> 4>")
 ;(get-function "ID")
 (interpret "id : <1, 2, 3>")
-(interpret "1° : <1, 2, 3>")
-(interpret "1°r : <1, 2, 3>")
-(interpret "eq o [1°r, 1°] : <1 2 1>")
+(interpret "1# : <1, 2, 3>")
+(interpret "1#r : <1, 2, 3>")
+(interpret "eq o [1#r, 1#] : <1 2 1>")
 ;(interpret "def new : eq o [1°, 2°]")
 ;(interpret "(new) : <1 1>")
 ;-----------------------------------------

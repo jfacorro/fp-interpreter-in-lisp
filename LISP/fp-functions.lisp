@@ -42,8 +42,8 @@
 ;; FP functions
 ;;----------------------------------------------
 (add-function (def-fp-function "id" #'id))
-(add-function (def-fp-function "°" #'selector :precedence 3 :nparam 1))
-(add-function (def-fp-function "°r" #'selector-right :precedence 3 :nparam 1))
+(add-function (def-fp-function "#" #'selector :precedence 3 :nparam 1))
+(add-function (def-fp-function "#r" #'selector-right :precedence 3 :nparam 1))
 (add-function (def-fp-function "tl" #'tl))
 (add-function (def-fp-function "tlr" #'tlr))
 (add-function (def-fp-function "atom" #'fp-atom))
