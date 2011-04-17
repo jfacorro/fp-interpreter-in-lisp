@@ -29,6 +29,7 @@
 	(let* ((expl-expr (string-split expr " "))
 		    (cmd (first expl-expr)))
 		(cond 
+			((empty-string? expr) nil)
 			((equal cmd *help*) (help))
 			((equal cmd *debug*) (debug-on-off))
 			((equal cmd *load*) (load-script expl-expr))

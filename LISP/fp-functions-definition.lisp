@@ -38,21 +38,21 @@
 ;;------------------------------
 (defun tlr ()
 	(lambda (arg)
-		(debug-msg :com.facorro.fp.functions "(tail right) arg: ~a~%" arg)
+		(debug-msg :com.facorro.fp.functions "(tlr) arg: ~a~%" arg)
 		(reverse (rest (reverse arg)))))
 ;;------------------------------
 ; atom
 ;;------------------------------
 (defun fp-atom ()	
 	(lambda (arg) 
-		(debug-msg :com.facorro.fp.functions "(fp-atom) arg: ~a~%" arg)
+		(debug-msg :com.facorro.fp.functions "(atom) arg: ~a~%" arg)
 		(get-truth-value (atom arg))))
 ;;------------------------------
 ; eq
 ;;------------------------------
 (defun fp-eq ()
 	(lambda (arg) 
-		(debug-msg :com.facorro.fp.functions "(fp-eq) arg: ~a~%" arg)
+		(debug-msg :com.facorro.fp.functions "(eq) arg: ~a~%" arg)
 		(get-truth-value (equal (car arg) (cadr arg)))))
 ;;------------------------------
 ; fp-null
@@ -186,9 +186,10 @@
 ;;------------------------------
 ;; not
 ;;------------------------------
-(defun fp-not ()
-	(debug-msg :com.facorro.fp.functions "(not) arg: ~a~%" arg)
-	(lambda (arg) (if (not (get-lisp-truth-value arg)) *true-value* *false-value*)))
+(defun fp-not ()	
+	(lambda (arg) 
+		(debug-msg :com.facorro.fp.functions "(not) arg: ~a~%" arg)
+		(if (not (get-lisp-truth-value arg)) *true-value* *false-value*)))
 ;;------------------------------
 ; fp-appendl
 ;;------------------------------
