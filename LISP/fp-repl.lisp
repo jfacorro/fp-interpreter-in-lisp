@@ -11,13 +11,21 @@
 ;;;fp-repl
 ;;;---------------------------------------------------
 (defun fp-repl ()
-	(format t "~%")
+	(welcome-msg)
 	(loop
 		(show-prompt)
 		(let ((expr (read-line)))
 			(cond 
 				((quit? expr) (return "Bye"))
 				(t (handle-input expr))))))
+;;---------------------------------------------------
+;;show-prompt
+;;---------------------------------------------------
+(defun welcome-msg ()
+	(format t "-----------------------------------~%")
+	(format t "Welcome to the lisp FP interpreter!~%")
+	(format t "-----------------------------------~%")
+	(format t "You can type 'help' tp get some directions.~%"))
 ;;---------------------------------------------------
 ;;show-prompt
 ;;---------------------------------------------------
