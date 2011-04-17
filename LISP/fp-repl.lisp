@@ -45,13 +45,25 @@
 ;; help
 ;;---------------------------------------------------
 (defun help ()
+	(format t "-----------------------------------~%")
 	(format t "FP Interpreter (in LISP)~%")
+	(format t "-----------------------------------~%")
 	(format t "Type:~%")
-	(format t "	help				for this information.~%")
-	(format t "	load [filepath]	to load a file containing FP code in the environment.~%")
-	(format t "	FP expression		to be evaluated. It can be:~%")
-	(format t "						 - User function defintion.~%")
-	(format t "						 - FP expresion with it's argument.~%"))
+	(format t "~%")
+	(format t "  help             for this information.~%")
+	(format t "~%")
+	(format t "  load [filepath]  to load a file containing FP code into the environment.~%")
+	(format t "~%")
+	(format t "  debug            switches debugging messages on and off.~%")
+	(format t "~%")
+	(format t "  reset            deletes all user defined functions.~%")
+	(format t "~%")
+	(format t "  quit             to exit the interpreter.~%")
+	(format t "~%")
+	(format t "  [expression]     to be evaluated. It can be:~%")
+	(format t "                     - User function defintion.~%")
+	(format t "                     - FP expresion with it's argument.~%")
+	(format t "~%"))
 ;;---------------------------------------------------
 ;; interpret-and-print
 ;;---------------------------------------------------
