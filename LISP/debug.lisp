@@ -10,8 +10,7 @@
 
 (defun debug-off (name)
 	"If the package had been registered for debugging sets it off"
-	(let ((debugging (gethash name *debugging-package?*)))
-		(if (not (null debugging)) (setf debugging nil))))
+	(setf (gethash name *debugging-package?*) nil))
 
 (defun debug-msg (name &rest args)
 	"Show debug message for registered group with the value in name"

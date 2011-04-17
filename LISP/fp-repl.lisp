@@ -4,6 +4,7 @@
 ;;----------------------------------------------------
 (defconstant *quit* "quit")
 (defconstant *load* "load")
+(defconstant *debug* "debug")
 (defconstant *help* "help")
 ;;----------------------------------------------------
 ;;;fp-repl
@@ -29,6 +30,7 @@
 		    (cmd (first expl-expr)))
 		(cond 
 			((equal cmd *help*) (help))
+			((equal cmd *debug*) (debug-on-off))
 			((equal cmd *load*) (load-script expl-expr))
 			(t (interpret-and-print expr)))))
 ;;---------------------------------------------------
@@ -67,3 +69,14 @@
 						((null line))
 						(interpret-and-print line))
 					(format t "Script loaded...~%"))))))
+;;---------------------------------------------------
+;; debug-on-off
+;;---------------------------------------------------
+(defun debug-on-off ()
+	(cond 
+		((debugging? :com.facorro.fp.functions)
+			(format t "Debugging off~%")
+			(debug-off :com.facorro.fp.functions))
+		(t	
+			(format t "Debugging on~%")	
+			(debug-on :com.facorro.fp.functions))))
