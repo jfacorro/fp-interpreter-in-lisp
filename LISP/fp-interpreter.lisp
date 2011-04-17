@@ -3,15 +3,17 @@
 ;; fp-interpret
 ;;----------------------------------------------
 (defun interpret (code)
-	(let* ((parse-result (parse code))
-		   (fn (getf parse-result :fn))
-		   (env (getf parse-result :env)))
-		; Evaluate parse-tree
-		(setf fn (evaluate fn))
-		; Evaluate env
-		(setf env (evaluate-env env))
+	(handler-case 
+		(let* ((parse-result (parse code))
+			   (fn (getf parse-result :fn))
+			   (env (getf parse-result :env)))
+			; Evaluate parse-tree
+			(setf fn (evaluate fn))
+			; Evaluate env
+			(setf env (evaluate-env env))
 
-		(debug-msg :com.facorro.fp.interpreter "fn: ~a~%" fn)
-		(debug-msg :com.facorro.fp.interpreter "env: ~a~%" env)
+			(debug-msg :com.facorro.fp.interpreter "fn: ~a~%" fn)
+			(debug-msg :com.facorro.fp.interpreter "env: ~a~%" env)
 
-		(desymbolize (apply fn env))))
+			(desymbolize (apply fn env)))
+		(condition (c) (format t "~a~%" c))))

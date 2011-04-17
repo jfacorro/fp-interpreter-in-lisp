@@ -14,9 +14,7 @@
 ;;--------------------------------------
 (defun parse (expr)
 	"Applies rules in the order they were added and returns the last result"
-
-	(when (not (stringp expr)) 
-		(error "PARSE: expr should be a string"))
+	(unless (stringp expr) (error "PARSE: expr should be a string"))
 	(if (null *rules*) expr (apply-rules expr *rules*)))
 
 (defun apply-rules (expr rules)
