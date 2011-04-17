@@ -51,7 +51,8 @@
 ;; interpret-and-print
 ;;---------------------------------------------------
 (defun interpret-and-print (expr)
-	(format t "~a~%" (interpret expr)))
+	(let ((result (interpret expr)))
+		(unless (null result) (format t "~a~%" result))))
 ;;---------------------------------------------------
 ;; help
 ;;---------------------------------------------------

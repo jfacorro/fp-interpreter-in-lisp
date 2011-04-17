@@ -6,7 +6,8 @@
 ;;--------------------------------------
 (add-rule 
 	(make-rule "Validate expression"
-		(cond 
+		(cond
+			((comment? arg) nil)
 			((null (search ":" arg))
 				(error "The expression must be a function definition or a function evaluation, therefore it must include a ':'." ))
 			(t (generate-fn-env arg)))))
@@ -164,3 +165,9 @@
 		(if (and (not (null index-def)) (zerop index-def))
 			(list :fn arg :env nil)
 			(list :fn fn :env env))))
+;;----------------------------------------------
+;; generate-fn-env
+;;----------------------------------------------
+(defun comment? (arg)
+	(let ((index (search ";" arg)))
+		(and (not (null index)) (zerop index))))

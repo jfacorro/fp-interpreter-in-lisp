@@ -15,5 +15,5 @@
 			(debug-msg :com.facorro.fp.interpreter "fn: ~a~%" fn)
 			(debug-msg :com.facorro.fp.interpreter "env: ~a~%" env)
 
-			(desymbolize (apply fn env)))
+			(unless (null fn) (desymbolize (apply fn env))))
 		(condition (c) (format t "~a~%" c))))
