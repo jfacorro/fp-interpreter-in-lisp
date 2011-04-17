@@ -128,7 +128,7 @@
 ; % Division
 ;;------------------------------
 (defun fp-% ()
-  (make-fp-operator #'/))
+  (make-fp-operator (lambda (n1 n2) (floor (/ n1 n2)))))
 ;;------------------------------
 ; <
 ;;------------------------------
@@ -151,7 +151,7 @@
 	(lambda (arg)
 		(debug-msg :com.facorro.fp.functions "(trans) arg: ~a~%" arg)
 		(cond 
-			((funcall (fp-null) (car arg)) nil)
+			((null (car arg)) nil)
 			(t
 				(append (list (mapcar #'car arg)) (funcall (trans) (mapcar #'cdr arg)))))))
 ;;------------------------------
@@ -198,7 +198,7 @@
 	(debug-msg :com.facorro.fp.functions "(appendl) arg: ~a~%" arg)
     (let ((a (car arg))
           (l (cadr arg)))
-      (cons a l))))
+      (append (list a) l))))
 ;;------------------------------
 ; fp-appendr
 ;;------------------------------

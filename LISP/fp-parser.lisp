@@ -63,7 +63,7 @@
 
 			(list :fn (listify fn) :env (listify env)))))
 ;:--------------------------------------
-;; Explode by special characters
+;; Build tree
 ;;--------------------------------------
 (add-rule 
 	(make-rule "Build tree" 

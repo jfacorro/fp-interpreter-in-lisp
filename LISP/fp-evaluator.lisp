@@ -55,7 +55,7 @@
 ;; Symbolize
 ;;----------------------------------------------
 (defun symbolize (data)
-	"Converts all string elements in symbols or numbers"
+	"Converts all string elements into symbols or numbers"
 	(cond 
 		((null data) data)
 		((atom data) (map-to-value data))

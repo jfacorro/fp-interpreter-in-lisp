@@ -27,7 +27,7 @@
 ;--------------------------------------
 ; Generate execeutable
 ;--------------------------------------
-(EXT:SAVEINITMEM "executable.exe"
+(EXT:SAVEINITMEM "fp-interpreter.exe"
                  :QUIET t
                  :INIT-FUNCTION 'main
                  :EXECUTABLE t

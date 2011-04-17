@@ -49,6 +49,7 @@
 		:com.facorro.debug)
 	(:export 
 		:get-function
+		:reset-functions
 		:operand?
 		:precedence
 		:num-params
@@ -97,6 +98,7 @@
 	(:use
 		:common-lisp
 		:com.facorro.fp.interpreter
+		:com.facorro.fp.functions
 		:com.facorro.string
 		:com.facorro.debug)
 	(:export
