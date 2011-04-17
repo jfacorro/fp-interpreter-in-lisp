@@ -95,7 +95,8 @@
 (defpackage :com.facorro.fp.repl
 	(:use
 		:common-lisp
-		:com.facorro.fp.interpreter)
+		:com.facorro.fp.interpreter
+		:com.facorro.string)
 	(:export
 		:fp-repl))
 ;----------------------------------------------------
