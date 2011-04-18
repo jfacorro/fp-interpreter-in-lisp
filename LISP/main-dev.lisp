@@ -34,13 +34,13 @@
 ;			"," ")(")))
 ;(getf rule :function)
 ;(funcall (getf rule :function) "[")
-;(parse "/appendr o(alpha(atom=>id;~<>))")
-;(parse "((/appendr) o (alpha(atom=>id;~<>)))")
+;(parse "/appendr o(alpha(atom->id;~<>))")
+;(parse "((/appendr) o (alpha(atom->id;~<>)))")
 ;(parse "id : <1 <2>>")
 ;-----------------------------------------
 (in-package :com.facorro.fp.parser)
 ;-----------------------------------------
-;(listify '("(" "/" "appendr" ")" "o" "(" "alpha" "(" "atom" "=>" "id" "~" "<>" ")" ")"))
+;(listify '("(" "/" "appendr" ")" "o" "(" "alpha" "(" "atom" "->" "id" "~" "<>" ")" ")"))
 ;(listify '("(" "1" "(" "2" "(" "4" ")" ")" "(" "5" ")" "3" ")"))
 ;-----------------------------------------
 (in-package :com.facorro.string)

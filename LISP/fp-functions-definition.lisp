@@ -252,7 +252,7 @@
 ;;------------------------------
 (defun fp-cond (a b c)	
 	(lambda (arg) 
-		(debug-msg :com.facorro.fp.functions "(=>) arg: ~a~%" arg)
+		(debug-msg :com.facorro.fp.functions "(->) arg: ~a~%" arg)
 		(if (get-lisp-truth-value (funcall a arg)) (funcall b arg) (funcall c arg))))
 ;;------------------------------
 ; fp-insert

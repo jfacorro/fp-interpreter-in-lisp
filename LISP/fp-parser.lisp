@@ -15,7 +15,7 @@
 ;; validate-expression
 ;;--------------------------------------
 (defun validate-expression (arg)
-	(unless (contains? ":" arg)
+	(unless (or (contains? ":" arg) (contains? "=" arg))
 		(error "The expression must be a function definition or a function evaluation, therefore it must include a ':'." )))
 ;:--------------------------------------
 ;; Replace some expression for parser-friendly
@@ -48,7 +48,7 @@
 		(let ((fn (getf arg :fn))
 			  (env (getf arg :env)))
 
-			(list :fn (string-split fn ":" " " ";") :env (string-split env "," " ") ))))
+			(list :fn (string-split fn ":" " " ";" "=") :env (string-split env "," " ") ))))
 ;:--------------------------------------
 ;; Explode by special characters
 ;;--------------------------------------
@@ -57,7 +57,7 @@
 		(let ((fn (getf arg :fn))
 			  (env (getf arg :env)))
 
-			(list :fn (string-explode-sequentially fn "(" ")" "/" "=>" "<>" ">" "<" "[" "]" "~" "+" "-" "%" "*" "#R" "#")
+			(list :fn (string-explode-sequentially fn "(" ")" "/" "->" "<>" ">" "<" "[" "]" "~" "+" "-" "%" "*" "#R" "#")
 			  :env (string-explode env "(" ")")))))
 ;:--------------------------------------
 ;; Convert parenthesis in sublists
@@ -169,11 +169,14 @@
 		  (env (second parts)))
 		; If it's a function definition don't assign any env
 		(if (and (not (null index-def)) (zerop index-def))
+			; Function definition
 			(list :fn arg :env nil)
+			; Function (or expression) evaluation
 			(list :fn fn :env env))))
 ;;----------------------------------------------
-;; generate-fn-env
+;; comment?
 ;;----------------------------------------------
 (defun comment? (arg)
+	"Returns true if the arg starts with a ;"
 	(let ((index (search ";" arg)))
 		(and (not (null index)) (zerop index))))
