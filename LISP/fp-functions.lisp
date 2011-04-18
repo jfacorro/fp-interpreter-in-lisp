@@ -17,7 +17,8 @@
 ;; Get function
 ;;----------------------------------------------
 (defun get-function (name)
-	(gethash name *functions*))
+	(when (stringp name)
+		(gethash (string-upcase name) *functions*)))
 ;;----------------------------------------------
 ;; precedence
 ;;----------------------------------------------

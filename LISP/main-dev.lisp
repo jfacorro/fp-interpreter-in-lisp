@@ -37,7 +37,7 @@
 ;(parse "/appendr o(alpha(atom->id;~<>))")
 ;(parse "((/appendr) o (alpha(atom->id;~<>)))")
 ;(parse "id : <1 <2>>")
-(parse "eq -> 1#; 2# : <1 2>")
+;(parse "eq -> 1#; 2# : <1 2>")
 ;(listify '("(" "/" "appendr" ")" "o" "(" "alpha" "(" "atom" "->" "id" "~" "<>" ")" ")"))
 ;(listify '("(" "1" "(" "2" "(" "4" ")" ")" "(" "5" ")" "3" ")"))
 ;-----------------------------------------
@@ -69,6 +69,7 @@
 (interpret "def newbla = eq o [1#, 3#]")
 (interpret "newbla : <1 2 1>")
 (interpret "newbla : <1 2 3>")
+(interpret "eq -> 1#; 3# : <a a c>")
 ;-----------------------------------------
 (in-package :com.facorro.fp.repl)
 ;-----------------------------------------
