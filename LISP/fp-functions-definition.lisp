@@ -279,10 +279,10 @@
 	(when (functionp name) 
 		(error (concatenate 'string "The function already exists")))
 	(lambda ()
-		(add-function (def-fp-function name (lambda () fn)))
+		(add-function (make-function name (make-user-function fn)))
 		(concatenate 'string "FUNCTION " name " DEFINED")))
 ;;------------------------------
 ; make fp user function
 ;;------------------------------
 (defun make-user-function (fn)
-	nil)
+	(lambda () fn ))

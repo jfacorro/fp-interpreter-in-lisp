@@ -29,9 +29,9 @@
 (defun num-params (fn)
 	(getf fn :nparam))
 ;; ----------------------------------------
-;; def-fp-function
+;; make-function
 ;; ----------------------------------------
-(defun def-fp-function (name fn &key (precedence 0) (nparam 0))
+(defun make-function (name fn &key (precedence 0) (nparam 0))
 	(list :name (string-upcase name) :function fn :precedence precedence :nparam nparam))
 ;;------------------------------------
 ;; noparams-p
@@ -42,46 +42,46 @@
 ;; init-functions
 ;;----------------------------------------------
 (defun init-functions ()
-	(add-function (def-fp-function "id" #'id))
-	(add-function (def-fp-function "#" #'selector :precedence 3 :nparam 1))
-	(add-function (def-fp-function "#r" #'selector-right :precedence 3 :nparam 1))
-	(add-function (def-fp-function "tl" #'tl))
-	(add-function (def-fp-function "tlr" #'tlr))
-	(add-function (def-fp-function "atom" #'fp-atom))
-	(add-function (def-fp-function "eq" #'fp-eq))
-	(add-function (def-fp-function "null" #'fp-null))
-	(add-function (def-fp-function "reverse" #'fp-reverse))
-	(add-function (def-fp-function "iota" #'iota))
-	(add-function (def-fp-function "distl" #'distl))
-	(add-function (def-fp-function "distr" #'distr))
-	(add-function (def-fp-function "length" #'fp-length))
-	(add-function (def-fp-function "-" #'fp--))
-	(add-function (def-fp-function "+" #'fp-+))
-	(add-function (def-fp-function "*" #'fp-*))
-	(add-function (def-fp-function "%" #'fp-%))
-	(add-function (def-fp-function "<" #'fp-<))
-	(add-function (def-fp-function ">" #'fp->))
-	(add-function (def-fp-function "trans" #'trans))
-	(add-function (def-fp-function "and" #'fp-and))
-	(add-function (def-fp-function "or" #'fp-or))
-	(add-function (def-fp-function "not" #'fp-not))
-	(add-function (def-fp-function "appendl" #'appendl))
-	(add-function (def-fp-function "appendr" #'appendr))
-	(add-function (def-fp-function "rot" #'rot))
-	(add-function (def-fp-function "rotr" #'rotr))
+	(add-function (make-function "id" #'id))
+	(add-function (make-function "#" #'selector :precedence 3 :nparam 1))
+	(add-function (make-function "#r" #'selector-right :precedence 3 :nparam 1))
+	(add-function (make-function "tl" #'tl))
+	(add-function (make-function "tlr" #'tlr))
+	(add-function (make-function "atom" #'fp-atom))
+	(add-function (make-function "eq" #'fp-eq))
+	(add-function (make-function "null" #'fp-null))
+	(add-function (make-function "reverse" #'fp-reverse))
+	(add-function (make-function "iota" #'iota))
+	(add-function (make-function "distl" #'distl))
+	(add-function (make-function "distr" #'distr))
+	(add-function (make-function "length" #'fp-length))
+	(add-function (make-function "-" #'fp--))
+	(add-function (make-function "+" #'fp-+))
+	(add-function (make-function "*" #'fp-*))
+	(add-function (make-function "%" #'fp-%))
+	(add-function (make-function "<" #'fp-<))
+	(add-function (make-function ">" #'fp->))
+	(add-function (make-function "trans" #'trans))
+	(add-function (make-function "and" #'fp-and))
+	(add-function (make-function "or" #'fp-or))
+	(add-function (make-function "not" #'fp-not))
+	(add-function (make-function "appendl" #'appendl))
+	(add-function (make-function "appendr" #'appendr))
+	(add-function (make-function "rot" #'rot))
+	(add-function (make-function "rotr" #'rotr))
 	;;----------------------------------------------
 	;; Functional forms
 	;;----------------------------------------------
-	(add-function (def-fp-function "o" #'compose :precedence 1 :nparam 2))
-	(add-function (def-fp-function "construct" #'construct :precedence 0 :nparam -1))
-	(add-function (def-fp-function "~" #'const :precedence 2 :nparam 1))
-	(add-function (def-fp-function "->" #'fp-cond :precedence 0 :nparam 3))
-	(add-function (def-fp-function "/" #'insert :precedence 2 :nparam 1))
-	(add-function (def-fp-function "alpha" #'alpha :precedence 2 :nparam 1))
+	(add-function (make-function "o" #'compose :precedence 1 :nparam 2))
+	(add-function (make-function "construct" #'construct :precedence 0 :nparam -1))
+	(add-function (make-function "~" #'const :precedence 2 :nparam 1))
+	(add-function (make-function "->" #'fp-cond :precedence 0 :nparam 3))
+	(add-function (make-function "/" #'insert :precedence 2 :nparam 1))
+	(add-function (make-function "alpha" #'alpha :precedence 2 :nparam 1))
 	;;----------------------------------------------
 	;; def function, used to add user defined
 	;;----------------------------------------------
-	(add-function (def-fp-function "def" #'def :precedence 0 :nparam 2)))
+	(add-function (make-function "def" #'def :precedence 0 :nparam 2)))
 ;;----------------------------------------------
 ;; reset-functions
 ;;----------------------------------------------

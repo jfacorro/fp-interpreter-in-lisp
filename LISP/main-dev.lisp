@@ -66,8 +66,9 @@
 ;(interpret "eq o [1#r, 1#] : <1 2 1>")
 ;(debug-on :com.facorro.parser)
 ;(debug-on :com.facorro.interpreter)
-;(interpret "def newbla : eq o [1#, 3#]")
-;(interpret "newbla : <1 2 1>")
+(interpret "def newbla = eq o [1#, 3#]")
+(interpret "newbla : <1 2 1>")
+(interpret "newbla : <1 2 3>")
 ;-----------------------------------------
 (in-package :com.facorro.fp.repl)
 ;-----------------------------------------
