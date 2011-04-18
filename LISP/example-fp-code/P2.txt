@@ -3,27 +3,85 @@ reset
 ; Practica 2
 ;------------------------------------
 ; (1)
+;------------------------------------
 def diffcuad = * o [-, -]
 diffcuad : <3, 1>
 def distalcuad = / + o alpha (diffcuad) o trans
 distalcuad : <<3, 3, 3> <1, 1, 1>>
 ;------------------------------------
 ; (2) (a)
+;------------------------------------
 def pert = / or o alpha (eq) o distl
+def pertid = (pert -> 1# ; ~<>)
+def appendlnovacios = (null o 1# -> 2# ; appendl)
+def elimvacios = /appendlnovacios o appendr o [id, ~<>]
+def interseccion = elimvacios o alpha (pertid) o distr
+def unocomun = (> o [length, ~0] o interseccion)
+;------------------------------------
 pert : <a <a b c>>
 pert : <d <a b c>>
-def pertid = (pert -> 1# ; ~<>)
 pertid : <a <a b c>>
 pertid : <d <a b c>>
-def appendlnovacios = (null o 1# -> 2# ; appendl)
 appendlnovacios : <a <1 2 3>>
 appendlnovacios : <<> <1 2 3>>
-def elimvacios = /appendlnovacios o appendr o [id, ~<>]
 elimvacios : <a b c <> d e f <> g h i>
-;elimvacios o pertid o distr
-def interseccion = elimvacios o alpha (pertid) o distr
 interseccion : <<a, b, c, d, e, f> <e, f, g, h, i>>
-def unocomun = (> o [length, ~0] o interseccion)
 unocomun : <<a, b, c, d, e> <e, f, g, h, i>>
 unocomun : <<a, b, c, d> <e, f, g, h, i>>
+;------------------------------------
+; (3)
+;------------------------------------
+;<2 <<1 1 1> <2 2 2> <3 3 3>>>
+def prodmatesc = alpha (alpha *) o alpha (distl) o distl
+prodmatesc : <2 <<1 1 1> <2 2 2> <3 3 3>>>
+;------------------------------------
+; (4)
+;------------------------------------
+def espar = eq o [* o [% o [id, ~2], ~2] , id]
+def esparbinary = (espar -> ~1; ~0)
+def crearfiltro = alpha (esparbinary) o iota o length
+def filtrarmayorescero = (> o [id, ~0] -> id; ~0)
+def filterpospares = alpha (filtrarmayorescero) o alpha (*) o trans o [crearfiltro, id]
+def filtercolpares = alpha (filterpospares)
+def sumatoria = / + o alpha (/ +) o filtercolpares
+;------------------------------------
+espar : 1
+espar : 2
+esparbinary : 3
+esparbinary : 2
+crearfiltro : <1 2 3>
+filtercolpares : <<1 2 3> <4 5 6>>
+sumatoria :  <<1 2 3> <4 5 6> <7 -8 9>>
+;------------------------------------
+; (5)
+;------------------------------------
 
+;------------------------------------
+; (6)
+;------------------------------------
+def sumavect = alpha (+) o trans
+sumavect : <<1 2 3> <1 2 3>>
+;------------------------------------
+; (7)
+;------------------------------------
+def iotadoble = alpha (iota) o iota
+iotadoble : 10
+;------------------------------------
+; (8)
+;------------------------------------
+def replaceall = alpha (1#) o distl
+def repeat = replaceall o [1#, iota o 2#]
+repeat : <A 5>
+repeat : <<A b c> 5>
+;------------------------------------
+; (9)
+;------------------------------------
+def sqrmatrix =  repeat o [iota, id]
+sqrmatrix : 4
+;------------------------------------
+; (10)
+;------------------------------------
+def mayorcero = > o [id, ~0]
+def decr = - o [id, ~1]
+def selectelement = (mayorcero o 1# -> selectelement o [decr o 1#, 2#] ; 1# o 2#)
+selectelement : <3 <a b c d e>>
