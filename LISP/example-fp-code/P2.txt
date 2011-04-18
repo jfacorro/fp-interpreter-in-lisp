@@ -1,0 +1,29 @@
+reset
+;------------------------------------
+; Practica 2
+;------------------------------------
+; (1)
+def diffcuad = * o [-, -]
+diffcuad : <3, 1>
+def distalcuad = / + o alpha (diffcuad) o trans
+distalcuad : <<3, 3, 3> <1, 1, 1>>
+;------------------------------------
+; (2) (a)
+def pert = / or o alpha (eq) o distl
+pert : <a <a b c>>
+pert : <d <a b c>>
+def pertid = (pert -> 1# ; ~<>)
+pertid : <a <a b c>>
+pertid : <d <a b c>>
+def appendlnovacios = (null o 1# -> 2# ; appendl)
+appendlnovacios : <a <1 2 3>>
+appendlnovacios : <<> <1 2 3>>
+def elimvacios = /appendlnovacios o appendr o [id, ~<>]
+elimvacios : <a b c <> d e f <> g h i>
+;elimvacios o pertid o distr
+def interseccion = elimvacios o alpha (pertid) o distr
+interseccion : <<a, b, c, d, e, f> <e, f, g, h, i>>
+def unocomun = (> o [length, ~0] o interseccion)
+unocomun : <<a, b, c, d, e> <e, f, g, h, i>>
+unocomun : <<a, b, c, d> <e, f, g, h, i>>
+
