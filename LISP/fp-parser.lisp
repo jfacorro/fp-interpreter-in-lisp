@@ -8,9 +8,15 @@
 	(make-rule "Validate expression"
 		(cond
 			((comment? arg) nil)
-			((null (search ":" arg))
-				(error "The expression must be a function definition or a function evaluation, therefore it must include a ':'." ))
-			(t (generate-fn-env arg)))))
+			(t 
+				(validate-expression arg)
+				(generate-fn-env arg)))))
+;:--------------------------------------
+;; validate-expression
+;;--------------------------------------
+(defun validate-expression (arg)
+	(unless (contains? ":" arg)
+		(error "The expression must be a function definition or a function evaluation, therefore it must include a ':'." )))
 ;:--------------------------------------
 ;; Replace some expression for parser-friendly
 ;; new expressions

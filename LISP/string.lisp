@@ -141,7 +141,8 @@
 		((null (rest str)) (list (first str)))
 		(t
 			(append `(,(first str)) `(,delim) (insert-between (rest str) delim)))))
-
-
-
-
+;;----------------------------------------------
+;; contains?
+;;----------------------------------------------
+(defun contains? (substr str)
+	(not (null (search substr str))))

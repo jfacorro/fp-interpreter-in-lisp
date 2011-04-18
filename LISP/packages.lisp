@@ -29,6 +29,7 @@
 		:string-explode-sequentially
 		:string-replace
 		:empty-string?
+		:contains?
 		:flatten
 		:insert-between))
 ;----------------------------------------------------

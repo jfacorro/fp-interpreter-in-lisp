@@ -276,6 +276,13 @@
 ;;------------------------------
 (defun def (name fn)
 	"Creates a user defined function"
+	(when (functionp name) 
+		(error (concatenate 'string "The function already exists")))
 	(lambda ()
 		(add-function (def-fp-function name (lambda () fn)))
 		(concatenate 'string "FUNCTION " name " DEFINED")))
+;;------------------------------
+; make fp user function
+;;------------------------------
+(defun make-user-function (fn)
+	nil)

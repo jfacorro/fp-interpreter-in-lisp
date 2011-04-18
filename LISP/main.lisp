@@ -25,7 +25,7 @@
 	(com.facorro.fp.repl:fp-repl)
 	(EXT:EXIT))
 ;--------------------------------------
-; Generate execeutable
+; Generate executable
 ;--------------------------------------
 (EXT:SAVEINITMEM (concatenate 'string *filepath* "\\executable\\fp-interpreter.exe")
                  :QUIET t
