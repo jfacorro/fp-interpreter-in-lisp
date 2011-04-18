@@ -26,9 +26,14 @@
 		(let ((fn (getf arg :fn))
 			  (env (getf arg :env)))
 			
-			(list :fn (string-replace fn "[" "( construct ("
+			(list :fn (string-replace fn 
+										; construct
+										"[" "( construct ("
 										"]" "))"
-										"," ")(")
+										"," ")("
+										; condition
+										"->" "->("
+										";" ")")
 			:env (string-replace env "<" "("
 										">" ")")))))
 ;:--------------------------------------
