@@ -77,7 +77,7 @@
 ;;---------------------------------------------------
 (defun interpret-and-print (expr)
 	(let ((result (interpret expr)))
-		(unless (null result) (format t "~a~%" result))))
+		(unless (null result) (format t "RESULT: ~a~%" result))))
 ;;---------------------------------------------------
 ;; help
 ;;---------------------------------------------------
@@ -90,7 +90,7 @@
 				(t 
 					(do ((line (read-line file nil) (read-line file nil)))
 						((null line))
-						(format t "~a~%" line)
+						(format t "INPUT:  ~a~%" line)
 						(handle-input line))
 					(format t "Script loaded...~%"))))))
 ;;---------------------------------------------------
