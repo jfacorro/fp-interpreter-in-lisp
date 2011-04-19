@@ -231,7 +231,7 @@
 (defun compose (f1 f2)
 	(lambda (arg) 
 		(debug-msg :com.facorro.fp.functions "(compose) arg: ~a~%" arg)
-		(funcall f1 (funcall f2 arg))))
+		(funcall (resolve-operand f1) (funcall (resolve-operand f2) arg))))
 ;;------------------------------
 ; fp-construct
 ;;------------------------------
@@ -240,7 +240,7 @@
 		(debug-msg :com.facorro.fp.functions "(construct) arg: ~a~%" arg)
 		(mapcar (lambda (f) 
 			(debug-msg :com.facorro.fp.functions " (in construct) (~a) arg: ~a~%" f arg)
-			(funcall f arg)) args)))
+			(funcall (resolve-operand f) arg)) args)))
 ;;------------------------------
 ; fp-const
 ;;------------------------------
@@ -290,4 +290,10 @@
 	(lambda ()
 		(lambda (arg) 
 			(debug-msg :com.facorro.fp.functions "(~a) arg: ~a~%" name arg)
-			(funcall fn arg))))
+			(fp-funcall fn arg))))
+;;------------------------------
+; fp-funcall
+;;------------------------------
+(defun fp-funcall (fn &rest args)
+	"Enables lazy evaluation for user defined functions"
+	(apply (resolve-operand fn) args))

@@ -8,7 +8,7 @@
 			   (fn (getf parse-result :fn))
 			   (env (getf parse-result :env)))
 			; Evaluate parse-tree
-			(setf fn (evaluate fn))
+			(setf fn (resolve-operand (evaluate fn)))
 			; Evaluate env
 			(setf env (evaluate-env env))
 

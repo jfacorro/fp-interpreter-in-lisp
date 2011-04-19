@@ -19,7 +19,7 @@
 						(map-to-value data))
 					((operand? fn)
 						(debug-msg :com.facorro.fp.evaluator "  returning ~a~%" (apply (getf fn :function) nil))
-						(apply (getf fn :function) nil))
+						data)
 					(t 
 						(debug-msg :com.facorro.fp.evaluator "  calling ~a with ~a~%" data childs)
 						(apply (getf fn :function) (mapcar #'evaluate childs))))))))

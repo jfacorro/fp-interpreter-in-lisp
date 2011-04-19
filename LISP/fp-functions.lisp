@@ -20,6 +20,23 @@
 	(when (stringp name)
 		(gethash (string-upcase name) *functions*)))
 ;;----------------------------------------------
+;; Resolves the inner function from a fp-function alist
+;;----------------------------------------------
+(defun resolve-operand (arg)
+	(let ((fn 	(cond 
+					((functionp arg) 
+						(debug-msg :com.facorro.fp.functions "~a is a function~%" arg)
+						arg)
+					((listp arg) 
+						(debug-msg :com.facorro.fp.functions "~a is a list~%" arg)
+						(funcall (getf arg :function)))
+					((stringp arg) 
+						(debug-msg :com.facorro.fp.functions "Getting the function for ~a~%" arg)
+						(funcall (getf (get-function arg) :function))))))
+		(if (null fn)
+			(error (format nil "Could not resolve to a function for '~a'.~%" arg))
+			fn)))
+;;----------------------------------------------
 ;; precedence
 ;;----------------------------------------------
 (defun precedence (fn)

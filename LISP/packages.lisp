@@ -54,6 +54,7 @@
 		:operand?
 		:precedence
 		:num-params
+		:resolve-operand
 		:*false-value*
 		:*true-value*
 		:*empty-list-value*
