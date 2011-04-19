@@ -29,13 +29,14 @@
 						arg)
 					((listp arg) 
 						(debug-msg :com.facorro.fp.functions "~a is a list~%" arg)
-						(funcall (getf arg :function)))
+						(getf arg :function))
 					((stringp arg) 
 						(debug-msg :com.facorro.fp.functions "Getting the function for ~a~%" arg)
-						(funcall (getf (get-function arg) :function))))))
-		(if (null fn)
-			(error (format nil "Could not resolve to a function for '~a'.~%" arg))
-			fn)))
+						(getf (get-function arg) :function)))))
+		(cond 
+			((null fn)	(error (format nil "Could not resolve to a function for '~a'.~%" arg)))
+			((functionp arg) arg)
+			(t (funcall fn)))))
 ;;----------------------------------------------
 ;; precedence
 ;;----------------------------------------------
@@ -110,3 +111,15 @@
 ;; Call init-functions
 ;;----------------------------------------------
 (init-functions)
+;;------------------------------
+; fp-funcall
+;;------------------------------
+(defun fp-funcall (fn &rest args)
+	"Enables lazy evaluation for user defined functions"
+	(apply (resolve-operand fn) args))
+;;------------------------------
+; fp-apply
+;;------------------------------
+(defun fp-apply (fn args)
+	"Enables lazy evaluation for user defined functions"
+	(apply (resolve-operand fn) args))

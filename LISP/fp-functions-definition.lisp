@@ -212,26 +212,23 @@
 ; rot
 ;;------------------------------
 (defun rot ()
-  (lambda (arg)
-	(debug-msg :com.facorro.fp.functions "(rot) arg: ~a~%" arg)
-    (funcall (appendr) 
-             (list (cdr arg) (car arg)))))
+	(lambda (arg)
+		(debug-msg :com.facorro.fp.functions "(rot) arg: ~a~%" arg)
+		(append (cdr arg) (list (car arg)))))
 ;;------------------------------
 ; rotr
 ;;------------------------------
 (defun rotr ()
-  (lambda (arg)
-	(debug-msg :com.facorro.fp.functions "(rotr) arg: ~a~%" arg)
-    (funcall (appendl) 
-             (list (funcall (selector-right 1) arg) 
-                   (funcall (tlr) arg)))))
+	(lambda (arg)
+		(debug-msg :com.facorro.fp.functions "(rotr) arg: ~a~%" arg)
+		(append (last arg) (butlast arg))))
 ;;------------------------------
 ; fp-compose
 ;;------------------------------
 (defun compose (f1 f2)
-	(lambda (arg) 
+	(lambda (arg)
 		(debug-msg :com.facorro.fp.functions "(compose) arg: ~a~%" arg)
-		(funcall (resolve-operand f1) (funcall (resolve-operand f2) arg))))
+		(fp-funcall f1 (fp-funcall f2 arg))))
 ;;------------------------------
 ; fp-construct
 ;;------------------------------
@@ -240,14 +237,14 @@
 		(debug-msg :com.facorro.fp.functions "(construct) arg: ~a~%" arg)
 		(mapcar (lambda (f) 
 			(debug-msg :com.facorro.fp.functions " (in construct) (~a) arg: ~a~%" f arg)
-			(funcall (resolve-operand f) arg)) args)))
+			(fp-funcall f arg)) args)))
 ;;------------------------------
 ; fp-const
 ;;------------------------------
 (defun const (const)
   (lambda (arg)
 	(debug-msg :com.facorro.fp.functions "(const) const: ~a~%" const)
-	arg ; To avoid compiler warning and mantain homogeinity
+	arg ; To avoid compiler warning
 	const))
 ;;------------------------------
 ; fp-cond
@@ -255,7 +252,7 @@
 (defun fp-cond (a b c)	
 	(lambda (arg) 
 		(debug-msg :com.facorro.fp.functions "(->) arg: ~a~%" arg)
-		(if (get-lisp-truth-value (funcall a arg)) (funcall b arg) (funcall c arg))))
+		(if (get-lisp-truth-value (fp-funcall a arg)) (fp-funcall b arg) (fp-funcall c arg))))
 ;;------------------------------
 ; fp-insert
 ;;------------------------------
@@ -265,14 +262,15 @@
 		(cond
 			((null arg) nil)
 			((= (length arg) 1) (car arg))
-			((= (length arg) 2) (funcall f (list (car arg) (cadr arg))))
+			((= (length arg) 2) (fp-funcall f (list (car arg) (cadr arg))))
 			(t
-				(funcall f (list (car arg) (funcall (insert f) (cdr arg))))))))
+				(fp-funcall f (list (car arg) (fp-funcall (insert f) (cdr arg))))))))
 ;;------------------------------
 ; alpha
 ;;------------------------------
 (defun alpha (f)
-  (lambda (l) (mapcar f l)))
+	(lambda (arg) 
+		(mapcar (lambda (a) (fp-funcall f a)) arg)))
 ;;------------------------------
 ; def
 ;;------------------------------
@@ -291,9 +289,3 @@
 		(lambda (arg) 
 			(debug-msg :com.facorro.fp.functions "(~a) arg: ~a~%" name arg)
 			(fp-funcall fn arg))))
-;;------------------------------
-; fp-funcall
-;;------------------------------
-(defun fp-funcall (fn &rest args)
-	"Enables lazy evaluation for user defined functions"
-	(apply (resolve-operand fn) args))

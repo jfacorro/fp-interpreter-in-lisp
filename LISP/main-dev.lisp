@@ -74,12 +74,14 @@
 ;(debug-on :com.facorro.fp.evaluator)
 ;(debug-on :com.facorro.fp.functions)
 ;(debug-on :com.facorro.fp.interpreter)
-(interpret "def mayoruno = > o [id, ~1]")
-(interpret "def decr = - o [id, ~1]")
-(interpret "mayorcero : 2")
-(interpret "decr : 2")
-(interpret "def selectelement = (mayoruno o 1# -> selectelement o [decr o 1#, tl o 2#] ; 1# o 2#)")
-(interpret "selectelement : <3 <a b c d e>>")
+;(interpret "def mayoruno = > o [id, ~1]")
+;(interpret "def decr = - o [id, ~1]")
+;(interpret "mayoruno : 2")
+;(interpret "decr : 2")
+;(interpret "def selectelement = (mayoruno o 1# -> selectelement o [decr o 1#, tl o 2#] ; 1# o 2#)")
+;(interpret "selectelement : <3 <a b c d e>>")
+
+;(interpret "alpha ( + ): <<1 3> <2 3>>")
 ;-----------------------------------------
 (in-package :com.facorro.fp.repl)
 ;-----------------------------------------
