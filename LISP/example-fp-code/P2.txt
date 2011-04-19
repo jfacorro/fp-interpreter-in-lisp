@@ -55,7 +55,13 @@ sumatoria :  <<1 2 3> <4 5 6> <7 -8 9>>
 ;------------------------------------
 ; (5)
 ;------------------------------------
-
+def mayoruno = > o [id, ~1]
+def decr = - o [id, ~1]
+def selectelement = (mayoruno o 1# -> selectelement o [decr o 1#, tl o 2#] ; 1# o 2#)
+selectelement : <3 <a b c d e>>
+def selectelementdimensions = (null o 1# -> 2#; selectelementdimensions o [tl o 1#, selectelement o [1# o 1#, 2#]])
+selectelementdimensions : <<2, 1> <<a b c> <d e g> <h i j> <k l m n o p>>>
+selectelementdimensions : <<4, 5> <<a b c> <d e g> <h i j> <k l m n o p>>>
 ;------------------------------------
 ; (6)
 ;------------------------------------
@@ -81,10 +87,3 @@ sqrmatrix : 4
 ;------------------------------------
 ; (10)
 ;------------------------------------
-def mayoruno = > o [id, ~1]
-def decr = - o [id, ~1]
-def selectelement = (mayoruno o 1# -> selectelement o [decr o 1#, tl o 2#] ; 1# o 2#)
-selectelement : <3 <a b c d e>>
-def selectelementdimensions = (null o 1# -> 2#; selectelementdimensions o [tl o 1#, selectelement o [1# o 1#, 2#]])
-selectelementdimensions : <<2, 1> <<a b c> <d e g> <h i j> <k l m n o p>>>
-selectelementdimensions : <<4, 5> <<a b c> <d e g> <h i j> <k l m n o p>>>
