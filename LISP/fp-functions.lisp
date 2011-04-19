@@ -25,16 +25,16 @@
 (defun resolve-operand (arg)
 	(let ((fn 	(cond 
 					((functionp arg) 
-						(debug-msg :com.facorro.fp.functions "~a is a function~%" arg)
+						;(debug-msg :com.facorro.fp.functions "~a is a function~%" arg)
 						arg)
 					((listp arg) 
-						(debug-msg :com.facorro.fp.functions "~a is a list~%" arg)
+						;(debug-msg :com.facorro.fp.functions "~a is a list~%" arg)
 						(getf arg :function))
 					((stringp arg) 
-						(debug-msg :com.facorro.fp.functions "Getting the function for ~a~%" arg)
+						;(debug-msg :com.facorro.fp.functions "Getting the function for ~a~%" arg)
 						(getf (get-function arg) :function)))))
 		(cond 
-			((null fn)	(error (format nil "Could not resolve to a function for '~a'.~%" arg)))
+			((null fn)	(error (format nil "Could not resolve '~a' to a function.~%" arg)))
 			((functionp arg) arg)
 			(t (funcall fn)))))
 ;;----------------------------------------------
