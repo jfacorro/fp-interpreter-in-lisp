@@ -70,7 +70,17 @@
 ;(interpret "newbla : <1 2 1>")
 ;(interpret "newbla : <1 2 3>")
 ;(interpret "eq -> 1#; 3# : <a a c>")
+;(debug-on :com.facorro.parser)
+;(debug-on :com.facorro.fp.evaluator)
+;(debug-on :com.facorro.fp.functions)
+;(debug-on :com.facorro.fp.interpreter)
+(interpret "def mayorcero = > o [id, ~0]")
+(interpret "def decr = - o [id, ~1]")
+(interpret "def selectelement = (mayorcero o 1# -> selectelement o [decr o 1#, 2#] ; 1# o 2#)")
+(interpret "mayorcero : 2")
+(interpret "decr : 2")
+;(interpret "selectelement : <3 <a b c d e>>")
 ;-----------------------------------------
 (in-package :com.facorro.fp.repl)
 ;-----------------------------------------
-(fp-repl)
+;(fp-repl)

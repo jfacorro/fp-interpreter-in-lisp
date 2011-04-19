@@ -12,12 +12,17 @@
 				(debug-msg :com.facorro.fp.evaluator "(evaluate)~%")
 				(debug-msg :com.facorro.fp.evaluator "  data: ~a~%" data)
 				(debug-msg :com.facorro.fp.evaluator "  children: ~a~%" childs)
-				(debug-msg :com.facorro.fp.evaluator "  fn: ~a~%~%" fn)
-				(if (null fn)
-					(map-to-value data)
-					(if (listp childs)
-						(apply (getf fn :function) (mapcar #'evaluate childs))
-						(getf fn :function)))))))
+				(debug-msg :com.facorro.fp.evaluator "  fn: ~a~%" fn)
+				(cond
+					((null fn) 
+						(debug-msg :com.facorro.fp.evaluator "  mapping to value ~a~%" data)
+						(map-to-value data))
+					((operand? fn)
+						(debug-msg :com.facorro.fp.evaluator "  returning ~a~%" (apply (getf fn :function) nil))
+						(apply (getf fn :function) nil))
+					(t 
+						(debug-msg :com.facorro.fp.evaluator "  calling ~a with ~a~%" data childs)
+						(apply (getf fn :function) (mapcar #'evaluate childs))))))))
 ;;----------------------------------------
 ;; Evaluates the FP env
 ;;---------------------------------------

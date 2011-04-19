@@ -17,14 +17,14 @@
 ;;------------------------------
 (defun selector (n)
 	(lambda (arg)
-		(debug-msg :com.facorro.fp.functions "(selector) arg: ~a~%" arg)
+		(debug-msg :com.facorro.fp.functions "(selector (~a)) arg: ~a~%" n arg)
 		(nth (1- n) arg)))
 ;;------------------------------
 ; selector-right
 ;;------------------------------
 (defun selector-right (n)
 	(lambda (arg)
-		(debug-msg :com.facorro.fp.functions "(selector-right) arg: ~a~%" arg)
+		(debug-msg :com.facorro.fp.functions "(selector-right (~a)) arg: ~a~%" n arg)
 		(nth (1- n) (reverse arg))))
 ;;------------------------------
 ; tl (tail)
@@ -238,7 +238,9 @@
 (defun construct (&rest args)
 	(lambda (arg) 
 		(debug-msg :com.facorro.fp.functions "(construct) arg: ~a~%" arg)
-		(mapcar (lambda (f) (funcall f arg)) args)))
+		(mapcar (lambda (f) 
+			(debug-msg :com.facorro.fp.functions " (in construct) (~a) arg: ~a~%" f arg)
+			(funcall f arg)) args)))
 ;;------------------------------
 ; fp-const
 ;;------------------------------
@@ -279,10 +281,13 @@
 	(when (functionp name) 
 		(error (concatenate 'string "The function already exists")))
 	(lambda ()
-		(add-function (make-function name (make-user-function fn)))
+		(add-function (make-function name (make-user-function name fn)))
 		(concatenate 'string "FUNCTION " name " DEFINED")))
 ;;------------------------------
 ; make fp user function
 ;;------------------------------
-(defun make-user-function (fn)
-	(lambda () fn ))
+(defun make-user-function (name fn)
+	(lambda ()
+		(lambda (arg) 
+			(debug-msg :com.facorro.fp.functions "(~a) arg: ~a~%" name arg)
+			(funcall fn arg))))
