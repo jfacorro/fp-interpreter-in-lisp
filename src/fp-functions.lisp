@@ -100,7 +100,7 @@
 	;;----------------------------------------------
 	;; def function, used to add user defined
 	;;----------------------------------------------
-	(add-function (make-function "def" #'def :precedence 0 :nparam 2)))
+	(add-function (make-function "def" #'def :precedence -1 :nparam 2)))
 ;;----------------------------------------------
 ;; reset-functions
 ;;----------------------------------------------

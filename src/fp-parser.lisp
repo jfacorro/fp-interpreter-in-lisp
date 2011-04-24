@@ -15,8 +15,24 @@
 ;; validate-expression
 ;;--------------------------------------
 (defun validate-expression (arg)
-	(unless (or (contains? ":" arg) (contains? "=" arg))
-		(error "The expression must be a function definition or a function evaluation, therefore it must include a ':'." )))
+	(unless (or (evaluation? arg) (definition? arg))
+		(error "The expression must be a function definition or a function evaluation." )))
+;:--------------------------------------
+;; definition?
+;;--------------------------------------
+(defun definition? (arg)
+	(let* ((arg (string-trim " " arg))
+			(index-def (search "def " arg)))
+		(and (contains? "=" arg) 
+			(zerop index-def)
+			(= 1 (count #\= arg)))))
+;:--------------------------------------
+;; evaluation?
+;;--------------------------------------
+(defun evaluation? (arg)
+	(and (contains? ":" arg) 
+		(not (definition? arg))
+		(= 1 (count #\: arg))))
 ;:--------------------------------------
 ;; Replace some expression for parser-friendly
 ;; new expressions
@@ -167,13 +183,11 @@
 ;;----------------------------------------------
 (defun generate-fn-env (arg)
 	"Generates an alist with :fn and :env"
-	(let* ((arg (string-trim " " arg))
-		  (index-def (search "def " arg))
-		  (parts (string-split arg ":"))
-		  (fn (first parts))
-		  (env (second parts)))
+	(let* ((parts (string-split arg ":"))
+			(fn (first parts))
+			(env (second parts)))
 		; If it's a function definition don't assign any env
-		(if (and (not (null index-def)) (zerop index-def))
+		(if (definition? arg)
 			; Function definition
 			(list :fn arg :env nil)
 			; Function (or expression) evaluation
