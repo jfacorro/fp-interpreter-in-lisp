@@ -1,5 +1,5 @@
-(defparameter *filepath* "C:\\Juan\\02.Personal\\Dropbox\\Facultad\\2011.1er.75.14.Lenguajes.Formales\\fp-interpreter-in-lisp\\")
-;(defparameter *filepath* "C:\\JF\\My DropBox\\Facultad\\2011.1er.75.14.Lenguajes.Formales\\fp-interpreter-in-lisp\\")
+;(defparameter *filepath* "C:\\Juan\\02.Personal\\Dropbox\\Facultad\\2011.1er.75.14.Lenguajes.Formales\\fp-interpreter-in-lisp\\")
+(defparameter *filepath* "C:\\JF\\My DropBox\\Facultad\\2011.1er.75.14.Lenguajes.Formales\\fp-interpreter-in-lisp\\")
 ;----------------------------------------------------
 (defun compile-load (file-name &optional (v nil) (p nil))
 	(load (compile-file (format nil "~asrc\\~a" *filepath* file-name) :verbose v :print p) :verbose v :print p))
@@ -70,7 +70,7 @@
 ;(interpret "newbla : <1 2 1>")
 ;(interpret "newbla : <1 2 3>")
 ;(interpret "eq -> 1#; 3# : <a a c>")
-(debug-on :com.facorro.parser)
+;(debug-on :com.facorro.parser)
 ;(debug-on :com.facorro.fp.evaluator)
 ;(debug-on :com.facorro.fp.functions)
 ;(debug-on :com.facorro.fp.interpreter)
@@ -85,4 +85,4 @@
 ;-----------------------------------------
 (in-package :com.facorro.fp.repl)
 ;-----------------------------------------
-;(fp-repl)
+(fp-repl)

@@ -266,6 +266,18 @@
 			(t
 				(fp-funcall f (list (car arg) (fp-funcall (insert f) (cdr arg))))))))
 ;;------------------------------
+; fp-insertl
+;;------------------------------
+(defun insertl (f)
+	(lambda (arg) 
+		(debug-msg :com.facorro.fp.functions "(insertl) arg: ~a~%" arg)
+		(cond
+			((null arg) nil)
+			((= (length arg) 1) (car arg))
+			((= (length arg) 2) (fp-funcall f arg))
+			(t
+				(fp-funcall f (list (fp-funcall (insertl f) (butlast arg)) (car (last arg))))))))
+;;------------------------------
 ; alpha
 ;;------------------------------
 (defun alpha (f)

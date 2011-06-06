@@ -96,6 +96,7 @@
 	(add-function (make-function "~" #'const :precedence 2 :nparam 1))
 	(add-function (make-function "->" #'fp-cond :precedence 0 :nparam 3))
 	(add-function (make-function "/" #'insert :precedence 2 :nparam 1))
+	(add-function (make-function "&" #'insertl :precedence 2 :nparam 1))
 	(add-function (make-function "alpha" #'alpha :precedence 2 :nparam 1))
 	;;----------------------------------------------
 	;; def function, used to add user defined
