@@ -1,8 +1,8 @@
 ;(defparameter *filepath* "C:\\Juan\\02.Personal\\Dropbox\\Facultad\\2011.1er.75.14.Lenguajes.Formales\\fp-interpreter-in-lisp\\LISP\\")
-(defparameter *filepath* "C:\\JF\\My DropBox\\Facultad\\2011.1er.75.14.Lenguajes.Formales\\fp-interpreter-in-lisp\\")
+(defparameter *filepath* ".")
 ;----------------------------------------------------
 (defun compile-load (file-name &optional (v nil) (p nil))
-	(load (compile-file (format nil "~asrc\\~a" *filepath* file-name) :verbose v :print p) :verbose v :print p))
+	(load (compile-file (format nil "~a/~a" *filepath* file-name) :verbose v :print p) :verbose v :print p))
 ;----------------------------------------------------
 (progn
 	(compile-load "packages.lisp")
@@ -26,7 +26,7 @@
 ;--------------------------------------
 ; Generate executable
 ;--------------------------------------
-(EXT:SAVEINITMEM (format nil "~abin\\fp-interpreter.exe" *filepath*)
+(EXT:SAVEINITMEM (format nil "~a/../bin/fp-interpreter.exe" *filepath*)
                  :QUIET t
                  :INIT-FUNCTION 'main
                  :EXECUTABLE t

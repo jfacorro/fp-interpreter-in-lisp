@@ -25,7 +25,7 @@
 	(format t "-----------------------------------~%")
 	(format t "Welcome to the lisp FP interpreter!~%")
 	(format t "-----------------------------------~%")
-	(format t "You can type 'help' tp get some directions.~%"))
+	(format t "You can type 'help' to get some directions.~%"))
 ;;---------------------------------------------------
 ;;show-prompt
 ;;---------------------------------------------------
