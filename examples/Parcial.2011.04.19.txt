@@ -1,3 +1,8 @@
+; Dado un ambiente como el del ejemplo a continuación (donde el primer elemento es un numero 
+; entero y el segundo una lista de listas de números enteros), devolver todas aquellas listas 
+; de números contenidas en la lista, donde la sumatoria de sus elementos sea menor o igual al
+; primer elemento del ambiente.
+
 def mayor = (> o [/ + o 2#, 1#] -> ~<>; 2#)
 def appendlnovacios = (null o 1# -> id o 2#; appendl)
 def elimvacios = / appendlnovacios o appendr o [id, ~<>]
