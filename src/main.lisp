@@ -8,7 +8,7 @@
 	(compile-load "packages.lisp")
 	(compile-load "debug.lisp")
 	(compile-load "tree.lisp")
-	(compile-load "string.lisp")	
+	(compile-load "string.lisp")
 	(compile-load "parser.lisp")
 	(compile-load "fp-parser.lisp")
 	(compile-load "fp-functions-definition.lisp")
